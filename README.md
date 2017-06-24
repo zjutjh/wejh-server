@@ -28,3 +28,11 @@ Laravel是目前最优雅的PHP框架，目录结构清晰，使用composer进�
 
 开发前请先阅读[最佳实践指南](https://zjutjh.gitbooks.io/document/content/1.3-Laravel/1.3.1-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html)
 
+## 开始开发
+首先复制.env.example的内容至.env（新建）
+> cp .env.example .env
+
+然后生成laravel应用的key
+> php artisan key:generate
+
+接下来配置好服务器输入相关域名就可以开始开发了ß
