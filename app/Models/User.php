@@ -38,6 +38,13 @@ class User extends Moloquent
     public $incrementing = false;
 
     /**
+     * 不能被批量赋值的属性
+     *
+     * @var array
+     */
+    protected $guarded = ['_id'];
+
+    /**
      * 获取用户的名字
      *
      * @param  string  $value
