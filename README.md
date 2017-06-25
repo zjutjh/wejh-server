@@ -16,7 +16,7 @@
 
 初步设想此次重构将mysql改为mongoDB，主要是以前被mysql坑过好多次，所以这次干脆试试新东西。
 
-同时为了使用emoji，使用了[laravel-emoji](https://github.com/unicodeveloper/laravel-emoji)，所以务必使用PHP7进行开发，保证数据库兼容emoji，也就是字符集要是用utf8mb4（虽然我不知道mongoDB会不会自动支持）
+同时为了使用emoji，使用了[laravel-emoji](https://github.com/unicodeveloper/laravel-emoji)，所以务必使用PHP7进行开发，因为mongodb不支持utf8mb4所以要做一定的转换
 
 ## 框架
 
