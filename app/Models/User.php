@@ -11,7 +11,9 @@ class User extends Moloquent
 
     // 此处定义create时的默认值，请务必配置，以便保证字段完整性，因为返回给前端时是不走访问器的，所以需要设置字段减少前端工作
     protected $attributes = array(
-        // 'password' => '',
+        'email' => null,
+        'phone' => null,
+        'password' => null,
         'avatar' => null, // 头像url
         'nickname' => null,// 微信昵称 or else
         'subscribe' => 0, // 是否关注公众号
@@ -21,6 +23,7 @@ class User extends Moloquent
         'college' => null, // 学院
         'major' => null, // 专业
         'class' => null, // 班级
+        'user_type' => 1, // 用户类型，默认学生
         'user_group' => 0, // 用户组, 默认普通用户
         'remember_token' => null, // 登录token标识
         // 接下来是一些用户配置

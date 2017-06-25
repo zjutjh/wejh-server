@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             // $table->increments('uid')->comment("自增长用户id");
             $table->string('uno')->unique()->comment("学号");
             // $table->string('password')->nullable()->comment("密码");
-            $table->string('email', 100)->unique()->nullable()->comment("邮箱");
-            $table->string('phone', 100)->unique()->nullable()->comment("手机");
+            // $table->string('email', 100)->unique()->nullable()->comment("邮箱");
+            // $table->string('phone', 100)->unique()->nullable()->comment("手机");
             // $table->string('avatar')->default('')->comment("微信头像");
             // $table->string('nickname')->default('')->comment("微信昵称");
             // $table->integer('subscribe')->default(0)->comment("是否关注");
