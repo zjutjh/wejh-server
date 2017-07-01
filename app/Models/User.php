@@ -9,8 +9,8 @@ class User extends Moloquent
 {
     // mongodb的易扩展特性导致某些限制只能在PHP里做出配置，所以务必在所有Model里做出一些相关配置
 
-    // 此处定义create时的默认值，请务必配置，以便保证字段完整性，因为返回给前端时是不走访问器的，所以需要设置字段减少前端工作
-    protected $attributes = array(
+    // 此处定义默认值，要保证每个值都有对应的访问器
+    protected $defaults = array(
         'email' => null,
         'phone' => null,
         'password' => null,
@@ -37,8 +37,29 @@ class User extends Moloquent
 
     );
 
+    /**
+     * 应该被转化为原生类型的属性
+     *
+     * @var array
+     */
+    protected $casts = [
+        'subscribe' => 'boolean',
+    ];
+
+    protected $hidden = [
+        'password'
+    ];
+
+    // 后期另外增加的字段,不需定义，只需在上面默认值处增加字段
+    protected $appends;
+
     protected $primaryKey = '_id';
     public $incrementing = false;
+
+    function __construct()
+    {
+        $this->appends = array_keys($this->defaults);
+    }
 
     /**
      * 不能被批量赋值的属性
@@ -48,13 +69,231 @@ class User extends Moloquent
     protected $guarded = ['_id'];
 
     /**
-     * 获取用户的名字
-     *
+     * 学号or教职工号
+     * @param  string  $value
+     * @return string
+     */
+    public function getUnoAttribute($value)
+    {
+        return $value;
+    }
+
+    /**
+     * 用户邮箱
+     * @param  string  $value
+     * @return string
+     */
+    public function getEmailAttribute($value)
+    {
+        return $value ? $value : $this->defaults['email'];
+    }
+
+    /**
+     * 用户手机号
+     * @param  string  $value
+     * @return string
+     */
+    public function getPhoneAttribute($value)
+    {
+        return $value ? $value : $this->defaults['phone'];
+    }
+
+    /**
+     * 用户密码
+     * @param  string  $value
+     * @return string
+     */
+    public function getPasswordAttribute($value)
+    {
+        return $value ? $value : $this->defaults['password'];
+    }
+
+    /**
+     * 用户头像
+     * @param  string  $value
+     * @return string
+     */
+    public function getAvatarAttribute($value)
+    {
+        return $value ? $value : $this->defaults['avatar'];
+    }
+
+    /**
+     * 用户昵称, 视情况以后要不要转换emoji
+     * @param  string  $value
+     * @return string
+     */
+    public function getNicknameAttribute($value)
+    {
+        return $value ? $value : $this->defaults['nickname'];
+    }
+
+    /**
+     * 用户是否关注服务号
+     * @param  integer  $value
+     * @return integer
+     */
+    public function getSubscribeAttribute($value)
+    {
+        return $value ? $value : $this->defaults['subscribe'];
+    }
+
+    /**
+     * 用户真实姓名
      * @param  string  $value
      * @return string
      */
     public function getNameAttribute($value)
     {
-        return $value ? $value : '';
+        return $value ? $value : $this->defaults['name'];
+    }
+
+    /**
+     * @param  integer  $value
+     * @return integer
+     */
+    public function getGenderAttribute($value)
+    {
+        return $value ? $value : $this->defaults['gender'];
+    }
+
+    /**
+     * 年级，如2013，2017
+     * @param  integer  $value
+     * @return integer
+     */
+    public function getGradeAttribute($value)
+    {
+        return $value ? $value : $this->defaults['grade'];
+    }
+
+    /**
+     * 学院名称
+     * @param  string   $value
+     * @return string
+     */
+    public function getCollegeAttribute($value)
+    {
+        return $value ? $value : $this->defaults['college'];
+    }
+
+    /**
+     * 专业
+     * @param  string   $value
+     * @return string
+     */
+    public function getMajorAttribute($value)
+    {
+        return $value ? $value : $this->defaults['major'];
+    }
+
+    /**
+     * 班级名称
+     * @param  string   $value
+     * @return string
+     */
+    public function getClassAttribute($value)
+    {
+        return $value ? $value : $this->defaults['class'];
+    }
+
+    /**
+     * 用户类型，如学生，教师，但必须按照user_types表中的字段来
+     * @param  integer $value
+     * @return integer
+     */
+    public function getUserTypeAttribute($value)
+    {
+        return $value ? $value : $this->defaults['user_type'];
+    }
+
+    /**
+     * 用户组，如管理员，普通用户等，但必须按照user_groups表中的字段来
+     * @param  integer  $value
+     * @return integer
+     */
+    public function getUserGroupAttribute($value)
+    {
+        return $value ? $value : $this->defaults['user_group'];
+    }
+
+    /**
+     * 用户的登录token
+     * @param  string   $value
+     * @return string
+     */
+    public function getRememberTokenAttribute($value)
+    {
+        return $value ? $value : $this->defaults['remember_token'];
+    }
+
+    /**
+     * 用户查成绩选择的学期
+     * @param  string   $value
+     * @return string
+     */
+    public function getScoreTermAttribute($value)
+    {
+        return $value ? $value : $this->defaults['score_term'];
+    }
+
+    /**
+     * 用户查课表选择的学期
+     * @param  string   $value
+     * @return string
+     */
+    public function getClassTermAttribute($value)
+    {
+        return $value ? $value : $this->defaults['class_term'];
+    }
+
+    /**
+     * 用户查排考选择的学期
+     * @param  string   $value
+     * @return string
+     */
+    public function getExamTermAttribute($value)
+    {
+        return $value ? $value : $this->defaults['exam_term'];
+    }
+
+    /**
+     * 用户的精弘通行证密码
+     * @param  string   $value
+     * @return string
+     */
+    public function getJhPasswordAttribute($value)
+    {
+        return $value ? $value : $this->defaults['jh_password'];
+    }
+
+    /**
+     * 用户的原创教务系统密码
+     * @param  string   $value
+     * @return string
+     */
+    public function getYcPasswordAttribute($value)
+    {
+        return $value ? $value : $this->defaults['yc_password'];
+    }
+
+    /**
+     * 用户的校园一卡通密码
+     * @param  string   $value
+     * @return string
+     */
+    public function getCardPasswordAttribute($value)
+    {
+        return $value ? $value : $this->defaults['card_password'];
+    }
+
+    /**
+     * 用户的图书馆密码
+     * @param  string   $value
+     * @return string
+     */
+    public function getLibPasswordAttribute($value)
+    {
+        return $value ? $value : $this->defaults['lib_password'];
     }
 }
