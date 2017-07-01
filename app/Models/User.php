@@ -16,7 +16,7 @@ class User extends Moloquent
         'password' => null,
         'avatar' => null, // 头像url
         'nickname' => null,// 微信昵称 or else
-        'subscribe' => 0, // 是否关注公众号
+        'subscribe' => false, // 是否关注公众号
         'name' => null, // 真实姓名
         'gender' => 0, //性别
         'grade' => null, // 年级
@@ -36,15 +36,6 @@ class User extends Moloquent
         'lib_password' => null, // 图书馆密码
 
     );
-
-    /**
-     * 应该被转化为原生类型的属性
-     *
-     * @var array
-     */
-    protected $casts = [
-        'subscribe' => 'boolean',
-    ];
 
     protected $hidden = [
         'password'
@@ -149,6 +140,7 @@ class User extends Moloquent
     }
 
     /**
+     * 用户性别，0为女，1为男
      * @param  integer  $value
      * @return integer
      */
