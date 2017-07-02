@@ -23,7 +23,7 @@ class User extends Moloquent
         'college' => null, // 学院
         'major' => null, // 专业
         'class' => null, // 班级
-        'user_type' => 1, // 用户类型，默认学生
+        'user_type' => 1, // 用户类型，默认学生(1。学生，2.教师，3.研究生）
         'user_group' => 0, // 用户组, 默认普通用户
         'remember_token' => null, // 登录token标识
         // 接下来是一些用户配置
@@ -50,6 +50,7 @@ class User extends Moloquent
     function __construct()
     {
         $this->appends = array_keys($this->defaults);
+        parent::__construct(...func_get_args());
     }
 
     /**
@@ -58,6 +59,19 @@ class User extends Moloquent
      * @var array
      */
     protected $guarded = ['_id'];
+
+    /**
+     * 返回collection的值，如不存在，则返回默认值
+     * @param  string   $field
+     * @return mixed
+     */
+    public function getValue($field) {
+        if (isset($this->attributes[$field])) {
+            return $this->attributes[$field];
+        } else {
+            return $this->defaults[$field];
+        }
+    }
 
     /**
      * 学号or教职工号
@@ -76,7 +90,7 @@ class User extends Moloquent
      */
     public function getEmailAttribute($value)
     {
-        return $value ? $value : $this->defaults['email'];
+        return $this->getValue('email');
     }
 
     /**
@@ -86,7 +100,7 @@ class User extends Moloquent
      */
     public function getPhoneAttribute($value)
     {
-        return $value ? $value : $this->defaults['phone'];
+        return $this->getValue('phone');
     }
 
     /**
@@ -96,7 +110,7 @@ class User extends Moloquent
      */
     public function getPasswordAttribute($value)
     {
-        return $value ? $value : $this->defaults['password'];
+        return $this->getValue('password');
     }
 
     /**
@@ -106,7 +120,7 @@ class User extends Moloquent
      */
     public function getAvatarAttribute($value)
     {
-        return $value ? $value : $this->defaults['avatar'];
+        return $this->getValue('avatar');
     }
 
     /**
@@ -116,7 +130,7 @@ class User extends Moloquent
      */
     public function getNicknameAttribute($value)
     {
-        return $value ? $value : $this->defaults['nickname'];
+        return $this->getValue('nickname');
     }
 
     /**
@@ -126,7 +140,7 @@ class User extends Moloquent
      */
     public function getSubscribeAttribute($value)
     {
-        return $value ? $value : $this->defaults['subscribe'];
+        return $this->getValue('subscribe');
     }
 
     /**
@@ -136,7 +150,7 @@ class User extends Moloquent
      */
     public function getNameAttribute($value)
     {
-        return $value ? $value : $this->defaults['name'];
+        return $this->getValue('name');
     }
 
     /**
@@ -146,7 +160,7 @@ class User extends Moloquent
      */
     public function getGenderAttribute($value)
     {
-        return $value ? $value : $this->defaults['gender'];
+        return $this->getValue('gender');
     }
 
     /**
@@ -156,7 +170,7 @@ class User extends Moloquent
      */
     public function getGradeAttribute($value)
     {
-        return $value ? $value : $this->defaults['grade'];
+        return $this->getValue('grade');
     }
 
     /**
@@ -166,7 +180,7 @@ class User extends Moloquent
      */
     public function getCollegeAttribute($value)
     {
-        return $value ? $value : $this->defaults['college'];
+        return $this->getValue('college');
     }
 
     /**
@@ -176,7 +190,7 @@ class User extends Moloquent
      */
     public function getMajorAttribute($value)
     {
-        return $value ? $value : $this->defaults['major'];
+        return $this->getValue('major');
     }
 
     /**
@@ -186,17 +200,17 @@ class User extends Moloquent
      */
     public function getClassAttribute($value)
     {
-        return $value ? $value : $this->defaults['class'];
+        return $this->getValue('class');
     }
 
     /**
-     * 用户类型，如学生，教师，但必须按照user_types表中的字段来
+     * 用户类型，如学生，教师(1。学生，2.教师，3.研究生）
      * @param  integer $value
      * @return integer
      */
     public function getUserTypeAttribute($value)
     {
-        return $value ? $value : $this->defaults['user_type'];
+        return $this->getValue('user_type');
     }
 
     /**
@@ -206,7 +220,7 @@ class User extends Moloquent
      */
     public function getUserGroupAttribute($value)
     {
-        return $value ? $value : $this->defaults['user_group'];
+        return $this->getValue('user_group');
     }
 
     /**
@@ -216,7 +230,7 @@ class User extends Moloquent
      */
     public function getRememberTokenAttribute($value)
     {
-        return $value ? $value : $this->defaults['remember_token'];
+        return $this->getValue('remember_token');
     }
 
     /**
@@ -226,7 +240,7 @@ class User extends Moloquent
      */
     public function getScoreTermAttribute($value)
     {
-        return $value ? $value : $this->defaults['score_term'];
+        return $this->getValue('score_term');
     }
 
     /**
@@ -236,7 +250,7 @@ class User extends Moloquent
      */
     public function getClassTermAttribute($value)
     {
-        return $value ? $value : $this->defaults['class_term'];
+        return $this->getValue('class_term');
     }
 
     /**
@@ -246,7 +260,7 @@ class User extends Moloquent
      */
     public function getExamTermAttribute($value)
     {
-        return $value ? $value : $this->defaults['exam_term'];
+        return $this->getValue('exam_term');
     }
 
     /**
@@ -256,7 +270,7 @@ class User extends Moloquent
      */
     public function getJhPasswordAttribute($value)
     {
-        return $value ? $value : $this->defaults['jh_password'];
+        return $this->getValue('jh_password');
     }
 
     /**
@@ -266,7 +280,7 @@ class User extends Moloquent
      */
     public function getYcPasswordAttribute($value)
     {
-        return $value ? $value : $this->defaults['yc_password'];
+        return $this->getValue('yc_password');
     }
 
     /**
@@ -276,7 +290,7 @@ class User extends Moloquent
      */
     public function getCardPasswordAttribute($value)
     {
-        return $value ? $value : $this->defaults['card_password'];
+        return $this->getValue('card_password');
     }
 
     /**
@@ -286,6 +300,6 @@ class User extends Moloquent
      */
     public function getLibPasswordAttribute($value)
     {
-        return $value ? $value : $this->defaults['lib_password'];
+        return $this->getValue('lib_password');
     }
 }
