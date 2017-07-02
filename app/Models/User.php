@@ -38,6 +38,7 @@ class User extends Moloquent
     );
 
     protected $hidden = [
+        '_id',
         'password'
     ];
 
@@ -80,7 +81,7 @@ class User extends Moloquent
      */
     public function getUnoAttribute($value)
     {
-        return $value;
+        return $this->getValue('uno');
     }
 
     /**
@@ -220,7 +221,9 @@ class User extends Moloquent
      */
     public function getUserGroupAttribute($value)
     {
-        return $this->getValue('user_group');
+        $val = $this->getValue('user_group');
+        $user_group = UserGroup::where('id', $val)->first();
+        return $user_group;
     }
 
     /**
