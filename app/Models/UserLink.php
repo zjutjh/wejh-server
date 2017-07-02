@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: cccRaim
+ * Date: 2017/7/3
+ * Time: 00:11
+ */
 
 namespace App\Models;
 
