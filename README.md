@@ -14,7 +14,10 @@
 
 同时包括模板消息的队列，采用Redis进行队列管理，Laravel已集成这方面的功能。
 
-初步设想此次重构将mysql改为mongoDB，主要是以前被mysql坑过好多次，所以这次干脆试试新东西。
+~~初步设想此次重构将mysql改为mongoDB，主要是以前被mysql坑过好多次，所以这次干脆试试新东西。~~
+mongoDB不太稳定，同时对机器配置要求较高，最优的解决方法是使用两台机器，其中一台机器只部署mongoDB，但是目前并没有太多的服务器。
+
+所以目前依然使用mysql，因为要用到json类型来实现扩展性，所以请务必使用mysql5.7以上的版本。
 
 同时为了使用emoji，使用了[laravel-emoji](https://github.com/unicodeveloper/laravel-emoji)，所以务必使用PHP7进行开发，因为mongodb不支持utf8mb4所以要做一定的转换
 
