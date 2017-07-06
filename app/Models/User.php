@@ -1,6 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: cccRaim
  * Date: 2017/7/3
  * Time: 00:11
@@ -8,10 +7,9 @@
 
 namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Model;
-use Moloquent;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Moloquent
+class User extends Model
 {
     // mongodb的易扩展特性导致某些限制只能在PHP里做出配置，所以务必在所有Model里做出一些相关配置
 

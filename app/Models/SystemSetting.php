@@ -1,6 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: cccRaim
  * Date: 2017/7/3
  * Time: 00:11
@@ -8,10 +7,9 @@
 
 namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Model;
-use Moloquent;
+use Illuminate\Database\Eloquent\Model;
 
-class SystemSetting extends Moloquent
+class SystemSetting extends Model
 {
     // 此处定义默认值，要保证每个值都有对应的访问器
     protected $defaults = array(
