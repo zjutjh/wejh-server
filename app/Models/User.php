@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    // mongodb的易扩展特性导致某些限制只能在PHP里做出配置，所以务必在所有Model里做出一些相关配置
-
     // 此处定义默认值，要保证每个值都有对应的访问器
     protected $defaults = array(
         'email' => null,
@@ -42,15 +40,11 @@ class User extends Model
     );
 
     protected $hidden = [
-        '_id',
         'password'
     ];
 
     // 后期另外增加的字段,不需定义，只需在上面默认值处增加字段
     protected $appends;
-
-    protected $primaryKey = '_id';
-    public $incrementing = false;
 
     function __construct()
     {
@@ -63,7 +57,7 @@ class User extends Model
      *
      * @var array
      */
-    protected $guarded = ['_id'];
+    protected $guarded = ['id'];
 
     /**
      * 返回collection的值，如不存在，则返回默认值

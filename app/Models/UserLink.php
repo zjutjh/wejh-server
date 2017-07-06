@@ -22,9 +22,6 @@ class UserLink extends Model
     // 后期另外增加的字段,不需定义，只需在上面默认值处增加字段
     protected $appends;
 
-    protected $primaryKey = '_id';
-    public $incrementing = false;
-
     function __construct()
     {
         $this->appends = array_keys($this->defaults);
@@ -36,7 +33,7 @@ class UserLink extends Model
      *
      * @var array
      */
-    protected $guarded = ['_id'];
+    protected $guarded = ['id'];
 
     /**
      * 返回collection的值，如不存在，则返回默认值

@@ -14,9 +14,10 @@ class CreateUserGroupsTable extends Migration
     public function up()
     {
         Schema::create('user_groups', function (Blueprint $table) {
-            $table->integer('id')->unique()->comment("用户类型id");
-            //$table->string('group_name')->comment("用户类型名称");
-            //$table->array('permission')->comment("权限设置");
+            $table->increments('id')->comment("自增长id");
+            $table->string('group_name')->comment("用户组名称");
+            $table->json('permission')->comment("权限设置");
+            $table->timestamps();
         });
     }
 
