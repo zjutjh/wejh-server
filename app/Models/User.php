@@ -103,4 +103,15 @@ class User extends Model
         $this->save();
     }
 
+    /**
+     * 获取用户组数据
+     * @param  integer $value
+     * @return array
+     */
+    public function getUserGroupAttribute($value) {
+        $user_group = UserGroup::where('id', $value)->first();
+
+        return $user_group;
+    }
+
 }
