@@ -181,6 +181,10 @@ return [
          * Excel Service Provider
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        /**
+         * CORS Service Provider
+         */
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*
