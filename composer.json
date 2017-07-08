@@ -9,7 +9,10 @@
         "barryvdh/laravel-cors": "^0.9.2",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "maatwebsite/excel": "^2.1"
+        "maatwebsite/excel": "^2.1",
+        "overtrue/laravel-wechat": "~3.0",
+        "predis/predis": "^1.1",
+        "unicodeveloper/laravel-emoji": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

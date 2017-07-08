@@ -185,6 +185,14 @@ return [
          * CORS Service Provider
          */
         Barryvdh\Cors\ServiceProvider::class,
+        /**
+         * Wechat Service Provider
+         */
+        Overtrue\LaravelWechat\ServiceProvider::class,
+        /**
+         * Emoji Service Provider
+         */
+        Unicodeveloper\Emoji\EmojiServiceProvider::class,
     ],
 
     /*
@@ -234,6 +242,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'EasyWeChat' => Overtrue\LaravelWechat\Facade::class,
+        'Emoji' => Unicodeveloper\Emoji\Facades\Emoji::class,
     ],
 
 ];
