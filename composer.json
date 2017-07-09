@@ -12,6 +12,7 @@
         "maatwebsite/excel": "^2.1",
         "overtrue/laravel-wechat": "~3.0",
         "predis/predis": "^1.1",
+        "tymon/jwt-auth": "0.5.*",
         "unicodeveloper/laravel-emoji": "^1.0"
     },
     "require-dev": {
