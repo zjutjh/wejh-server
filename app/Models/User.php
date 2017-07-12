@@ -6,11 +6,15 @@
  */
 
 namespace App\Models;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Authenticatable
 {
+    use Notifiable;
+
     // 此处定义扩展字段默认值
     protected $defaults = array(
         /*'email' => null,
@@ -62,6 +66,8 @@ class User extends Model
     ];
 
     protected $hidden = [
+        'remember_token',
+        'password'
     ];
 
     /**

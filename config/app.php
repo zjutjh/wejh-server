@@ -193,6 +193,7 @@ return [
          * Emoji Service Provider
          */
         Unicodeveloper\Emoji\EmojiServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     ],
 
     /*
@@ -244,6 +245,8 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'EasyWeChat' => Overtrue\LaravelWechat\Facade::class,
         'Emoji' => Unicodeveloper\Emoji\Facades\Emoji::class,
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
 
 ];
