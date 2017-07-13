@@ -67,7 +67,8 @@ class User extends Authenticatable
 
     protected $hidden = [
         'remember_token',
-        'password'
+        'password',
+        'ext.passwords'
     ];
 
     /**
@@ -76,6 +77,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * 重写toArray方法
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $attributes = array_merge($this->attributesToArray(), $this->relationsToArray());
+
+        // 隐藏扩展字段的密码字段
+        unset($attributes['ext']['passwords']);
+
+        return $attributes;
+    }
 
     /**
      * 扩展字段
@@ -92,6 +108,10 @@ class User extends Authenticatable
             if (!$hasItems = array_has($value ,$k)) {
                 array_set($value, $k, $val);
             }
+        }
+
+        foreach ($value['passwords'] as $k => $val) {
+            $value['passwords_bind'][$k] = $val ? 1 : 0;
         }
 
         return $value;
