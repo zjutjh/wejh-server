@@ -13,7 +13,7 @@ if (!function_exists('RJM')) {
      * @param  integer  $err_code
      * @param  string   $err_msg
      * @param  string   $redirect_url
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     function RJM($data, $err_code, $err_msg = '', $redirect_url = null)
     {
@@ -87,6 +87,28 @@ if (!function_exists('http_get')) {
         $file_contents = curl_exec($ch);
         curl_close($ch);
         return $file_contents;
+    }
+}
+
+if (!function_exists('api')) {
+    function api($key, $isExt)
+    {
+        $configs = config('api');
+        $route = array_get($configs, $key);
+        if(!$route) {
+            return false;
+        }
+        if(is_array($route)) {
+            return $isExt ? $route['ext'] : $route['api'];
+        }
+        $url = '';
+        if($isExt) {
+            $url = $configs['prefix']['ext'] . $route;
+        } else {
+            $url = $configs['prefix']['api'] . $route;
+        }
+        return $url;
+
     }
 }
 
