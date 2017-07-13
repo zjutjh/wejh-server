@@ -75,6 +75,8 @@ if (!function_exists('http_get')) {
         if($data){
             if(strpos($url, '?') == false) {
                 $url .= '?';
+            } else {
+                $url .= '&';
             }
             $url .= http_build_query($data);
         }
