@@ -6,7 +6,7 @@ return [
         'content' => '查成绩',
         'type' => 1,//1为等于，2为包含，3为正则
         'reply' => [
-            'type' => 'function',
+            'type' => 'userapi',
             'content' => 'score'
         ],
         'status' => 1,//是否禁用，0为禁用
@@ -15,7 +15,7 @@ return [
         'content' => '查饭卡',
         'type' => 1,//1为等于，2为包含，3为正则
         'reply' => [
-            'type' => 'function',
+            'type' => 'userapi',
             'content' => 'card'
         ],
         'status' => 1,//是否禁用，0为禁用
@@ -24,7 +24,7 @@ return [
         'content' => '查排考',
         'type' => 1,//1为等于，2为包含，3为正则
         'reply' => [
-            'type' => 'function',
+            'type' => 'userapi',
             'content' => 'exam'
         ],
         'status' => 1,//是否禁用，0为禁用
