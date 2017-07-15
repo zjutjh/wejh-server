@@ -20,6 +20,8 @@ class SystemSetting extends Model
         'value' => 'array',
     ];
 
+    protected $guarded = ['id'];
+
     /**
      * 获取所有系统设置
      * @return array
