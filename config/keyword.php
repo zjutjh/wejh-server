@@ -1,5 +1,5 @@
 <?php
-
+$domain = env('APP_FE_URL');
 
 return [
     [
@@ -36,7 +36,7 @@ return [
             'type' => 'news',
             'title' => '绑定',
             'description' => '点击此处绑定',
-            'url' => url('/login'),
+            'url' => $domain . '/login',
         ],
         'status' => 1,//是否禁用，0为禁用
     ],
