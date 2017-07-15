@@ -5,6 +5,7 @@
  * Date: 2017/7/3
  * Time: 00:11
  */
+use App\Models\SystemSetting;
 
 /**
  * 响应json数据
@@ -118,4 +119,30 @@ function getCurrentTerm()
         $term = ($year . '/' . ($year + 1) . '(1)');
     }
     return $term;
+}
+
+function addYcjwPortError($port)
+{
+    return \App\Models\Log::addLog('YCJW_PORT_ERROR', $port, "原创教务服务器错误或无响应");
+}
+
+function resetCurrentYcjwPort()
+{
+    $log = new \App\Models\Log;
+    $start_time = date('Y-m-d H:00:00', time());
+    $min_log_count = count($log->getLogsByAction('YCJW_PORT_ERROR', 0, $start_time));
+    $min_log_port = 0;
+    for ($i = 83; $i < 87; $i++)
+    {
+        $log_count = count($log->getLogsByAction('YCJW_PORT_ERROR', $i, $start_time));
+        if($min_log_count > $log_count)
+        {
+            $min_log_count = $log_count;
+            $min_log_port = $i;
+        }
+    }
+    (new SystemSetting)->setVars([
+        'ycjw_port' => $min_log_port,
+    ]);
+    return $min_log_port;
 }

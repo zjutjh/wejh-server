@@ -12,7 +12,13 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Auth;
 use Illuminate\Support\Facades\Redis;
+use EasyWeChat\Message\Text;
+use EasyWeChat\Message\Image;
+use EasyWeChat\Message\Video;
+use EasyWeChat\Message\Voice;
 use EasyWeChat\Message\News;
+use EasyWeChat\Message\Article;
+use EasyWeChat\Message\Material;
 use Emoji;
 use Excel;
 use App\Models\User;
@@ -98,9 +104,111 @@ class ServerController extends Controller
      */
     public function text($message)
     {
-        $response = model('keyword')->matchKeyword($message);
-        return $response?$response:'';
+        $response = $this->matchKeyword($message);
+        return $response ? $response : '';
     }
+
+    /**
+     * 处理关键字匹配
+     * @param $message
+     * @return mixed
+     */
+    public function matchKeyword($message) {
+        $content = $message->MsgType == 'text' ? $message->Content : $message->EventKey;
+        $keywords = config('keyword');
+        foreach($keywords as $key => $value) {
+            if($value['status'] == 1 && $this->isMatch($content, $value)) {
+                return $this->reply($value['reply'], $message);
+            }
+        }
+    }
+
+    /**
+     * @param $reply
+     * @param $message
+     * @return bool|Article|Image|Material|News|Text|Video|Voice
+     */
+    function reply($reply, $message) {
+        switch ($reply['type']) {
+            case 'userapi':
+                $func = $reply['content'];
+                try {
+                    return wechatModule($func, $message);
+                } catch (BadMethodCallException $e) {
+                    //do log or sth.
+                    return '';//回复默认消息
+                }
+                break;
+            case 'text':
+                $text = new Text(['content' => $reply['content']]);
+                return $text;
+                break;
+            case 'image':
+                $image = new Image(['media_id' => $reply['content']]);
+                return $image;
+                break;
+            case 'video':
+                $video = new Video([
+                    'title' => isset($reply['title']) ? $reply['title'] : '',
+                    'media_id' => $reply['content'],
+                    'description' => isset($reply['description']) ? $reply['description'] : '',
+                ]);
+                return $video;
+                break;
+            case 'voice':
+                $voice = new Voice(['media_id' => $reply['content']]);
+                return $voice;
+                break;
+            case 'news':
+                $news = new News([
+                    'title' => isset($reply['title']) ? $reply['title'] : '',
+                    'description' => isset($reply['description']) ? $reply['description'] : '',
+                    'url' => isset($reply['url']) ? $reply['url'] : '',
+                    'image' => isset($reply['image']) ? $reply['image'] : '',
+                    // ...
+                ]);
+                return $news;
+                break;
+            case 'article':
+                $article = new Article([
+                    'title' => isset($reply['title']) ? $reply['title'] : '',
+                    'author' => isset($reply['author']) ? $reply['author'] : '',
+                    'content' => $reply['content'],
+                    // ...
+                ]);
+                return $article;
+                break;
+            case 'material':
+                $material = new Material('mpnews', $reply['content']);
+                return $material;
+                break;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * 处理关键词是否匹配
+     * @param $message
+     * @param $keyword
+     * @return bool
+     */
+    public function isMatch($message, $keyword) {
+        switch ($keyword['type']) {
+            case '1':
+                return $message == $keyword['content'];
+                break;
+            case '2':
+                return !!strstr($message, $keyword['content']);
+                break;
+            case '3':
+                return !!preg_match('/(' . $keyword['content'] . ')/is', $message);
+                break;
+            default:
+                return false;
+        }
+    }
+
     /**
      * 处理浏览会员卡事件
      *

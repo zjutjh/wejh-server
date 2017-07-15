@@ -26,6 +26,43 @@ class Api extends Model
         return $this->error;
     }
 
+    public function getYcData(...$arg) {
+        $function = array_shift($arg);
+        $port = setting('ycjw_port');
+        $port = $port == '0' ? null : $port;
+        switch ($function) {
+            case 'score':
+                $result = $this->getYcScore($arg[0], $arg[1], $arg[2], $port, 500);
+                if(!$result && $this->getError() == '原创服务器错误') {
+                    addYcjwPortError($port);
+                    resetCurrentYcjwPort();
+                    return false;
+                }
+                return $result;
+                break;
+            case 'timetable':
+                $result = $this->getYcClass($arg[0], $arg[1], $arg[2], $port, 500);
+                if(!$result && $this->getError() == '原创服务器错误') {
+                    addYcjwPortError($port);
+                    resetCurrentYcjwPort();
+                    return false;
+                }
+                return $result;
+                break;
+            case 'exam':
+                $result = $this->getYcExam($arg[0], $arg[1], $arg[2], $port, 500);
+                if(!$result && $this->getError() == '原创服务器错误') {
+                    addYcjwPortError($port);
+                    resetCurrentYcjwPort();
+                    return false;
+                }
+                return $result;
+                break;
+            default:
+                return false;
+        }
+    }
+
     /**
      * 精弘用户中心登录验证
      *
@@ -600,7 +637,7 @@ class Api extends Model
         }
         $contents = http_get($url, $data, $timeout);
         if(!$contents) {
-            return $this->setError('服务器错误');
+            return $this->setError('原创服务器错误');
         }
 
         //防止偶尔出现的空字符
@@ -611,7 +648,7 @@ class Api extends Model
         if($arr['status'] != 'success') {
             return $this->setError($arr['msg']);
         } else if($arr['status'] != 'success') {
-            return $this->setError('服务器错误');
+            return $this->setError('原创服务器错误');
         }
         if($arr['msg'] == "没有相关信息")
         {

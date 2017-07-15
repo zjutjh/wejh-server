@@ -22,7 +22,8 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/functions.php"
+            "app/Helpers/functions.php",
+            "app/Helpers/wechat/module.php"
         ],
         "classmap": [
             "database"
