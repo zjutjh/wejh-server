@@ -24,7 +24,8 @@ $ycjw = [
 ];
 
 $library = [
-    'book' => 'library_search.php',
+    'search' => 'library_search.php',
+    'book' => 'library_book.php',
     'borrow' => 'library_borrow.php',
 ];
 
@@ -33,7 +34,9 @@ $card = [
 ];
 
 return [
+    'isExt' => true,
     'prefix' => $prefix,
+    'jh' => $jh,
     'ycjw' => $ycjw,
     'library' => $library,
     'card' => $card
