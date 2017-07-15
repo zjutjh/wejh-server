@@ -139,4 +139,13 @@ class User extends Authenticatable
         return $user_group;
     }
 
+    public static function getUserByOpenid($openid) {
+        $user_link = UserLink::where('type', 'wechat')->where('openid', $openid)->first();
+        if(!$user_link) {
+            return null;
+        }
+
+        return User::where('id', $user_link->uid)->first();
+    }
+
 }
