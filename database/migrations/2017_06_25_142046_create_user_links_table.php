@@ -20,6 +20,7 @@ class CreateUserLinksTable extends Migration
             $table->string('openid')->comment("第三方平台用户标识");
             $table->string('access_token')->comment("第三方平台用户授权凭证");
             $table->timestamps();
+            $table->index(['uid', 'type']);
         });
     }
 
