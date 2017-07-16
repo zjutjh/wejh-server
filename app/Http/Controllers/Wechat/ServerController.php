@@ -69,10 +69,9 @@ class ServerController extends Controller
      * @return string
      */
     public function TEMPLATESENDJOBFINISH($message) {
-        if($templateMessage = model('templateMessage')::where('msgid', $message->MsgID)->first()) {
-            $flag = $message->Status == 'success'?1:-1;
-            $templateMessage->flag = $flag;
-            $templateMessage->save();
+        if($templateMessage = TemplateMessage::getMessageByMsgid($message->MsgID)) {
+            $flag = $message->Status == 'success' ? 1 : -1;
+            TemplateMessage::setStatus($message->MsgID, $flag);
         }
         return '';
     }
@@ -233,8 +232,8 @@ class ServerController extends Controller
      * @return string
      */
     public function click($message) {
-        $response = model('keyword')->matchKeyword($message);
-        return $response?$response:'';
+        $response = $this->matchKeyword($message);
+        return $response ? $response:'';
     }
     /**
      * 处理关注事件消息
@@ -242,23 +241,6 @@ class ServerController extends Controller
      * @return string
      */
     public function subscribe($message) {
-        $userService = $this->wechat->user;
-        $wechat_user = $userService->get($message->FromUserName);
-        //添加用户到数据库
-        if($user = User::where('openid', $wechat_user->openid)->first()) {
-            $user->nickname = $wechat_user->nickname;
-            $user->avatar = $wechat_user->headimgurl;
-            $user->subscribe = 1;
-            $user->save();
-        } else {
-            $user = new User;
-            $user->openid = $wechat_user->openid;
-            $user->nickname = $wechat_user->nickname;
-            $user->avatar = $wechat_user->headimgurl;
-            $user->user_setting = config('user_setting.user_setting_default');
-            $user->subscribe = 1;
-            $user->save();
-        }
         return "";
     }
     /**
