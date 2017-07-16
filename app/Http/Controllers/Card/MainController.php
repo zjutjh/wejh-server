@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Card;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -9,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 class MainController extends Controller
 {
-    public function getCard(Request $request) {
+    public function card(Request $request) {
         if(!$user = Auth::user()) {
             return RJM(null, -1, '没有认证信息');
         }

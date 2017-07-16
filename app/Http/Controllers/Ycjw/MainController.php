@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ycjw;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

@@ -505,7 +505,20 @@ class Api extends Model
             $g['时段']=$value['时段'];
             $g['教室']=$value['教室'];
             $g = $this->fixYcExam($g);
-            array_push($exam_list,$g);
+
+            $now = date('Y-m-d');
+            $exam_time = strtotime($g['日']);
+            $now_time = strtotime($now);
+            $between = ($exam_time - $now_time) / 3600 / 24;
+            $g['倒计时'] = $between;
+
+            if($between < 0) {
+                $g['倒计时名'] = '已经过去' . -$between . '天';
+            } else {
+                $g['倒计时名'] = '还有' . $between . '天';
+            }
+
+            array_push($exam_list, $g);
         }
         return [
             'list' => $exam_list

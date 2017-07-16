@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Library;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class MainController extends Controller
 {
-    public function getBorrow(Request $request) {
+    public function borrow(Request $request) {
         if(!$user = Auth::user()) {
             return RJM(null, -1, '没有认证信息');
         }
