@@ -564,13 +564,13 @@ class Api extends Model
         $arr = json_decode($value, true);
         if(!isset($arr['status']) || $arr['status'] != 'success') {
             return $this->setError('服务器错误');
-        } else {
-            $g = array();
-            $g['姓名'] = $arr['msg']['余额']['姓名'];
-            $g['卡余额'] = $arr['msg']['余额']['卡余额'];
-            $g['今日账单'] = $this->getCardTodayRecords($arr['msg']['今日账单']);
-            return $g;
         }
+
+        $g = array();
+        $g['姓名'] = $arr['msg']['余额']['姓名'];
+        $g['卡余额'] = $arr['msg']['余额']['卡余额'];
+        $g['今日账单'] = $this->getCardTodayRecords($arr['msg']['今日账单']);
+        return $g;
     }
     /**
      * 校园卡当天记录获取
@@ -585,24 +585,23 @@ class Api extends Model
         $records_list = array();
         if($arr['num'] == 0) {
             return [];
-        } else {
-            foreach ($arr['msg'] as $key => $value) {
-                $g = array();
-                $g['流水号']=$value['流水号'];
-                $g['账号']=$value['账号'];
-                $g['卡片类型']=$value['卡片类型'];
-                $g['交易类型']=$value['交易类型'];
-                $g['商户']=$value['商户'];
-                $g['站点']=$value['站点'];
-                $g['终端号']=$value['终端号'];
-                $g['交易额']=$value['交易额'];
-                $g['到账时间']=$value['到账时间'];
-                $g['钱包名称']=$value['钱包名称'];
-                $g['卡余额']=$value['卡余额'];
-                array_push($records_list,$g);
-            }
-            return $records_list;
         }
+        foreach ($arr['msg'] as $key => $value) {
+            $g = array();
+            $g['流水号']=$value['流水号'];
+            $g['账号']=$value['账号'];
+            $g['卡片类型']=$value['卡片类型'];
+            $g['交易类型']=$value['交易类型'];
+            $g['商户']=$value['商户'];
+            $g['站点']=$value['站点'];
+            $g['终端号']=$value['终端号'];
+            $g['交易额']=$value['交易额'];
+            $g['到账时间']=$value['到账时间'];
+            $g['钱包名称']=$value['钱包名称'];
+            $g['卡余额']=$value['卡余额'];
+            array_push($records_list,$g);
+        }
+        return $records_list;
     }
 
     /**
