@@ -807,12 +807,26 @@ class Api extends Model
             return $this->setError('服务器错误');
         }
 
+        $list = [];
+        foreach ($arr['msg']['borrow_list'] as $key => $value) {
+            $borrow = [];
+            $borrow['馆藏号'] = $value['collection_code'];
+            $borrow['馆藏地'] = $value['collection_address'];
+            $borrow['借书时间'] = $value['borrow_date'];
+            $borrow['借书日期'] = date('Y-m-d', strtotime($value['borrow_date']));
+            $borrow['应还日期'] = $value['return_date'];
+            $borrow['续借次数'] = $value['renew'];
+            $borrow['超期情况'] = $value['status'];
+            $borrow['超期天数'] = intval($value['status']) ? intval($value['status']) : 0;
+            array_push($list, $borrow);
+        }
+
         return [
-            'borrow_list' => $arr['msg']['borrow_list'],
+            'borrow_list' => $list,
             'session' => $arr['msg']['session'],
-            'borrow_num' => $arr['msg']['borrow_num'],
-            'overdue' => $arr['msg']['overdue'],
-            'debet' => $arr['msg']['debet'],
+            'borrow_num' => $arr['msg']['borrow_num'], // 现借
+            'overdue' => $arr['msg']['overdue'], // 超期
+            'debet' => $arr['msg']['debet'], // 前框
         ];
     }
 }
