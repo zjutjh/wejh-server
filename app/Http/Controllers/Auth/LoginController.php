@@ -15,6 +15,30 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class LoginController extends Controller
 {
+    public function autoLogin(Request $request) {
+        $type = $request->get('type'); // 第三方登录类型
+        $openid = $request->get('openid'); // 第三方登录的用户标识
+
+        if(!$user_link = UserLink::where('type', $type)->where('openid', $openid)->first()) {
+            return RJM(null, -403, '自动登录失败');
+        }
+        $uid = $user_link->uid;
+        Auth::loginUsingId($uid);
+
+        try {
+            // attempt to verify the credentials and create a token for the user
+            if (!$token = JWTAuth::fromUser(Auth::user())) {
+                return RJM(null, -401, '用户错误');
+            }
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return RJM(null, -500, 'token生成错误');
+        }
+
+        return RJM([
+            'token' => $token
+        ], 200, '登陆成功');
+    }
     /**
      * 登录逻辑，包括第三方登录
      * @param Request $request
