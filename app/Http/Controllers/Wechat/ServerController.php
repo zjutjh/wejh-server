@@ -46,7 +46,8 @@ class ServerController extends Controller
                 return $response;
             } catch (BadMethodCallException $e) {
                 //do log or sth.
-                return $this->default_message;//回复默认消息
+                return '可能发生了一点错误，请联系管理员';//回复默认消息
+                // return $this->default_message;//回复默认消息
             }
         });
         $response =  $this->wechat->server->serve();
