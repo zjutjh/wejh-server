@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class MainController extends Controller
 {
-    public function borrow(Request $request) {
+    public function getBorrow(Request $request) {
         if(!$user = Auth::user()) {
             return RJM(null, -1, '没有认证信息');
         }
@@ -23,5 +23,20 @@ class MainController extends Controller
             return RJM(null, -1, $api->getError());
         }
         return RJM($result, 1, '登陆成功');
+    }
+
+    public function bind(Request $request) {
+        if(!$user = Auth::user()) {
+            return RJM(null, -1, '没有认证信息');
+        }
+        $password = $request->get('password');
+        $api = new Api;
+        $check = $api->getBookBorrow($user->uno, $password);
+        if(!$check) {
+            return RJM(null, -1, '用户名或密码错误');
+        }
+        $user->setExt('passwords.lib_password', encrypt($password));
+
+        return RJM($user, 1, '绑定一卡通成功');
     }
 }
