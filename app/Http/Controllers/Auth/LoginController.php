@@ -131,4 +131,25 @@ class LoginController extends Controller
 
         return $user;
     }
+
+    public function user(Request $request) {
+        if(!$user = Auth::user()) {
+            return RJM(null, -1, '没有认证信息');
+        }
+
+        return RJM($user, 200, '获取用户信息成功');
+    }
+
+    /**
+     * 更新用户的个人信息，暂缓
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function update(Request $request) {
+        if(!$user = Auth::user()) {
+            return RJM(null, -1, '没有认证信息');
+        }
+
+        return RJM($user, 1, '更新成功');
+    }
 }

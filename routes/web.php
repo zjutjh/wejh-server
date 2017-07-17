@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +9,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Redis;
 
-Route::get('/', function () {
-    return view('welcome');
+// 微信服务号/订阅号名片跳转
+Route::get('/weixincard/{id}',  function ($id) {
+    return redirect('https://mp.weixin.qq.com/mp/profile_ext?action=home&scene=110&__biz='.$id.'==#wechat_redirect');
 });
