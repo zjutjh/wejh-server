@@ -45,4 +45,7 @@ Laravel是目前最优雅的PHP框架，使用前请仔细阅读[文档](http://
 然后生成jwt秘钥
 > php artisan jwt:generate
 
+然后迁移，记得在.env配置
+> php artisan migrate --seed
+
 接下来配置好服务器输入相关域名就可以开始开发了ß
