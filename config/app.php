@@ -193,6 +193,9 @@ return [
          * Emoji Service Provider
          */
         Unicodeveloper\Emoji\EmojiServiceProvider::class,
+        /**
+         * JWT Service Provider
+         */
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     ],
 

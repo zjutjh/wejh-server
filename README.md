@@ -39,7 +39,10 @@ Laravel是目前最优雅的PHP框架，使用前请仔细阅读[文档](http://
 然后执行install
 > composer install
 
-~~然后生成laravel应用的key~~
-> ~~php artisan key:generate~~
+然后生成laravel应用的key
+> php artisan key:generate
+
+然后生成jwt秘钥
+> php artisan jwt:generate
 
 接下来配置好服务器输入相关域名就可以开始开发了ß

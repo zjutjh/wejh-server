@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::any('/wechat',  [
     'uses' => 'Wechat\ServerController@serve']);
 
-Route::get('/login',  [
-    'uses' => 'Auth\LoginController@authenticate'])->middleware('web');
-
 Route::get('/user',  [
     'uses' => 'Auth\LoginController@getAuthenticatedUser'])->middleware('web', 'jwt.api.auth');
 
@@ -40,7 +37,7 @@ Route::group(['middleware' => ['web', 'cors']], function () {
     Route::post('/autoLogin', [
         'uses' => 'Auth\LoginController@autoLogin']);
     Route::post('/ycjw/bind', [
-        'uses' => 'Ycjw\MainController@bind']);
+        'uses' => 'Ycjw\MainController@bind'])->middleware('jwt.api.auth');
     Route::get('/ycjw/score', [
         'uses' => 'Ycjw\ScoreController@score']);
     Route::patch('/ycjw/score', [
