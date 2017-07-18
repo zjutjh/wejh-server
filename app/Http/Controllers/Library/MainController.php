@@ -23,7 +23,7 @@ class MainController extends Controller
         if(!$result) {
             return RJM(null, -1, $api->getError());
         }
-        return RJM($result, 1, '登陆成功');
+        return RJM($result, 1, '获取借阅信息成功');
     }
 
     public function bind(Request $request) {
@@ -38,6 +38,6 @@ class MainController extends Controller
         }
         $user->setExt('passwords.lib_password', encrypt($password));
 
-        return RJM($user, 1, '绑定一卡通成功');
+        return RJM($user, 1, '绑定图书馆账号成功');
     }
 }

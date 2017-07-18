@@ -19,7 +19,7 @@ Route::any('/wechat',  [
 Route::get('/user',  [
     'uses' => 'Auth\LoginController@getAuthenticatedUser'])->middleware('web', 'jwt.api.auth');
 
-Route::group(['middleware' => ['web', 'cors']], function () {
+Route::group(['middleware' => ['web', 'jwt.api.auth']], function () {
     Route::get('/signpackage', [
         'uses' => 'Wechat\JSSDKController@signPackage']);
     Route::get('/tip', [
@@ -37,7 +37,7 @@ Route::group(['middleware' => ['web', 'cors']], function () {
     Route::post('/autoLogin', [
         'uses' => 'Auth\LoginController@autoLogin']);
     Route::post('/ycjw/bind', [
-        'uses' => 'Ycjw\MainController@bind'])->middleware('jwt.api.auth');
+        'uses' => 'Ycjw\MainController@bind']);
     Route::get('/ycjw/score', [
         'uses' => 'Ycjw\ScoreController@score']);
     Route::patch('/ycjw/score', [

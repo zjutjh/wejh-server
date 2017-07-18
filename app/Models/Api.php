@@ -327,7 +327,7 @@ class Api extends Model
             'timeout' => $timeout / 1000,
         ];
         if(!$port) {
-            $url = api('ycjw.class', null);
+            $url = api('ycjw.class', true);
         } else {
             $data['ip'] = $port;
         }
@@ -464,7 +464,7 @@ class Api extends Model
             'timeout' => $timeout / 1000,
         ];
         if(!$port) {
-            $url = api('ycjw.class', null);
+            $url = api('ycjw.exam', true);
         } else {
             $data['ip'] = $port;
         }
@@ -472,7 +472,7 @@ class Api extends Model
             $data['term'] = $term;
         }
 
-        if(!$contents = http_get($url, null, $timeout)) {
+        if(!$contents = http_get($url, $data, $timeout)) {
             return $this->setError('原创服务器错误');
         }
 

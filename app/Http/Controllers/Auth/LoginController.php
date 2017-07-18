@@ -90,6 +90,7 @@ class LoginController extends Controller
 
         // all good so return the token
         return RJM([
+            'user' => $user,
             'token' => $token
         ], 200, '登陆成功');
     }

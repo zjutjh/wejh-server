@@ -158,7 +158,9 @@ class TimetableController extends Controller
 
         $user->setExt('terms.class_term', $term);
 
-        return RJM(null, 1, '切换学期成功');
+        return RJM([
+            'class_term' => $user->getExt('terms.class_term'),
+        ], 1, '切换学期成功');
     }
 
     public function getTimetable($username, $password, $term, $port = null, $retry = false, $timeout = 0.5) {

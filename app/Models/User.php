@@ -129,6 +129,16 @@ class User extends Authenticatable
     }
 
     /**
+     * 获取扩展字段
+     * @param string $key
+     * @param mixed
+     */
+    public function getExt($key) {
+        $ext = $this->ext;
+        return array_get($ext, $key);
+    }
+
+    /**
      * 获取用户组数据
      * @param  integer $value
      * @return array
