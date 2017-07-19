@@ -19,6 +19,10 @@ Route::any('/wechat',  [
 Route::get('/user',  [
     'uses' => 'Auth\LoginController@getAuthenticatedUser'])->middleware('web', 'jwt.api.auth');
 
+
+Route::post('/login', [
+    'uses' => 'Auth\LoginController@login'])->middleware('web');
+
 Route::group(['middleware' => ['web', 'jwt.api.auth']], function () {
     Route::get('/signpackage', [
         'uses' => 'Wechat\JSSDKController@signPackage']);
@@ -32,8 +36,6 @@ Route::group(['middleware' => ['web', 'jwt.api.auth']], function () {
         'uses' => 'Auth\LoginController@user']);
     Route::patch('/user', [
         'uses' => 'Auth\LoginController@update']);
-    Route::post('/login', [
-        'uses' => 'Auth\LoginController@login']);
     Route::post('/autoLogin', [
         'uses' => 'Auth\LoginController@autoLogin']);
     Route::post('/ycjw/bind', [
