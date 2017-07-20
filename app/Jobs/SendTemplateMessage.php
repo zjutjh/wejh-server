@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\TemplateMessage;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -42,7 +43,7 @@ class SendTemplateMessage implements ShouldQueue
             $url = $this->url;
             $template_id = $this->templateId;
             $data = $this->data;
-            @$notice = app('wechat')->notice;
+            $notice = app('wechat')->notice;
             @$message = $notice->withTo($touser)->withUrl($url)->withTemplate($template_id)->withData($data);
             if($message != null) {
                 @$result = $message->send();
@@ -51,7 +52,8 @@ class SendTemplateMessage implements ShouldQueue
         } finally {
             if(!empty($result)) {
                 $msgid = $result->msgid;
-                model('TemplateMessage')->saveMessage($touser, $template_id, $url, $data, $msgid);
+                $m = new TemplateMessage;
+                $m->saveMessage($touser, $template_id, $url, $data, $msgid);
                 if(!$msgid) {
                     throw new Exception('发送失败');
                 }
