@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Api;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {

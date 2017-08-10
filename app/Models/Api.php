@@ -147,10 +147,10 @@ class Api extends Model
         $data = [
             'app' => 'passport',
             'action' => 'active',
-            'passport' => $user_name,
+            'username' => urlencode($user_name),
             'password' => urlencode($password),
-            'iid' => $iid,
-            'email' => $email,
+            'iid' => urlencode($iid),
+            'email' => urlencode($email),
         ];
 
         if(!$content = http_get($url, $data)) {
@@ -159,6 +159,7 @@ class Api extends Model
         if(!$value = json_decode($content, true)) {
             return $this->setError('用户中心服务器错误');
         }
+
         if(isset($value['state']) && $value['state'] == 'success') {
             return true;
         } else {
