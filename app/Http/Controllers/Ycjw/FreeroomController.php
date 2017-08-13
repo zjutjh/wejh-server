@@ -24,7 +24,7 @@ class FreeroomController extends Controller
 
         return RJM($freeroom_list, 1, null);
     }
-    public function getFreeroom($week, $weekday, $startTime, $endTime, $campus, $port = null, $retry = false, $timeout = 0.5) {
+    public function getFreeroom($week, $weekday, $startTime, $endTime, $campus, $port = null, $retry = false, $timeout = 500) {
         $api = new Api;
         $current_term = config('system.current_term');
         $freeroom_list = $api->getFreeRoom($current_term, $week, $week, $weekday, $startTime, $endTime, $campus, '所有', '所有', 0, $port, $timeout);

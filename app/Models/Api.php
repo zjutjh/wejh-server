@@ -19,6 +19,7 @@ class Api extends Model
 
     public function setError($message) {
         $this->error = $message;
+
         return false;
     }
 
@@ -179,7 +180,7 @@ class Api extends Model
      * @param integer
      * @return boolean
      */
-    public function checkYcLogin($user_name, $password, $port = null, $timeout = 2) {
+    public function checkYcLogin($user_name, $password, $port = null, $timeout = 200) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
@@ -204,7 +205,8 @@ class Api extends Model
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
-        $url = api('ycjw.score', null);
+        $port = 83;
+        $url = api('ycjw.score', $port == null ? null : false);
         $data = [
             'username' => $user_name,
             'password' => $password,
@@ -321,7 +323,7 @@ class Api extends Model
             return $this->setError('用户名或密码为空');
         }
 
-        $url = api('ycjw.class', null);
+        $url = api('ycjw.class', $port == null ? null : false);
         $data = [
             'username' => $user_name,
             'password' => $password,
@@ -458,7 +460,7 @@ class Api extends Model
             return $this->setError('用户名或密码为空');
         }
 
-        $url = api('ycjw.exam', null);
+        $url = api('ycjw.exam', $port == null ? null : false);
         $data = [
             'username' => $user_name,
             'password' => $password,
@@ -629,7 +631,7 @@ class Api extends Model
         if (!$xueqi OR !$qsz OR !$jsz OR !$xingqi OR !$qsj OR !$jsj OR !$xiaoqu OR !$area OR !$roomtype) {
             return $this->setError('参数错误');
         }
-        $url = api('ycjw.freeroom', null);
+        $url = api('ycjw.freeroom', $port == null ? null : false);
         $data = [
             'xueqi' => urlencode($xueqi),
             'qsz' => intval($qsz),

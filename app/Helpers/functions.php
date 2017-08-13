@@ -51,7 +51,8 @@ function http_post($url, $post_data = null, $timeout = 100){//curl
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
     }
     curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT_MS, $timeout);
+    curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
+    curl_setopt ($ch, CURLOPT_TIMEOUT_MS, $timeout);
     curl_setopt($ch, CURLOPT_HEADER, false);
     $file_contents = curl_exec($ch);
     curl_close($ch);
@@ -77,7 +78,8 @@ function http_get($url, $data, $timeout = 100){//curl
     }
     curl_setopt ($ch, CURLOPT_URL, $url);
     curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT_MS, $timeout);
+    curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
+    curl_setopt ($ch, CURLOPT_TIMEOUT_MS, $timeout);
     curl_setopt($ch, CURLOPT_HEADER, false);
     $file_contents = curl_exec($ch);
     curl_close($ch);
@@ -87,7 +89,7 @@ function http_get($url, $data, $timeout = 100){//curl
 function api($key, $isExt)
 {
     $configs = config('api');
-    if ($isExt == null) {
+    if ($isExt === null) {
         $isExt = $configs['isExt'];
     }
     $route = array_get($configs, $key);

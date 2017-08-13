@@ -53,7 +53,7 @@ class ScoreController extends Controller
 
         return RJM(null, 1, '切换学期成功');
     }
-    public function getScore($username, $password, $term, $port = null, $retry = false, $timeout = 0.5) {
+    public function getScore($username, $password, $term, $port = null, $retry = false, $timeout = 300) {
         $api = new Api;
         $score_result = $api->getYcScore($username, $password, $term, $port, $timeout);
         if(!is_array($score_result) && !$retry) {

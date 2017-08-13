@@ -40,7 +40,7 @@ class ExamController extends Controller
         return RJM(null, 1, '切换学期成功');
     }
 
-    public function getExam($username, $password, $term, $port = null, $retry = false, $timeout = 0.5) {
+    public function getExam($username, $password, $term, $port = null, $retry = false, $timeout = 300) {
         $api = new Api;
         $exam_result = $api->getYcExam($username, $password, $term, $port, $timeout);
         if(!is_array($exam_result) && !$retry) {

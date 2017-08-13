@@ -13,7 +13,7 @@ class TimeController extends Controller
             $day = 7;
         }
         $current_term = config('system.current_term');
-        $term_start_date = config('term_start_date');
+        $term_start_date = config('system.term_start_date');
         $week = $this->getWeek($term_start_date);
         $time = [
             'term' => $current_term,

@@ -36,7 +36,8 @@ class LoginController extends Controller
         }
 
         return RJM([
-            'token' => $token
+            'token' => $token,
+            'user' => Auth::user()
         ], 200, '登陆成功');
     }
     /**

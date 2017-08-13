@@ -38,18 +38,22 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/forgot', [
         'uses' => 'Auth\ResetPasswordController@forgot']);
 
+    Route::post('/code/weapp', [
+        'uses' => 'Auth\OauthController@weapp']);
+
+    Route::post('/autoLogin', [
+        'uses' => 'Auth\LoginController@autoLogin']);
+
+    Route::get('/time', [
+        'uses' => 'Ycjw\TimeController@api']);
 
     Route::group(['middleware' => ['jwt.api.auth']], function () {
         Route::get('/banner', [
             'uses' => 'Banner\MainController@banner']);
-        Route::get('/time', [
-            'uses' => 'Ycjw\TimeController@api']);
         Route::get('/user', [
             'uses' => 'Auth\LoginController@user']);
         Route::patch('/user', [
             'uses' => 'Auth\LoginController@update']);
-        Route::post('/autoLogin', [
-            'uses' => 'Auth\LoginController@autoLogin']);
         Route::post('/ycjw/bind', [
             'uses' => 'Ycjw\MainController@bind']);
         Route::get('/ycjw/score', [

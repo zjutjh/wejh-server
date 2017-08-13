@@ -163,7 +163,7 @@ class TimetableController extends Controller
         ], 1, '切换学期成功');
     }
 
-    public function getTimetable($username, $password, $term, $port = null, $retry = false, $timeout = 0.5) {
+    public function getTimetable($username, $password, $term, $port = null, $retry = false, $timeout = 300) {
         $api = new Api;
         $class_result = $api->getYcClass($username, $password, $term, $port, $timeout);
         if(!is_array($class_result) && !$retry) {

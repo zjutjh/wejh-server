@@ -14,9 +14,9 @@ class MainController extends Controller
             return RJM(null, -1, '没有认证信息');
         }
         $password = $request->get('password');
-        $check = $this->getCheck($user->uno, $password, null, true);
+        list($check, $errmsg) = $this->getCheck($user->uno, $password, null, true);
         if($check == false) {
-            return RJM(null, -1, '用户名或密码错误');
+            return RJM(null, -1, $errmsg);
         }
         $user->setExt('passwords.yc_password', encrypt($password));
 
@@ -30,13 +30,16 @@ class MainController extends Controller
      * @param null $port
      * @param bool $retry
      * @param int $timeout
-     * @return bool
+     * @return array
      */
-    public function getCheck($username, $password, $port = null, $retry = false, $timeout = 500) {
+    public function getCheck($username, $password, $port = null, $retry = false, $timeout = 300) {
         $api = new Api;
         $check = $api->checkYcLogin($username, $password, $port, $timeout);
         if(!$check && !$retry) {
-            return false;
+            if($api->getError() == '原创服务器错误') {
+                return [false, '原创教务系统炸了'];
+            }
+            return [false, $api->getError()];
         }
         if(!$check && $retry) {
             for ($i = 83; $i <= 86; $i++) {
@@ -46,9 +49,9 @@ class MainController extends Controller
                 }
             }
             if(!$check) {
-                return false;
+                return [false, $api->getError()];
             }
         }
-        return $check;
+        return [$check, $api->getError()];
     }
 }
