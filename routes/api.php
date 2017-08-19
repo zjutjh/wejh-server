@@ -69,11 +69,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::patch('/ycjw/exam', [
             'uses' => 'Ycjw\ExamController@update']);
         Route::post('/card/bind', [
-            'uses' => 'Card\LoginController@bind']);
+            'uses' => 'Card\MainController@bind']);
         Route::get('/card', [
             'uses' => 'Card\MainController@card']);
         Route::post('/library/bind', [
-            'uses' => 'Library\LoginController@bind']);
+            'uses' => 'Library\MainController@bind']);
         Route::get('/library/borrow', [
             'uses' => 'Library\MainController@borrow']);
         Route::post('/freeroom', [
