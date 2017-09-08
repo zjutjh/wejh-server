@@ -9,7 +9,7 @@ use App\Models\UserLink;
 use BadMethodCallException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -18,6 +18,9 @@ class LoginController extends Controller
     public function autoLogin(Request $request) {
         $type = $request->get('type'); // 第三方登录类型
         $openid = $request->get('openid'); // 第三方登录的用户标识
+        if (!$openid) {
+            return RJM(null, -401, '缺少用户标识');
+        }
 
         if(!$user_link = UserLink::where('type', $type)->where('openid', $openid)->first()) {
             return RJM(null, -403, '自动登录失败');
@@ -52,7 +55,8 @@ class LoginController extends Controller
 
         $api = new Api;
         if(!$check = $api->checkJhPassport($username, $password)) {
-            return RJM(null, -401, '用户名或密码错误');
+            $error = $api->getError();
+            return RJM(null, -401, $error ? $error : '用户名或密码错误');
         }
 
         // 检测是否存在用户，不存在则创建

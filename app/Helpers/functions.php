@@ -43,7 +43,7 @@ function setting($varname)
  * @param  int      $timeout    超时时间，毫秒级
  * @return mixed
  */
-function http_post($url, $post_data = null, $timeout = 100){//curl
+function http_post($url, $post_data = null, $timeout = 500){//curl
     $ch = curl_init();
     curl_setopt ($ch, CURLOPT_URL, $url);
     curl_setopt ($ch, CURLOPT_POST, 1);
@@ -66,7 +66,7 @@ function http_post($url, $post_data = null, $timeout = 100){//curl
  * @param  int      $timeout    超时时间，毫秒级
  * @return mixed
  */
-function http_get($url, $data, $timeout = 100){//curl
+function http_get($url, $data, $timeout = 500){//curl
     $ch = curl_init();
     if($data){
         if(strpos($url, '?') == false) {
@@ -99,11 +99,13 @@ function api($key, $isExt)
     if(is_array($route)) {
         return $isExt ? $route['ext'] : $route['api'];
     }
+    $tempProxy = 'http://bbs.zjut.edu.cn/api/jhapi.php';
     $url = '';
     if($isExt) {
         $url = $configs['prefix']['ext'] . $route;
     } else {
         $url = $configs['prefix']['api'] . $route;
+        $url = "${tempProxy}?url=" . urlencode($configs['prefix']['api'] . $route);
     }
     return $url;
 

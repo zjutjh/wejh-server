@@ -372,12 +372,12 @@ class Api extends Model
         $class_list = [];
         foreach ($arr['msg'] as $key => $value) {
             $g = array();
-            $g['课程名称']=$value['name'];
-            $g['开课学院']=$value['collage'];
-            $g['课程信息']=$value['classinfo'];
-            $g['课程类型']=$value['classtype'];
-            $g['学时']=$value['classhuor'];
-            $g['学分']=$value['classscore'];
+            $g['课程名称'] = trim($value['name']);
+            $g['开课学院'] = trim($value['collage']);
+            $g['课程信息'] = trim($value['classinfo']);
+            $g['课程类型'] = trim($value['classtype']);
+            $g['学时'] = trim($value['classhuor']);
+            $g['学分'] = trim($value['classscore']);
             $g = $this->fixYcClass($g);
             array_push($class_list,$g);
         }

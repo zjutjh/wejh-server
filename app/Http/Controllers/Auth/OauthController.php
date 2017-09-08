@@ -19,6 +19,22 @@ class OauthController extends Controller
         return $response;
     }
 
+    public function wechatLogin(Request $request) {
+        $app = app('wechat');
+        $wechatUser = null;
+        try {
+            //如果没有oauth信息，则跳转微信认证
+            if(!$wechatUser = $app->oauth->setRequest($request)->user()) {
+                return $this->wechat($request);
+            }
+        } catch (AuthorizeFailedException $exception) {
+            return $this->wechat($request);
+        }
+        $unionid = $wechatUser->original['unionid'];
+
+        return redirect('http://wejh-server.dev?unionid=' . $unionid);
+    }
+
     // 小程序code换取openid
     public function weapp(Request $request) {
         if(!$code = $request->get('code')) {
@@ -34,10 +50,11 @@ class OauthController extends Controller
         ];
         $app = new Application($options);
         $miniProgram = $app->mini_program;
+        $userService = $app->user;
         $result = $miniProgram->sns->getSessionKey($code);
 
         return RJM([
-            'openid' => $result->openid
+            'openid' => $result->unionid,
         ], 200, '获取openid成功');
     }
 }
