@@ -14,7 +14,7 @@ class StudentTableSeeder extends Seeder
     public function run()
     {
 
-        for ($i = 2013; $i < 2017; $i++) {
+        for ($i = 2013; $i < 2018; $i++) {
             $filePath = 'storage/excel/'.$i.'.xls';
             echo "import $i's students\n";
             Excel::load($filePath, function($reader) use($i) {
