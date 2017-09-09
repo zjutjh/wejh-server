@@ -34,6 +34,8 @@ $card = [
 ];
 
 return [
+    'compatibleURL' => 'http://bbs.zjut.edu.cn/api/jhapi.php?url=',
+    'compatible' => true,
     'isExt' => true,
     'prefix' => $prefix,
     'jh' => $jh,

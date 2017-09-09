@@ -66,7 +66,7 @@ function http_post($url, $post_data = null, $timeout = 500){//curl
  * @param  int      $timeout    超时时间，毫秒级
  * @return mixed
  */
-function http_get($url, $data, $timeout = 500){//curl
+function http_get($url, $data, $timeout = 1000){//curl
     $ch = curl_init();
     if($data){
         if(strpos($url, '?') == false) {
@@ -97,15 +97,19 @@ function api($key, $isExt)
         return false;
     }
     if(is_array($route)) {
+        if ($configs['compatible'] === true) {
+            return $configs['compatibleURL'] . urlencode($route['api']);
+        }
         return $isExt ? $route['ext'] : $route['api'];
     }
-    $tempProxy = 'http://bbs.zjut.edu.cn/api/jhapi.php';
     $url = '';
     if($isExt) {
         $url = $configs['prefix']['ext'] . $route;
     } else {
         $url = $configs['prefix']['api'] . $route;
-        $url = "${tempProxy}?url=" . urlencode($configs['prefix']['api'] . $route);
+    }
+    if ($configs['compatible'] === true) {
+        $url = $configs['compatibleURL'] . urlencode($configs['prefix']['api'] . $route);
     }
     return $url;
 
