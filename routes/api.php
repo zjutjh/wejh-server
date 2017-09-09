@@ -52,21 +52,21 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'Banner\MainController@banner']);
         Route::get('/user', [
             'uses' => 'Auth\LoginController@user']);
-        Route::patch('/user', [
+        Route::PUT('/user', [
             'uses' => 'Auth\LoginController@update']);
         Route::post('/ycjw/bind', [
             'uses' => 'Ycjw\MainController@bind']);
         Route::get('/ycjw/score', [
             'uses' => 'Ycjw\ScoreController@score']);
-        Route::patch('/ycjw/score', [
+        Route::PUT('/ycjw/score', [
             'uses' => 'Ycjw\ScoreController@update']);
         Route::get('/ycjw/timetable', [
             'uses' => 'Ycjw\TimetableController@timetable']);
-        Route::patch('/ycjw/timetable', [
+        Route::PUT('/ycjw/timetable', [
             'uses' => 'Ycjw\TimetableController@update']);
         Route::get('/ycjw/exam', [
             'uses' => 'Ycjw\ExamController@exam']);
-        Route::patch('/ycjw/exam', [
+        Route::PUT('/ycjw/exam', [
             'uses' => 'Ycjw\ExamController@update']);
         Route::post('/card/bind', [
             'uses' => 'Card\MainController@bind']);
