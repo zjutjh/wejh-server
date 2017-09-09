@@ -180,7 +180,7 @@ class Api extends Model
      * @param integer
      * @return boolean
      */
-    public function checkYcLogin($user_name, $password, $port = null, $timeout = 200) {
+    public function checkYcLogin($user_name, $password, $port = null, $timeout = 500) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
@@ -201,7 +201,7 @@ class Api extends Model
      * @param integer
      * @return mixed
      */
-    public function getYcScore($user_name, $password, $term = null, $port = null, $timeout = 100) {
+    public function getYcScore($user_name, $password, $term = null, $port = null, $timeout = 500) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }

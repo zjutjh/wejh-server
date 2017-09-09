@@ -32,7 +32,7 @@ class MainController extends Controller
      * @param int $timeout
      * @return array
      */
-    public function getCheck($username, $password, $port = null, $retry = false, $timeout = 300) {
+    public function getCheck($username, $password, $port = null, $retry = false, $timeout = 500) {
         $api = new Api;
         $check = $api->checkYcLogin($username, $password, $port, $timeout);
         if(!$check && !$retry) {
