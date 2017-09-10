@@ -37,6 +37,7 @@ class GitPull extends Command
      */
     public function handle()
     {
+        exec('cd ..');
         exec('git pull');
     }
 }
