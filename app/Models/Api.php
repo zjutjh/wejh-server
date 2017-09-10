@@ -280,9 +280,9 @@ class Api extends Model
         $zcj = 0;
         $zxf = 0;
         foreach ($score_list as $key => $value) {
-            if(!isset($value['考试性质']) || $value['考试性质']=="公选课"|| $value['成绩']=="取消")
+            if(!isset($value['考试性质']) || $value['考试性质']=="公选课"|| $value['成绩'] == "取消")
                 continue;
-            if(!isset($value['学分']) || !is_numeric($value['学分']) || $value['成绩']=="免修")
+            if(!isset($value['学分']) || !is_numeric($value['学分']) || $value['成绩'] == "免修")
                 continue;
             $b = $value['成绩'];
             if(!is_numeric($b)) {
