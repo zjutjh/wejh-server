@@ -311,7 +311,7 @@ class Api extends Model
             $zcj += $b * $value['学分'];
             $zxf += $value['学分'];
         }
-        if($zxf==0) {
+        if($zxf == 0) {
             return 0;
         }
         return sprintf("%.3f", $zcj/$zxf);
