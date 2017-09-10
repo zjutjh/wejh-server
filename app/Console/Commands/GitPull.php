@@ -37,7 +37,8 @@ class GitPull extends Command
      */
     public function handle()
     {
-        exec('cd ..');
-        exec('git pull');
+        exec("cd ..\ngit fetch\ngit pull", $output);
+
+        echo nl2br(implode($output, "\n"));
     }
 }
