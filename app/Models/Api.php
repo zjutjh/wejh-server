@@ -539,6 +539,7 @@ class Api extends Model
             array_push($exam_list, $g);
         }
         return [
+            'term' => $term,
             'list' => $exam_list
         ];
     }
