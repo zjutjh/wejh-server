@@ -14,7 +14,7 @@ class MainController extends Controller
             return RJM(null, -1, '没有认证信息');
         }
         $password = $request->get('password');
-        list($check, $errmsg) = $this->getCheck($user->uno, $password, null, true);
+        list($check, $errmsg) = $this->getCheck($user->uno, $password, setting('ycjw_port'), true);
         if($check == false) {
             return RJM(null, -1, $errmsg);
         }
@@ -32,26 +32,40 @@ class MainController extends Controller
      * @param int $timeout
      * @return array
      */
-    public function getCheck($username, $password, $port = null, $retry = false, $timeout = 500) {
+    public function getCheck($username, $password, $port = null, $retry = false, $timeout = 800) {
         $api = new Api;
         $check = $api->checkYcLogin($username, $password, $port, $timeout);
+        $firstError = $api->getError();
+        $api->resetError();
+        if($firstError === '原创服务器错误') {
+            addYcjwPortError($port);
+        }
         if(!$check && !$retry) {
-            if($api->getError() == '原创服务器错误') {
+            resetCurrentYcjwPort();
+            if($firstError == '原创服务器错误') {
                 return [false, '原创教务系统炸了'];
             }
             return [false, $api->getError()];
         }
+        $error = '';
         if(!$check && $retry) {
             for ($i = 83; $i <= 86; $i++) {
                 $check = $api->checkYcLogin($username, $password, $i, $timeout);
+                $error = $api->getError();
                 if($check) {
                     break;
+                } else {
+                    $api->resetError();
+                    if($error === '原创服务器错误') {
+                        addYcjwPortError($i);
+                    }
                 }
             }
+            resetCurrentYcjwPort();
             if(!$check) {
-                return [false, $api->getError()];
+                return [false, $error];
             }
         }
-        return [$check, $api->getError()];
+        return [$check, $error];
     }
 }

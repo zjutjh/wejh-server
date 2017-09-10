@@ -27,6 +27,10 @@ class Api extends Model
         return $this->error;
     }
 
+    public function resetError() {
+        $this->error = '';
+    }
+
     public function getYcData(...$arg) {
         $function = array_shift($arg);
         $port = setting('ycjw_port');
@@ -205,7 +209,6 @@ class Api extends Model
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
-        $port = 83;
         $url = api('ycjw.score', $port == null ? null : false);
         $data = [
             'username' => $user_name,
@@ -233,6 +236,9 @@ class Api extends Model
             return $this->setError('原创服务器错误');
         }
         if($arr['status'] != 'success') {
+            if ($arr['msg'] === '服务器错误') {
+                return $this->setError('原创服务器错误');
+            }
             return $this->setError($arr['msg']);
         }
         if($arr['msg'] == "没有相关信息") {
@@ -361,6 +367,9 @@ class Api extends Model
             return $this->setError('原创服务器错误');
         }
         if($arr['status'] != 'success') {
+            if ($arr['msg'] === '服务器错误') {
+                return $this->setError('原创服务器错误');
+            }
             return $this->setError($arr['msg']);
         }
         if($arr['msg'] == "没有相关信息") {
@@ -492,7 +501,10 @@ class Api extends Model
         if($arr['status']!='success' && $arr['msg'] == "用户名或密码错误") {
             return $this->setError('用户名或密码错误');
         } else if($arr['status']!='success') {
-            return $this->setError('原创服务器错误');
+            if ($arr['msg'] === '服务器错误') {
+                return $this->setError('原创服务器错误');
+            }
+            return $this->setError($arr['msg']);
         }
         if($arr['msg'] == "没有相关信息") {
             $arr['msg'] = [];
