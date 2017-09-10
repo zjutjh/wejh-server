@@ -299,6 +299,9 @@ class Api extends Model
                     case "及格":
                         $b = 1.5;
                         break;
+                    case "通过":
+                        $b = 1;
+                        break;
                     default:
                         $b = 0;
                 }
