@@ -284,7 +284,7 @@ class Api extends Model
                 continue;
             if(!isset($value['学分']) || !is_numeric($value['学分']) || $value['成绩']=="免修")
                 continue;
-            $b=$value['成绩'];
+            $b = $value['成绩'];
             if(!is_numeric($b)) {
                 switch($b) {
                     case "优秀":
