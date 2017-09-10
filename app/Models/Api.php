@@ -304,7 +304,6 @@ class Api extends Model
                 }
             } else {
                 if ($b <= 5 && $b > 0) {
-                    $b = ($b + 5) * 10;
                 } else {
                     $b = 60 <= $b ? ($b - 50) / 10 : 0;
                 }
