@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::any('/wechat',  [
     'uses' => 'Wechat\ServerController@serve']);
 
+Route::any('/git/pull',  function (Request $request) {
+    Artisan::call('git:pull');
+});
+
 Route::get('/user',  [
     'uses' => 'Auth\LoginController@getAuthenticatedUser'])->middleware('web', 'jwt.api.auth');
 
