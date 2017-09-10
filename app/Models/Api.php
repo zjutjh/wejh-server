@@ -516,12 +516,12 @@ class Api extends Model
         $exam_list = [];
         foreach ($arr['msg'] as $key => $value) {
             $g = array();
-            $g['班级']=$value['班级'];
-            $g['教师']=$value['教师'];
-            $g['课程']=$value['课程'];
-            $g['日期']=$value['日期'];
-            $g['时段']=$value['时段'];
-            $g['教室']=$value['教室'];
+            $g['班级'] = $value['班级'];
+            $g['教师'] = $value['教师'];
+            $g['课程'] = $value['课程'];
+            $g['日期'] = $value['日期'];
+            $g['时段'] = $value['时段'];
+            $g['教室'] = $value['教室'];
             $g = $this->fixYcExam($g);
 
             $now = date('Y-m-d');
