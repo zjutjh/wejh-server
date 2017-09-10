@@ -410,9 +410,9 @@ class Api extends Model
         preg_match_all($preg, $class_info['课程名称'], $arr);
         $class_info['名称'] = $arr[0][0];
         if(isset($arr[0][1]) && !empty($arr[0][1]))
-            $class_info['老师']=$arr[0][1];
+            $class_info['老师'] = $arr[0][1];
         else
-            $class_info['老师']="";
+            $class_info['老师'] = "";
         $preg = '/\d\d?-\d\d?(周)?:星期\d\(\d\d?-\d\d?\)([^;]+|[^;]?)/';
         preg_match_all($preg, $class_info['课程信息'], $arr);
         $class_info['信息'] = array();
