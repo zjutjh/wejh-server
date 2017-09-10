@@ -408,7 +408,7 @@ class Api extends Model
     public function fixYcClass($class_info) {
         $preg = '/[^:]+/';
         preg_match_all($preg, $class_info['课程名称'], $arr);
-        $class_info['名称']=$arr[0][0];
+        $class_info['名称'] = $arr[0][0];
         if(isset($arr[0][1]) && !empty($arr[0][1]))
             $class_info['老师']=$arr[0][1];
         else
