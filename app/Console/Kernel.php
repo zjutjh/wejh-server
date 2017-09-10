@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'App\Console\Commands\SendMessage',
         'App\Console\Commands\UserCensus',
+        'App\Console\Commands\GitPull',
     ];
 
     /**
