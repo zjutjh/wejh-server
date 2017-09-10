@@ -314,7 +314,7 @@ class Api extends Model
         if($zxf == 0) {
             return 0;
         }
-        return sprintf("%.3f", $zcj/$zxf);
+        return sprintf("%.3f", $zcj / $zxf);
     }
 
     /**
