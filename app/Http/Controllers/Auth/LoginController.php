@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Api;
+use App\Models\Student;
 use App\Models\User;
 use App\Models\UserLink;
 use BadMethodCallException;
@@ -68,6 +69,8 @@ class LoginController extends Controller
             $ext['passwords']['jh_password'] = encrypt($password);
             $ext['passwords']['card_password'] = encrypt(substr($username,-6));
             $ext['passwords']['lib_password'] = encrypt($username);
+            $school_info = Student::where('uno', $username)->first();
+            $ext['school_info'] = $school_info;
             $user->ext = $ext;
             $user->save();
         }

@@ -274,7 +274,7 @@ class Api extends Model
         if (sizeof($score_list) == 0) {
             return 0;
         }
-        if ($score_list==null || !is_array($score_list)) {
+        if ($score_list == null || !is_array($score_list)) {
             return 0;
         }
         $zcj = 0;
@@ -288,24 +288,28 @@ class Api extends Model
             if(!is_numeric($b)) {
                 switch($b) {
                     case "优秀":
-                        $b=4.5;
+                        $b = 4.5;
                         break;
                     case "良好":
-                        $b=3.5;
+                        $b = 3.5;
                         break;
                     case "中等":
-                        $b=2.5;
+                        $b = 2.5;
                         break;
                     case "及格":
-                        $b=1.5;
+                        $b = 1.5;
                         break;
                     default:
-                        $b=0;
+                        $b = 0;
                 }
             } else {
-                $b=60<=$b?($b-50)/10:0;
+                if ($b <= 5 && $b > 0) {
+                    $b = ($b + 5) * 10;
+                } else {
+                    $b = 60 <= $b ? ($b - 50) / 10 : 0;
+                }
             }
-            $zcj += $b*$value['学分'];
+            $zcj += $b * $value['学分'];
             $zxf += $value['学分'];
         }
         if($zxf==0) {
