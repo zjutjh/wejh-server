@@ -844,8 +844,8 @@ class Api extends Model
      * @param string
      * @return mixed
      */
-    public function getFreeRoom($term, $area, $startTime, $endTime, $weekday, $week, $timeout = 1000) {
-        if (!$term OR !$area ) {
+    public function getFreeRoom($username, $password, $term, $area, $startTime, $endTime, $weekday, $week, $timeout = 1500) {
+        if (!$area or $startTime == null or $endTime == null or !$weekday or !$week) {
             return $this->setError('参数错误');
         }
         $termNumArr = array(
@@ -866,6 +866,8 @@ class Api extends Model
 
         $url = api('zf.freeroom', null);
         $data = [
+            'username' => $username,
+            'password' => $password,
             'year' => intval($year),
             'term' => intval($termNum),
             'area' => $area,
