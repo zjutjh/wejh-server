@@ -82,7 +82,7 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'Library\MainController@bind']);
         Route::get('/library/borrow', [
             'uses' => 'Library\MainController@borrow']);
-        Route::post('/freeroom', [
+        Route::get('/freeroom', [
             'uses' => 'Ycjw\FreeroomController@api']);
     });
 });
