@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Mockery\Exception;
 
 class Api extends Model
 {
@@ -196,6 +197,65 @@ class Api extends Model
     }
 
     /**
+     * 允许重试的获取教务系统数据的函数
+     * @param $type
+     * @param $username
+     * @param $password
+     * @param $term
+     * @param $port
+     * @param $retry
+     * @param $timeout
+     * @return bool
+     */
+    public function getUEASData($type, $username, $password, $term, $port, $retry, $timeout = 800) {
+        if ($term) {
+            preg_match_all('/\d+/', $term, $pregResult);
+            $year = intval($pregResult[0][0]);
+            if ($year >= 2017) {
+                $termNum = intval($pregResult[0][2]);
+                switch ($termNum) {
+                    case '1':
+                        $term = 3;
+                        break;
+                    case '2':
+                        $term = 12;
+                        break;
+                    default:
+                        $term = '';
+                        break;
+                }
+                $func = 'get' . 'Zf' . ucwords($type);
+                try {
+                    return $this->$func($username, $password['zf'], $year, $term, 1700);
+                } catch (Exception $e) {
+                    return $this->setError('方法不存在');
+                }
+            }
+        }
+        $func = 'get' . 'Yc' . ucwords($type);
+        try {
+            $result = $this->$func($username, $password['yc'], $term, $port, $timeout);
+            if(!is_array($result) && !$retry) {
+                return $this->setError('原创服务器错误');
+            }
+            if(!is_array($result) && $retry) {
+                for ($i = 83; $i <= 86; $i++) {
+                    $result = $this->$func($username, $password['yc'], $term, $i, $timeout);
+                    if(is_array($result)) {
+                        break;
+                    }
+                }
+                if(!is_array($result)) {
+                    return $this->setError('原创服务器错误');
+                }
+            }
+            return $result;
+        } catch (Exception $e) {
+            return $this->setError('方法不存在');
+        }
+    }
+
+    /**
      * 原创成绩获取
      *
      * @param string
@@ -238,6 +298,68 @@ class Api extends Model
         if($arr['status'] != 'success') {
             if ($arr['msg'] === '服务器错误') {
                 return $this->setError('原创服务器错误');
+            }
+            return $this->setError($arr['msg']);
+        }
+        if($arr['msg'] == "没有相关信息") {
+            $arr['msg'] = [];
+        }
+        $score_list = [];
+        //务必对做接受来的数据做一个转换
+        foreach ($arr['msg'] as $key => $value) {
+            $g = array();
+            $g['学期']=$value['term'];
+            $g['名称']=$value['name'];
+            $g['考试性质']=$value['classprop'];
+            $g['成绩']=$value['classscore'];
+            $g['学时']=$value['classhuor'];
+            $g['学分']=$value['classcredit'];
+            array_push($score_list,$g);
+        }
+        $res = [
+            'list' => $score_list,
+            'gpa' => $this->getGpa($score_list)
+        ];
+
+        return $res;
+    }
+
+    /**
+     * 正方成绩获取
+     *
+     * @param string
+     * @param string
+     * @param string
+     * @param integer
+     * @param integer
+     * @return mixed
+     */
+    public function getZfScore($user_name, $password, $year = null, $term = null, $timeout = 500) {
+        if (!$user_name OR !$password) {
+            return $this->setError('用户名或密码为空');
+        }
+        $url = api('zf.score', null);
+        $data = [
+            'username' => $user_name,
+            'password' => $password,
+            'year' => $year,
+            'term' => $term,
+            'timeout' => $timeout / 1000,
+        ];
+        if(!$contents = http_get($url, $data, $timeout)) {
+            return $this->setError('原创服务器错误');
+        }
+        // 处理掉偶尔出现的空白符
+        $preg = '/{.*}/';
+        preg_match_all($preg, $contents, $array);
+        $arr = json_decode($array[0][0], true);
+
+        if(!isset($arr['status'])) {
+            return $this->setError('正方服务器错误');
+        }
+        if($arr['status'] != 'success') {
+            if ($arr['msg'] === '服务器错误') {
+                return $this->setError('正方服务器错误');
             }
             return $this->setError($arr['msg']);
         }
@@ -375,6 +497,82 @@ class Api extends Model
         if($arr['status'] != 'success') {
             if ($arr['msg'] === '服务器错误') {
                 return $this->setError('原创服务器错误');
+            }
+            return $this->setError($arr['msg']);
+        }
+        if($arr['msg'] == "没有相关信息") {
+            $arr['msg'] = [];
+        }
+        if(!is_array($arr['msg'])) {
+            return $this->setError('原创服务器错误');
+        }
+        $class_list = [];
+        foreach ($arr['msg'] as $key => $value) {
+            $g = array();
+            $g['课程名称'] = trim($value['name']);
+            $g['开课学院'] = trim($value['collage']);
+            $g['课程信息'] = trim($value['classinfo']);
+            $g['课程类型'] = trim($value['classtype']);
+            $g['学时'] = trim($value['classhuor']);
+            $g['学分'] = trim($value['classscore']);
+            $g = $this->fixYcClass($g);
+            array_push($class_list,$g);
+        }
+        return [
+            'pending_time' => $pending_time,
+            'list' => $class_list,
+        ];
+    }
+
+    /**
+     * 正方课表获取
+     *
+     * @param string
+     * @param string
+     * @param string
+     * @param integer
+     * @param integer
+     * @return mixed
+     */
+    public function getZfClass($user_name, $password, $year, $term = null, $timeout = 500) {
+        if (!$user_name OR !$password) {
+            return $this->setError('用户名或密码为空');
+        }
+
+        $url = api('zf.class', null);
+        $data = [
+            'username' => $user_name,
+            'password' => $password,
+            'year' => $year,
+            'term' => $term,
+            'timeout' => $timeout / 1000,
+        ];
+
+        $m_time = explode(' ',microtime());//开始时间
+        $start_time = $m_time[1] + $m_time[0];
+
+        $contents = http_get($url, $data, $timeout);
+
+        $m_time = explode(' ',microtime());//结束时间
+        $end_time = $m_time[1] + $m_time[0];
+        $pending_time = $end_time - $start_time;//持续时间
+
+        if(!$contents) {
+            return $this->setError('正方服务器错误');
+        }
+        //防止偶尔出现的空字符导致的解析失败
+        $preg = '/{.*}/';
+        preg_match_all($preg, $contents, $array);
+
+        if(!$arr = json_decode($array[0][0], true)) {
+            return $this->setError('正方服务器错误');
+        }
+        if(!isset($arr['status'])) {
+            return $this->setError('正方服务器错误');
+        }
+        if($arr['status'] != 'success') {
+            if ($arr['msg'] === '服务器错误') {
+                return $this->setError('正方服务器错误');
             }
             return $this->setError($arr['msg']);
         }
@@ -646,32 +844,39 @@ class Api extends Model
      * @param string
      * @return mixed
      */
-    public function getFreeRoom($xueqi, $qsz = '1', $jsz = '1', $xingqi = '星期一', $qsj = '1', $jsj = '1', $xiaoqu = '所有', $area = '所有', $roomtype = '所有', $rl = '0', $port = null, $timeout = 1000) {
-        if (!$xueqi OR !$qsz OR !$jsz OR !$xingqi OR !$qsj OR !$jsj OR !$xiaoqu OR !$area OR !$roomtype) {
+    public function getFreeRoom($term, $area, $startTime, $endTime, $weekday, $week, $timeout = 1000) {
+        if (!$term OR !$area ) {
             return $this->setError('参数错误');
         }
-        $url = api('ycjw.freeroom', $port == null ? null : false);
+        $termNumArr = array(
+            '1' => '3',
+            '2' => '12',
+            '短' => '16'
+        );
+        preg_match_all('/\d+/', $term, $pregResult);
+        $year = intval($pregResult[0][0]);
+        $termNum = $termNumArr[intval($pregResult[0][2])];
+
+        $lessons = 0;
+        for ($i = intval($startTime); $i <= intval($endTime); $i++) {
+            $lessons += pow(2, $i);
+        }
+
+        $weeks = pow(2, intval($week));
+
+        $url = api('zf.freeroom', null);
         $data = [
-            'xueqi' => urlencode($xueqi),
-            'qsz' => intval($qsz),
-            'jsz' => intval($jsz),
-            'xingqi' => urlencode($xingqi),
-            'qsj' => intval($qsj),
-            'jsj' => intval($jsj),
-            'xiaoqu' => urlencode($xiaoqu),
-            'area' => urlencode($area),
-            'roomtype' => urlencode($roomtype),
-            'rl' => intval($rl),
+            'year' => intval($year),
+            'term' => intval($termNum),
+            'area' => $area,
+            'weekdays' => $weekday,
+            'weeks' => $weeks,
+            'lessons' => $lessons,
             'timeout' => $timeout / 1000,
         ];
-        if(!$port) {
-            $url = api('ycjw.freeroom', true);
-        } else {
-            $data['ip'] = $port;
-        }
         $contents = http_get($url, $data, $timeout);
         if(!$contents) {
-            return $this->setError('原创服务器错误');
+            return $this->setError('正方服务器错误');
         }
 
         //防止偶尔出现的空字符
@@ -682,7 +887,7 @@ class Api extends Model
         if($arr['status'] != 'success') {
             return $this->setError($arr['msg']);
         } else if($arr['status'] != 'success') {
-            return $this->setError('原创服务器错误');
+            return $this->setError('正方服务器错误');
         }
         if($arr['msg'] == "没有相关信息")
         {

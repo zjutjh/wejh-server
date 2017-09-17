@@ -77,6 +77,13 @@ class LoginController extends Controller
 
         if ($type && $type != 'default') { // 如果是第三方登录，建立关联
             try {
+                // 如果之前存在过关联，换成现在的
+                if ($link = UserLink::where([
+                    'openid' => $openid,
+                    'type' => 'weapp',
+                ])->first()) {
+                    $link->delete();
+                }
                 $user = $this->$type($user, $openid); //反射到各个类型的方法
             } catch (BadMethodCallException $e) {
                 return RJM(null, -500, '可能发生了一点错误，请联系管理员');

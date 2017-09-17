@@ -23,6 +23,13 @@ $ycjw = [
     'freeroom' => 'room.php',
 ];
 
+$zf = [
+    'score' => 'scoresZf.php',
+    'class' => 'classZf.php',
+    'exam' => 'examQueryZf.php',
+    'freeroom' => 'roomZf.php',
+];
+
 $library = [
     'search' => 'library_search.php',
     'book' => 'library_book.php',
@@ -39,6 +46,7 @@ return [
     'isExt' => true,
     'prefix' => $prefix,
     'jh' => $jh,
+    'zf' => $zf,
     'ycjw' => $ycjw,
     'library' => $library,
     'card' => $card

@@ -60,6 +60,8 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'Auth\LoginController@update']);
         Route::post('/ycjw/bind', [
             'uses' => 'Ycjw\MainController@bind']);
+        Route::post('/zf/bind', [
+            'uses' => 'Ycjw\MainController@bindZf']);
         Route::get('/ycjw/score', [
             'uses' => 'Ycjw\ScoreController@score']);
         Route::PUT('/ycjw/score', [

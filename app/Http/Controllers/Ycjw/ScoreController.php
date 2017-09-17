@@ -13,15 +13,18 @@ class ScoreController extends Controller
         if(!$user = Auth::user()) {
             return RJM(null, -1, '没有认证信息');
         }
-        $api = $user->ext;
-        $yc_password = $api['passwords']['yc_password'] ? decrypt($api['passwords']['yc_password']) : '';
-        if(!$yc_password) {
-            return RJM(null, -1, '需要绑定');
-        }
-        $term = $api['terms']['score_term'];
-        list($score_result, $errmsg) = $this->getScore($user->uno, $yc_password, $term, null, true);
-        if($errmsg) {
-            return RJM(null, -1, $errmsg);
+        $ext = $user->ext;
+        $term = $ext['terms']['score_term'];
+        $api = new Api;
+        $score_result = $api->getUEASData('score', $user->uno, [
+            'yc' => $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '',
+            'zf' => $ext['passwords']['zf_password'] ? decrypt($ext['passwords']['zf_password']) : ''
+        ], $term, null, true);
+        if(!$score_result) {
+            if($api->getError() == '用户名或密码为空') {
+                return RJM(null, -1, '需要绑定');
+            }
+            return RJM(null, -1, $api->getError());
         }
 
         $start_grade = intval(substr($user->uno, 0, 4));
@@ -52,30 +55,5 @@ class ScoreController extends Controller
         $user->setExt('terms.score_term', $term);
 
         return RJM(null, 1, '切换学期成功');
-    }
-    public function getScore($username, $password, $term, $port = null, $retry = false, $timeout = 500) {
-        $api = new Api;
-        $score_result = $api->getYcScore($username, $password, $term, $port, $timeout);
-        if(!is_array($score_result) && !$retry) {
-            if($api->getError() == '原创服务器错误') {
-                return [null, '原创教务系统炸了'];
-            }
-            return [null, $api->getError()];
-        }
-        if(!is_array($score_result) && $retry) {
-            for ($i = 83; $i <= 86; $i++) {
-                $score_result = $api->getYcScore($username, $password, $term, $i, $timeout);
-                if(is_array($score_result)) {
-                    break;
-                }
-            }
-            if(!is_array($score_result)) {
-                if($api->getError() == '原创服务器错误') {
-                    return [null, '原创教务系统炸了'];
-                }
-                return [null, $api->getError()];
-            }
-        }
-        return [$score_result, ''];
     }
 }

@@ -50,6 +50,7 @@ class User extends Authenticatable
         'passwords' => [
             'jh_password' => null, // 精弘通行证密码
             'yc_password' => null, // 原创教务密码
+            'zf_password' => null, // 原创教务密码
             'card_password' => null, // 一卡通密码
             'lib_password' => null, // 图书馆密码
         ],

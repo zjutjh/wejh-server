@@ -23,6 +23,23 @@ class MainController extends Controller
         return RJM($user, 1, '绑定原创账号成功');
     }
 
+    public function bindZf(Request $request) {
+        if(!$user = Auth::user()) {
+            return RJM(null, -1, '没有认证信息');
+        }
+        $password = $request->get('password');
+        $api = new Api();
+        $check = $api->getUEASData('score', $user->uno, [
+            'zf' => $password
+        ], '2017/2018(1)', null, true);
+        if($check == false) {
+            return RJM(null, -1, $api->getError());
+        }
+        $user->setExt('passwords.zf_password', encrypt($password));
+
+        return RJM($user, 1, '绑定原创账号成功');
+    }
+
     /**
      * 循环获取
      * @param $username
