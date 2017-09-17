@@ -16,7 +16,9 @@ class ScoreController extends Controller
         $start_grade = intval(substr($user->uno, 0, 4));
         $ext = $user->ext;
         $term = $ext['terms']['score_term'];
-        if ($start_grade <= 2013) {
+        preg_match_all('/\d+/', $term, $pregResult);
+        $year = intval($pregResult[0][0]);
+        if ($start_grade <= 2013 && $year > 2016) {
             $term = '2016/2017(2)';
             $user->setExt('terms.score_term', $term);
         }

@@ -19,7 +19,9 @@ class ExamController extends Controller
         $term = $ext['terms']['exam_term'];
 
         $start_grade = intval(substr($user->uno, 0, 4));
-        if ($start_grade <= 2013) {
+        preg_match_all('/\d+/', $term, $pregResult);
+        $year = intval($pregResult[0][0]);
+        if ($start_grade <= 2013 && $year > 2016) {
             $term = '2016/2017(2)';
             $user->setExt('terms.exam_term', $term);
         }
