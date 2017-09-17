@@ -17,6 +17,11 @@ class TimetableController extends Controller
         $ext = $user->ext;
         $term = $ext['terms']['class_term'];
 
+        $start_grade = intval(substr($user->uno, 0, 4));
+        if ($start_grade <= 2013) {
+            $term = '2016/2017(2)';
+            $user->setExt('terms.class_term', $term);
+        }
         $api = new Api();
 
         $class_result = $api->getUEASData('class', $user->uno, [

@@ -17,6 +17,12 @@ class ExamController extends Controller
         $ext = $user->ext;
         $yc_password = $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '';
         $term = $ext['terms']['exam_term'];
+
+        $start_grade = intval(substr($user->uno, 0, 4));
+        if ($start_grade <= 2013) {
+            $term = '2016/2017(2)';
+            $user->setExt('terms.exam_term', $term);
+        }
         if(!$yc_password) {
             return RJM(null, -1, '需要绑定');
         }

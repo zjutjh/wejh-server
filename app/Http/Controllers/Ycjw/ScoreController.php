@@ -13,8 +13,13 @@ class ScoreController extends Controller
         if(!$user = Auth::user()) {
             return RJM(null, -1, '没有认证信息');
         }
+        $start_grade = intval(substr($user->uno, 0, 4));
         $ext = $user->ext;
         $term = $ext['terms']['score_term'];
+        if ($start_grade <= 2013) {
+            $term = '2016/2017(2)';
+            $user->setExt('terms.score_term', $term);
+        }
         $api = new Api;
         $score_result = $api->getUEASData('score', $user->uno, [
             'yc' => $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '',
@@ -27,7 +32,6 @@ class ScoreController extends Controller
             return RJM(null, -1, $api->getError());
         }
 
-        $start_grade = intval(substr($user->uno, 0, 4));
         $term_grade = intval(substr($term, 0, 4));
         $grade_list = ['一', '二', '三', '四'];
 
