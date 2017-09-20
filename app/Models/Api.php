@@ -905,10 +905,10 @@ class Api extends Model
             $g['教室名称']=$value['教室名称'];
             $g['教室类型名称']=$value['教室类型名称'];
             $g['容量']=$value['容量'];
-            $g['托管部门']=$value['jgmc'];
-            $g['使用部门']=$value['sydxmc'];
-            $g['使用班级']=$value['sybj'];
-            $g['场地借用类型']=$value['cdjylx'];
+            $g['托管部门']=isset($value['jgmc']) ? $value['jgmc'] : '';
+            $g['使用部门']=isset($value['sydxmc']) ? $value['sydxmc'] : '';
+            $g['使用班级']=isset($value['sybj']) ? $value['sybj'] : '';
+            $g['场地借用类型']=isset($value['cdjylx']) ? $value['cdjylx'] : '';
 
             array_push($room_list,$g);
         }
