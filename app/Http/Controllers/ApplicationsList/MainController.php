@@ -29,6 +29,10 @@ class MainController extends Controller
                 'bg' => 'purple',
                 'icon' => url('img/app-list/student.png'),
             ],
+            'teacher' => [
+                'bg' => 'purple',
+                'icon' => url('img/app-list/teacher.png'),
+            ],
             'card' => [
                 'bg' => 'yellow',
                 'icon' => url('img/app-list/card.png'),
@@ -65,10 +69,10 @@ class MainController extends Controller
                 'icon' => $icons['freeroom']['icon'],
             ],
             [
-                'title' => '学生查询',
-                'route' => '/pages/student/student',
-                'bg' => $icons['student']['bg'],
-                'icon' => $icons['student']['icon'],
+                'title' => '教师查询',
+                'route' => '/pages/teacher/teacher',
+                'bg' => $icons['teacher']['bg'],
+                'icon' => $icons['teacher']['icon'],
             ],
             [
                 'title' => '一卡通',
