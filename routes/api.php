@@ -84,5 +84,7 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'Library\MainController@borrow']);
         Route::get('/freeroom', [
             'uses' => 'Ycjw\FreeroomController@api']);
+        Route::get('/teacher', [
+            'uses' => 'Teacher\MainController@search']);
     });
 });
