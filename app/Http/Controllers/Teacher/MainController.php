@@ -23,8 +23,8 @@ class MainController extends Controller
         foreach ($list as $key => $value) {
             $t = [];
             $t['name'] = $value['name'];
-            $t['office_phone'] = $value['office_phone'];
-            $t['email'] = $value['email'];
+            $t['office_phone'] = $value['office_phone'] ? $value['office_phone'] : '';
+            $t['email'] = $value['email'] ? $value['email'] : '';
 
             array_push($res['list'], $t);
         }
