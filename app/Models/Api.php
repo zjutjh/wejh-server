@@ -794,6 +794,7 @@ class Api extends Model
         if(!$value = http_get($url, $data, $timeout)) {
             return $this->setError('服务器错误');
         }
+
         $arr = json_decode($value, true);
         if(!isset($arr['status']) || $arr['status'] != 'success') {
             return $this->setError('服务器错误');
@@ -825,7 +826,7 @@ class Api extends Model
             $g['账号']=$value['账号'];
             $g['卡片类型']=$value['卡片类型'];
             $g['交易类型']=$value['交易类型'];
-            $g['商户']=$value['商户'];
+            $g['商户']=html_entity_decode($value['商户']);
             $g['站点']=$value['站点'];
             $g['终端号']=$value['终端号'];
             $g['交易额']=$value['交易额'];

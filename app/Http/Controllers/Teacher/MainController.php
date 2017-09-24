@@ -11,7 +11,10 @@ class MainController extends Controller
     public function search(Request $request) {
         $wd = $request->get('wd');
         if (!$wd) {
-            return RJM([], 1, 'ok');
+            return RJM([
+                'wd' => '',
+                'list' => []
+            ], 1, 'ok');
         }
         $list = Teacher::where('name', 'like', "%$wd%")->get();
 
