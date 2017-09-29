@@ -1073,7 +1073,7 @@ class Api extends Model
             'session' => $arr['msg']['session'],
             'borrow_num' => $arr['msg']['borrow_num'], // 现借
             'overdue' => $arr['msg']['overdue'], // 超期
-            'debet' => $arr['msg']['debet'], // 前框
+            'debt' => $arr['msg']['debet'], // 前框
         ];
     }
 }
