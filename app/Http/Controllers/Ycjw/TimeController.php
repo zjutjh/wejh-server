@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 class TimeController extends Controller
 {
     public function api(Request $request) {
+        date_default_timezone_set("Asia/Shanghai");
         $day = intval(date("w"));
         if($day == 0) {
             $day = 7;
