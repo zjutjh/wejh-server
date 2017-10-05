@@ -1049,6 +1049,7 @@ class Api extends Model
         if(!$value = http_get($url, $data, $timeout)) {
             return $this->setError('服务器错误');
         }
+
         $arr = json_decode($value,true);
         if($arr['status']!='success') {
             return $this->setError('服务器错误');
@@ -1057,6 +1058,7 @@ class Api extends Model
         $list = [];
         foreach ($arr['msg']['borrow_list'] as $key => $value) {
             $borrow = [];
+            $borrow['书名'] = $value['title'];
             $borrow['馆藏号'] = $value['collection_code'];
             $borrow['馆藏地'] = $value['collection_address'];
             $borrow['借书时间'] = $value['borrow_date'];
