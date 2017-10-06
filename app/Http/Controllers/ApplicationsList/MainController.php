@@ -44,6 +44,11 @@ class MainController extends Controller
                 'icon' => url('img/app-list/borrow.png'),
                 'card' => url('img/card-background/borrow.png'),
             ],
+            'tri' => [
+                'bg' => 'blue',
+                'icon' => '',
+                'card' => url('img/card-background/tri.png'),
+            ],
         ];
         $applicationsList = [
             [
