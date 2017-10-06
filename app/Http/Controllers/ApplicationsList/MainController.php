@@ -12,6 +12,7 @@ class MainController extends Controller
             'timetable' => [
                 'bg' => 'blue',
                 'icon' => url('img/app-list/timetable.png'),
+                'card' => url('img/card-background/timetable.png'),
             ],
             'score' => [
                 'bg' => 'red',
@@ -36,6 +37,7 @@ class MainController extends Controller
             'card' => [
                 'bg' => 'yellow',
                 'icon' => url('img/app-list/card.png'),
+                'card' => url('img/card-background/card.png'),
             ],
             'borrow' => [
                 'bg' => 'blue',
