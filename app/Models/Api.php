@@ -614,16 +614,14 @@ class Api extends Model
             $class_info['老师'] = $arr[0][1];
         else
             $class_info['老师'] = "";
-        $preg = '/(\d+)[-]?(\d+)?周?:星期\d\(\d\d?-\d\d?\)([^;]+|[^;]?)/';
+        $preg = '/(\d+)[-]?(\d+)?周?\(?.+\)?:星期\d\(\d\d?-\d\d?\)([^;]+|[^;]?)/';
         preg_match_all($preg, $class_info['课程信息'], $arr);
         $class_info['信息'] = array();
         foreach ($arr[0] as $key => $val) {
             $one = array();
-            $preg = '/[^:周]+/';
+            $preg = '/(\d+)[-]?(\d+)?周?\(?([^):]+)?\)?/';
             preg_match_all($preg, $val, $array);
             $one['周'] = $array[0][0];
-            $preg = '/^(\d+)[-]?(\d+)?$/';
-            preg_match_all($preg, $one['周'], $array);
             if(isset($array[1][0]) && !empty($array[1][0]))
             {
                 $one['开始周'] = $array[1][0];
@@ -633,6 +631,12 @@ class Api extends Model
             {
                 $one['开始周'] = $one['周'];
                 $one['结束周'] = $one['周'];
+            }
+
+            if(isset($array[3][0]) && !empty($array[3][0])) {
+                $one['周类型'] = $array[3][0] === '单' ? 'odd' : ($array[3][0] === '双' ? 'even' : 'default');
+            } else {
+                $one['周类型'] = 'default';
             }
             $preg = '/星期(\d)/';
             preg_match_all($preg, $val, $array);
