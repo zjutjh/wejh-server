@@ -30,6 +30,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/tip', [
         'uses' => 'Tip\MainController@tip']);
 
+    Route::get('/announcement', [
+        'uses' => 'Announcement\MainController@api']);
+
     Route::get('/app-list', [
         'uses' => 'ApplicationsList\MainController@applicationsList']); // 微精弘首页应用列表
 
