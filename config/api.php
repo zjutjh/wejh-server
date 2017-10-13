@@ -42,7 +42,7 @@ $card = [
 
 return [
     'compatibleURL' => 'http://bbs.zjut.edu.cn/api/jhapi.php?url=',
-    'compatible' => true,
+    'compatible' => false,
     'isExt' => true,
     'prefix' => $prefix,
     'jh' => $jh,
