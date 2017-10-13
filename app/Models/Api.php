@@ -560,11 +560,8 @@ class Api extends Model
         if(!$contents) {
             return $this->setError('正方服务器错误');
         }
-        //防止偶尔出现的空字符导致的解析失败
-        $preg = '/{.*}/';
-        preg_match_all($preg, $contents, $array);
 
-        if(!$arr = json_decode($array[0][0], true)) {
+        if(!$arr = json_decode($contents, true)) {
             return $this->setError('正方服务器错误');
         }
         if(!isset($arr['status'])) {
@@ -657,7 +654,28 @@ class Api extends Model
             {
                 $one['地点'] = "";
             }
-            array_push($class_info['信息'],$one);
+            $info_pieces = explode(',', $one['周']);
+            if (isset($info_pieces[1])) {
+                foreach ($info_pieces as $k => $piece) {
+                    $piece_info = $one;
+                    $piece_info['周'] = $piece;
+                    $preg = '/(\d+)[-]?(\d+)?周?\(?([^):]+)?\)?/';
+                    preg_match_all($preg, $piece, $array);
+                    if(isset($array[1][0]) && !empty($array[1][0]))
+                    {
+                        $piece_info['开始周'] = $array[1][0];
+                        $piece_info['结束周'] = $array[2][0] ? $array[2][0] : $array[1][0];
+                    }
+                    else
+                    {
+                        $piece_info['开始周'] = $piece_info['周'];
+                        $piece_info['结束周'] = $piece_info['周'];
+                    }
+                    array_push($class_info['信息'], $piece_info);
+                }
+            } else {
+                array_push($class_info['信息'], $one);
+            }
         }
         return $class_info;
     }
