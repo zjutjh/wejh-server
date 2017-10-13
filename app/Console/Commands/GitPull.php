@@ -11,7 +11,7 @@ class GitPull extends Command
      *
      * @var string
      */
-    protected $signature = 'git:pull';
+    protected $signature = 'git:pull {ref}';
 
     /**
      * The console command description.
