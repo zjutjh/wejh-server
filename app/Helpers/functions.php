@@ -56,11 +56,11 @@ function http_post($url, $post_data = null, $timeout = 500){//curl
     curl_setopt($ch, CURLOPT_HEADER, false);
     $file_contents = curl_exec($ch);
     curl_close($ch);
-    logger(json_encode([
-        'url' => $url,
-        'data' => $post_data,
-        'result' => $file_contents
-    ]));
+//    logger(json_encode([
+//        'url' => $url,
+//        'data' => $post_data,
+//        'result' => $file_contents
+//    ]));
     return $file_contents;
 }
 
@@ -88,11 +88,11 @@ function http_get($url, $data, $timeout = 1000){//curl
     curl_setopt($ch, CURLOPT_HEADER, false);
     $file_contents = curl_exec($ch);
     curl_close($ch);
-    logger(json_encode([
-        'url' => $url,
-        'data' => $data,
-        'result' => $file_contents
-    ]));
+//    logger(json_encode([
+//        'url' => $url,
+//        'data' => $data,
+//        'result' => $file_contents
+//    ]));
     return $file_contents;
 }
 
