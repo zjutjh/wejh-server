@@ -156,7 +156,7 @@ class Api extends Model
             'username' => urlencode($user_name),
             'password' => urlencode($password),
             'iid' => urlencode($iid),
-            'email' => urlencode($email),
+            'email' => ($email),
         ];
 
         if(!$content = http_get($url, $data)) {
