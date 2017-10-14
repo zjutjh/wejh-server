@@ -85,7 +85,7 @@ class Api extends Model
             'app' => 'passport',
             'action' => 'login',
             'passport' => $user_name,
-            'password' => urlencode($password),
+            'password' => ($password),
         ];
         if(!$content = http_get($url, $data))
             return $this->setError('用户中心服务器错误');
@@ -117,7 +117,7 @@ class Api extends Model
             'app' => 'passport',
             'action' => 'reset',
             'passport' => $user_name,
-            'password' => urlencode($password),
+            'password' => ($password),
             'iid' => $iid,
         ];
 
@@ -153,9 +153,9 @@ class Api extends Model
         $data = [
             'app' => 'passport',
             'action' => 'active',
-            'username' => urlencode($user_name),
-            'password' => urlencode($password),
-            'iid' => urlencode($iid),
+            'username' => ($user_name),
+            'password' => ($password),
+            'iid' => ($iid),
             'email' => ($email),
         ];
 
