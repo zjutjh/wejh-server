@@ -8,10 +8,15 @@ use App\Http\Controllers\Controller;
 class MainController extends Controller
 {
     public function api(Request $request) {
-        $title = '微精弘上线了';
-        $content = '<p>微精弘终于上线了，有任何问题，请加QQ群:462530805</p>';
+        $title = '喜迎十九大';
+        $content = '
+<p>经过精弘人员的努力，服务正常时间调整为6:00 ~ 24:00</p>
+<p>感谢你对精弘的支持</p>
+<p>有任何问题，请加QQ群:462530805</p>
+';
         $show = true;
         $res = [
+            'id' => 2,
             'show' => $show,
             'title' => $title,
             'content' => $content
