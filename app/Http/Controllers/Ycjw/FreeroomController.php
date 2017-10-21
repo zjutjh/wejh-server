@@ -17,10 +17,10 @@ class FreeroomController extends Controller
         $area = $request->get('area');
         $startTime  = $request->get('startTime');
         $endTime  = $request->get('endTime');
-//        $weekday  = $request->get('weekday');
-//        $week  = $request->get('week');
-        $weekday  = $request->get('week');
-        $week  = $request->get('weekday');
+        $weekday  = $request->get('weekday');
+        $week  = $request->get('week');
+//        $weekday  = $request->get('week');
+//        $week  = $request->get('weekday');
         if(!$area or $startTime == null or $endTime == null or !$weekday or !$week) {
             return RJM(null, -1, '缺少必要参数');
         }
