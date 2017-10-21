@@ -885,7 +885,7 @@ class Api extends Model
             $lessons += pow(2, $i);
         }
 
-        $weeks = pow(2, intval($week));
+        $weeks = pow(2, intval($week) - 1);
 
         $url = api('zf.freeroom', null);
         $data = [
