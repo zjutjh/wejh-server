@@ -238,10 +238,10 @@ class ServerController extends Controller
      */
     public function unsubscribe($message) {
         //do sth.
-        if($user = User::where('openid', $message->FromUserName)->first()) {
-            $user->subscribe = 0;
-            $user->save();
-        }
+//        if($user = User::where('openid', $message->FromUserName)->first()) {
+//            $user->subscribe = 0;
+//            $user->save();
+//        }
         return;
     }
     /**
