@@ -76,6 +76,9 @@ class LoginController extends Controller
         }
 
         if ($type && $type != 'default') { // 如果是第三方登录，建立关联
+            if (!$openid) {
+                return RJM(null, -400, 'openid为空');
+            }
             try {
                 // 如果之前存在过关联，换成现在的
                 if ($link = UserLink::where([
