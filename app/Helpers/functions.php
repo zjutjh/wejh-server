@@ -104,7 +104,7 @@ function api($key, $isExt)
 {
     $configs = config('api');
     if ($isExt === null) {
-        $isExt = $configs['isExt'];
+        $isExt = env('API_EXT', false);
     }
     $route = array_get($configs, $key);
     if(!$route) {
@@ -122,7 +122,7 @@ function api($key, $isExt)
     } else {
         $url = $configs['prefix']['api'] . $route;
     }
-    if ($configs['compatible'] === true) {
+    if (env('API_COMPATIBLE', false)) {
         $url = $configs['compatibleURL'] . urlencode($configs['prefix']['api'] . $route);
     }
     return $url;
