@@ -110,8 +110,9 @@ function api($key, $isExt)
     if(!$route) {
         return false;
     }
+    $compatible = env('API_COMPATIBLE', false);
     if(is_array($route)) {
-        if ($configs['compatible'] === true) {
+        if ($compatible === true) {
             return $configs['compatibleURL'] . urlencode($route['api']);
         }
         return $isExt ? $route['ext'] : $route['api'];
@@ -122,7 +123,7 @@ function api($key, $isExt)
     } else {
         $url = $configs['prefix']['api'] . $route;
     }
-    if (env('API_COMPATIBLE', false)) {
+    if ($compatible) {
         $url = $configs['compatibleURL'] . urlencode($configs['prefix']['api'] . $route);
     }
     return $url;
