@@ -100,6 +100,10 @@ function http_get($url, $data, $timeout = 1000){//curl
     return $file_contents;
 }
 
+function cdn($path) {
+    return 'http://cdn.wejh.imcr.me/' . $path;
+}
+
 function api($key, $isExt)
 {
     $configs = config('api');

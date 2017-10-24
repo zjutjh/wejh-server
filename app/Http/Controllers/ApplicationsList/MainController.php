@@ -11,43 +11,43 @@ class MainController extends Controller
         $icons = [
             'timetable' => [
                 'bg' => 'blue',
-                'icon' => url('img/app-list/timetable.png'),
-                'card' => url('img/card-background/timetable.png'),
+                'icon' => cdn('img/app-list/timetable.png'),
+                'card' => cdn('img/card-background/timetable.png'),
             ],
             'score' => [
                 'bg' => 'red',
-                'icon' => url('img/app-list/score.png'),
+                'icon' => cdn('img/app-list/score.png'),
             ],
             'exam' => [
                 'bg' => 'green',
-                'icon' => url('img/app-list/exam.png'),
+                'icon' => cdn('img/app-list/exam.png'),
             ],
             'freeroom' => [
                 'bg' => 'red',
-                'icon' => url('img/app-list/freeroom.png'),
+                'icon' => cdn('img/app-list/freeroom.png'),
             ],
             'student' => [
                 'bg' => 'purple',
-                'icon' => url('img/app-list/student.png'),
+                'icon' => cdn('img/app-list/student.png'),
             ],
             'teacher' => [
                 'bg' => 'purple',
-                'icon' => url('img/app-list/teacher.png'),
+                'icon' => cdn('img/app-list/teacher.png'),
             ],
             'card' => [
                 'bg' => 'yellow',
-                'icon' => url('img/app-list/card.png'),
-                'card' => url('img/card-background/card.png'),
+                'icon' => cdn('img/app-list/card.png'),
+                'card' => cdn('img/card-background/card.png'),
             ],
             'borrow' => [
                 'bg' => 'blue',
-                'icon' => url('img/app-list/borrow.png'),
-                'card' => url('img/card-background/borrow.png'),
+                'icon' => cdn('img/app-list/borrow.png'),
+                'card' => cdn('img/card-background/borrow.png'),
             ],
             'tri' => [
                 'bg' => 'blue',
                 'icon' => '',
-                'card' => url('img/card-background/tri.png'),
+                'card' => cdn('img/card-background/tri.png'),
             ],
         ];
         $applicationsList = [
