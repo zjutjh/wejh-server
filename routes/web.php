@@ -18,6 +18,8 @@ Route::get('/oauth/wechat', [
     'uses' => 'Auth\OauthController@wechat']);
 Route::get('/oauth/wechat/login', [
     'uses' => 'Auth\OauthController@wechatLogin']);
+Route::get('/walk', [
+    'uses' => 'Walk\MainController@main']);
 
 // 微信服务号/订阅号名片跳转
 Route::get('/weixincard/{id}',  function ($id) {
