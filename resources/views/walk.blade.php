@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <title>毅行LINK - 查询组员联系方式</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <!-- rem 正比例缩放 -->
