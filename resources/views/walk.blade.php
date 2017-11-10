@@ -56,7 +56,17 @@
         </el-table-column>
     </el-table>
 </div>
-<script type="text/javascript" src="//tajs.qq.com/stats?sId=64098795" charset="UTF-8"></script>
+<script>
+    var _mtac = {};
+    (function() {
+        var mta = document.createElement("script");
+        mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.2";
+        mta.setAttribute("name", "MTAH5");
+        mta.setAttribute("sid", "500547472");
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(mta, s);
+    })();
+</script>
 <script src="//cdn.jsdelivr.net/npm/vue@2.5.3"></script>
 <script src="//cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 <!-- 引入组件库 -->
