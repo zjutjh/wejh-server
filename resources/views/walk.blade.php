@@ -56,6 +56,7 @@
         </el-table-column>
     </el-table>
 </div>
+<script type="text/javascript" src="//tajs.qq.com/stats?sId=64098795" charset="UTF-8"></script>
 <script src="//cdn.jsdelivr.net/npm/vue@2.5.3"></script>
 <script src="//cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 <!-- 引入组件库 -->
