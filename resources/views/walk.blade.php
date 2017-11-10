@@ -84,7 +84,11 @@
                     const result = response.body
                     if (result.errcode < 0) {
                         _this.loading = false
-                        throw new Error('error')
+                        return _this.$message({
+                            showClose: true,
+                            message: result.errmsg || '发生了一点错误',
+                            type: 'warning'
+                        })
                     }
                     if (!result.data || !result.data.length) {
                         _this.loading = false
