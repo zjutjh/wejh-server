@@ -77,8 +77,8 @@
                     _this.loading = false
                     return _this.$message.error('请输入你的身份证以及姓名')
                 }
-                _this.$http.post('http://api.lyx.name/walk_group', {
-                    idcard: _this.iid,
+                _this.$http.post('/api/walk', {
+                    iid: _this.iid,
                     name: _this.name
                 }).then(function (response) {
                     const result = response.body
