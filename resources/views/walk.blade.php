@@ -38,6 +38,7 @@
             :data="team"
             style="width: 100%"
             v-if="team.length > 0"
+            v-loading="loading"
     >
         <el-table-column
                 prop="name"
@@ -76,13 +77,11 @@
                     _this.loading = false
                     return _this.$message.error('请输入你的身份证以及姓名')
                 }
-                this.$http.post('http://api.lyx.name/walk_group', {
-                    idcard: this.iid,
-                    name: this.name
-                }, {
-                    responseType: 'json'
+                _this.$http.post('http://api.lyx.name/walk_group', {
+                    idcard: _this.iid,
+                    name: _this.name
                 }).then(function (response) {
-                    const result = response.json()
+                    const result = response.body
                     if (result.errcode < 0) {
                         _this.loading = false
                         throw new Error('error')
