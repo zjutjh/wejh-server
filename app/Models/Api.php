@@ -792,9 +792,11 @@ class Api extends Model
             'timeout' => $timeout / 1000,
         ];
 
-        if(!$arr = http_get($url, $data, $timeout)) {
+        if(!$contents = http_get($url, $data, $timeout)) {
             return $this->setError('正方服务器错误');
         }
+
+        $arr = json_decode($contents, true);
 
         if(!isset($arr['status'])) {
             return $this->setError('正方服务器错误');
