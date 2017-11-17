@@ -769,7 +769,7 @@ class Api extends Model
 
 
     /**
-     * 原创排考获取
+     * 正方排考获取
      *
      * @param string
      * @param string
@@ -778,7 +778,7 @@ class Api extends Model
      * @param integer
      * @return mixed
      */
-    public function getZfExam($user_name, $password, $year = null, $term = null, $timeout = 1000) {
+    public function getZfExam($user_name, $password, $year = null, $term = null, $timeout = 1200) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
