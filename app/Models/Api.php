@@ -822,7 +822,9 @@ class Api extends Model
             $g['日期'] = $value['日期'];
             $g['时段'] = $value['时段'];
             $g['教室'] = $value['教室'];
-            $g = $this->fixYcExam($g);
+            $g['座位号'] = $value['zwh'];
+            $g['考试方式'] = $value['ksfs'];
+            $g = $this->fixZfExam($g);
 
             $now = date('Y-m-d');
             $exam_time = strtotime($g['日']);
@@ -842,6 +844,24 @@ class Api extends Model
             'term' => $term,
             'list' => $exam_list
         ];
+    }
+
+    /**
+     * 正方排考处理
+     *
+     * @param array
+     * @return array
+     */
+    public function fixZfExam($exam) {
+        $exam['日'] = $exam['日期'];
+        $exam['星期'] = date('w', strtotime($exam['日期']));
+        $day_list = ['日', '一', '二', '三', '四', '五', '六', '日'];
+        $exam['星期名'] = $day_list[intval($exam['星期'])];
+
+        $exam['教师'] = $exam['教师'] ? $exam['教师'] : '?? - '. $exam['考试方式'];
+        $exam['教室'] = $exam['教室'] . ' - 座位号: ' . $exam['座位号'];
+
+        return $exam;
     }
 
     /**
