@@ -778,7 +778,7 @@ class Api extends Model
      * @param integer
      * @return mixed
      */
-    public function getZfExam($user_name, $password, $year = null, $term = null, $timeout = 500) {
+    public function getZfExam($user_name, $password, $year = null, $term = null, $timeout = 1000) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
