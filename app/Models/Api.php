@@ -778,25 +778,19 @@ class Api extends Model
      * @param integer
      * @return mixed
      */
-    public function getZfExam($user_name, $password, $term = null, $port = null, $timeout = 500) {
+    public function getZfExam($user_name, $password, $year = null, $term = null, $timeout = 500) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
 
-        $url = api('zf.exam', $port == null ? null : false);
+        $url = api('zf.exam', null);
         $data = [
             'username' => $user_name,
             'password' => $password,
+            'year' => $year,
+            'term' => $term,
             'timeout' => $timeout / 1000,
         ];
-        if(!$port) {
-            $url = api('zf.exam', true);
-        } else {
-            $data['ip'] = $port;
-        }
-        if($term != null && $term != "") {
-            $data['term'] = $term;
-        }
 
         if(!$arr = http_get($url, $data, $timeout)) {
             return $this->setError('正方服务器错误');
