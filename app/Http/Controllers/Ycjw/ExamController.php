@@ -25,12 +25,17 @@ class ExamController extends Controller
             $term = '2016/2017(2)';
             $user->setExt('terms.exam_term', $term);
         }
-        if(!$yc_password) {
-            return RJM(null, -1, '需要绑定');
-        }
-        list($exam_result, $errmsg) = $this->getExam($user->uno, $yc_password, $term, null, true);
-        if($errmsg) {
-            return RJM(null, -1, $errmsg);
+        $api = new Api;
+        $exam_result = $api->getUEASData('exam', $user->uno, [
+            'yc' => $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '',
+            'zf' => $ext['passwords']['zf_password'] ? decrypt($ext['passwords']['zf_password']) : ''
+        ], $term, null, true);
+
+        if(!$exam_result) {
+            if($api->getError() == '用户名或密码为空') {
+                return RJM(null, -1, '需要绑定');
+            }
+            return RJM(null, -1, $api->getError());
         }
 
         $exam_result['term'] = $term;
@@ -48,30 +53,30 @@ class ExamController extends Controller
         return RJM(null, 1, '切换学期成功');
     }
 
-    public function getExam($username, $password, $term, $port = null, $retry = false, $timeout = 900) {
-        $api = new Api;
-        $exam_result = $api->getYcExam($username, $password, $term, $port, $timeout);
-        if(!is_array($exam_result) && !$retry) {
-            if($api->getError() == '原创服务器错误') {
-                return [null, '原创教务系统炸了'];
-            }
-            return [null, $api->getError()];
-        }
-        if(!is_array($exam_result) && $retry) {
-            for ($i = 83; $i <= 86; $i++) {
-                $exam_result = $api->getYcExam($username, $password, $term, $i, $timeout);
-                if(is_array($exam_result)) {
-                    break;
-                }
-            }
-            if(!is_array($exam_result)) {
-                if($api->getError() == '原创服务器错误') {
-                    return [null, '原创教务系统炸了'];
-                }
-                return [null, $api->getError()];
-            }
-        }
-
-        return [$exam_result, ''];
-    }
+//    public function getExam($username, $password, $term, $port = null, $retry = false, $timeout = 900) {
+//        $api = new Api;
+//        $exam_result = $api->getYcExam($username, $password, $term, $port, $timeout);
+//        if(!is_array($exam_result) && !$retry) {
+//            if($api->getError() == '原创服务器错误') {
+//                return [null, '原创教务系统炸了'];
+//            }
+//            return [null, $api->getError()];
+//        }
+//        if(!is_array($exam_result) && $retry) {
+//            for ($i = 83; $i <= 86; $i++) {
+//                $exam_result = $api->getYcExam($username, $password, $term, $i, $timeout);
+//                if(is_array($exam_result)) {
+//                    break;
+//                }
+//            }
+//            if(!is_array($exam_result)) {
+//                if($api->getError() == '原创服务器错误') {
+//                    return [null, '原创教务系统炸了'];
+//                }
+//                return [null, $api->getError()];
+//            }
+//        }
+//
+//        return [$exam_result, ''];
+//    }
 }
