@@ -766,6 +766,88 @@ class Api extends Model
         ];
     }
 
+
+
+    /**
+     * 原创排考获取
+     *
+     * @param string
+     * @param string
+     * @param string
+     * @param integer
+     * @param integer
+     * @return mixed
+     */
+    public function getZfExam($user_name, $password, $term = null, $port = null, $timeout = 500) {
+        if (!$user_name OR !$password) {
+            return $this->setError('用户名或密码为空');
+        }
+
+        $url = api('zf.exam', $port == null ? null : false);
+        $data = [
+            'username' => $user_name,
+            'password' => $password,
+            'timeout' => $timeout / 1000,
+        ];
+        if(!$port) {
+            $url = api('zf.exam', true);
+        } else {
+            $data['ip'] = $port;
+        }
+        if($term != null && $term != "") {
+            $data['term'] = $term;
+        }
+
+        if(!$arr = http_get($url, $data, $timeout)) {
+            return $this->setError('正方服务器错误');
+        }
+
+        if(!isset($arr['status'])) {
+            return $this->setError('正方服务器错误');
+        }
+        if($arr['status']!='success' && $arr['msg'] == "用户名或密码错误") {
+            return $this->setError('用户名或密码错误');
+        } else if($arr['status']!='success') {
+            if ($arr['msg'] === '服务器错误') {
+                return $this->setError('正方服务器错误');
+            }
+            return $this->setError($arr['msg']);
+        }
+        if($arr['msg'] == "没有相关信息") {
+            $arr['msg'] = [];
+        }
+
+        $exam_list = [];
+        foreach ($arr['msg'] as $key => $value) {
+            $g = array();
+            $g['班级'] = $value['班级'];
+            $g['教师'] = $value['教师'];
+            $g['课程'] = $value['课程'];
+            $g['日期'] = $value['日期'];
+            $g['时段'] = $value['时段'];
+            $g['教室'] = $value['教室'];
+            $g = $this->fixYcExam($g);
+
+            $now = date('Y-m-d');
+            $exam_time = strtotime($g['日']);
+            $now_time = strtotime($now);
+            $between = ($exam_time - $now_time) / 3600 / 24;
+            $g['倒计时'] = $between;
+
+            if($between < 0) {
+                $g['倒计时名'] = '已经过去' . -$between . '天';
+            } else {
+                $g['倒计时名'] = '还有' . $between . '天';
+            }
+
+            array_push($exam_list, $g);
+        }
+        return [
+            'term' => $term,
+            'list' => $exam_list
+        ];
+    }
+
     /**
      * 原创排考处理
      *
