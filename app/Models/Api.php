@@ -224,6 +224,9 @@ class Api extends Model
                         break;
                 }
                 $func = 'get' . 'Zf' . ucwords($type);
+                if (!$password['zf']) {
+                    return $this->setError('请先绑定正方账号');
+                }
                 try {
                     return $this->$func($username, $password['zf'], $year, $term, 1700);
                 } catch (Exception $e) {
@@ -232,6 +235,9 @@ class Api extends Model
             }
         }
         $func = 'get' . 'Yc' . ucwords($type);
+        if (!$password['yc']) {
+            return $this->setError('请先绑定原创账号');
+        }
         try {
             $result = $this->$func($username, $password['yc'], $term, $port, $timeout);
             if(!is_array($result) && !$retry) {
