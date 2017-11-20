@@ -32,7 +32,7 @@ class OauthController extends Controller
         }
         $unionid = $wechatUser->original['unionid'];
 
-        return redirect('http://wejh-server.dev?unionid=' . $unionid);
+        return redirect(url('/') . '?unionid=' . $unionid);
     }
 
     // 小程序code换取openid
@@ -52,6 +52,10 @@ class OauthController extends Controller
         $miniProgram = $app->mini_program;
         $userService = $app->user;
         $result = $miniProgram->sns->getSessionKey($code);
+
+        if (!$result->unionid) {
+            return RJM(null, -1, '请先关注"zjutjh"和"jxhzjut"公众号');
+        }
 
         return RJM([
             'openid' => $result->unionid,
