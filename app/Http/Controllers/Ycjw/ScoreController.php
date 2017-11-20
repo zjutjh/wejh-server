@@ -21,6 +21,9 @@ class ScoreController extends Controller
         if ($start_grade <= 2013 && $year > 2016) {
             $term = '2016/2017(2)';
             $user->setExt('terms.score_term', $term);
+        } else if ($start_grade >= 2017 && $year <= 2016) {
+            $term = '2017/2018(1)';
+            $user->setExt('terms.exam_term', $term);
         }
         $api = new Api;
         $score_result = $api->getUEASData('score', $user->uno, [

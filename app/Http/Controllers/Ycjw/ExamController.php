@@ -15,7 +15,6 @@ class ExamController extends Controller
             return RJM(null, -1, '没有认证信息');
         }
         $ext = $user->ext;
-        $yc_password = $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '';
         $term = $ext['terms']['exam_term'];
 
         $start_grade = intval(substr($user->uno, 0, 4));
@@ -23,6 +22,9 @@ class ExamController extends Controller
         $year = intval($pregResult[0][0]);
         if ($start_grade <= 2013 && $year > 2016) {
             $term = '2016/2017(2)';
+            $user->setExt('terms.exam_term', $term);
+        } else if ($start_grade >= 2017 && $year <= 2016) {
+            $term = '2017/2018(1)';
             $user->setExt('terms.exam_term', $term);
         }
         $api = new Api;
