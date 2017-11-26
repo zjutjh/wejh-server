@@ -12,6 +12,6 @@ class ViewController extends Controller
     {
         $url = $request->get('url');
         $content = http_get($url);
-        return redirect($url);
+        return $content;
     }
 }
