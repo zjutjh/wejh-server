@@ -49,9 +49,9 @@ class MainController extends Controller
                 'icon' => '',
                 'card' => cdn('img/card-background/tri.png'),
             ],
-            'post' => [
+            'publicity' => [
                 'bg' => 'green',
-                'icon' => cdn('img/app-list/post.png'),
+                'icon' => cdn('img/app-list/publicity.png'),
             ],
         ];
         $applicationsList = [
@@ -101,8 +101,8 @@ class MainController extends Controller
             [
                 'title' => '成员公示',
                 'url' => secure_url('/wechat/view') . '?url=' . urlencode('https://mp.weixin.qq.com/s/NjcwPbPTbbzKyji9fn9K1Q'),
-                'bg' => $icons['post']['bg'],
-                'icon' => $icons['post']['icon'],
+                'bg' => $icons['publicity']['bg'],
+                'icon' => $icons['publicity']['icon'],
             ],
         ];
 
