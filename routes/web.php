@@ -22,6 +22,8 @@ Route::get('/walk', [
     'uses' => 'Walk\MainController@main']);
 Route::get('/wechat/view', [
     'uses' => 'Wechat\ViewController@view']);
+Route::get('/wechat/image', [
+    'uses' => 'Wechat\ViewController@image']);
 
 // 微信服务号/订阅号名片跳转
 Route::get('/weixincard/{id}',  function ($id) {
