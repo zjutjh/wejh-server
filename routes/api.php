@@ -72,6 +72,8 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'Ycjw\MainController@bindZf']);
         Route::get('/ycjw/score', [
             'uses' => 'Ycjw\ScoreController@score']);
+        Route::get('/ycjw/scoreDetail', [
+            'uses' => 'Ycjw\ScoreController@detail']);
         Route::PUT('/ycjw/score', [
             'uses' => 'Ycjw\ScoreController@update']);
         Route::get('/ycjw/timetable', [

@@ -352,7 +352,7 @@ class Api extends Model
             'timeout' => $timeout / 1000,
         ];
         if(!$contents = http_get($url, $data, $timeout)) {
-            return $this->setError('原创服务器错误');
+            return $this->setError('正方服务器错误');
         }
         // 处理掉偶尔出现的空白符
         $preg = '/{.*}/';
@@ -386,6 +386,66 @@ class Api extends Model
         $res = [
             'list' => $score_list,
             'gpa' => $this->getGpa($score_list)
+        ];
+
+        return $res;
+    }
+
+    /**
+     * 正方成绩明细获取
+     *
+     * @param string
+     * @param string
+     * @param string
+     * @param integer
+     * @param integer
+     * @return mixed
+     */
+    public function getZfScoreDetail($user_name, $password, $year = null, $term = null, $timeout = 500) {
+        if (!$user_name OR !$password) {
+            return $this->setError('用户名或密码为空');
+        }
+        $url = api('zf.scoreDetail', null);
+        $data = [
+            'username' => $user_name,
+            'password' => $password,
+            'year' => $year,
+            'term' => $term,
+            'timeout' => $timeout / 1000,
+        ];
+        if(!$contents = http_get($url, $data, $timeout)) {
+            return $this->setError('正方服务器错误');
+        }
+        // 处理掉偶尔出现的空白符
+        $preg = '/{.*}/';
+        preg_match_all($preg, $contents, $array);
+        $arr = json_decode($array[0][0], true);
+
+        if(!isset($arr['status'])) {
+            return $this->setError('正方服务器错误');
+        }
+        if($arr['status'] != 'success') {
+            if ($arr['msg'] === '服务器错误') {
+                return $this->setError('正方服务器错误');
+            }
+            return $this->setError($arr['msg']);
+        }
+        if($arr['msg'] == "没有相关信息") {
+            $arr['msg'] = [];
+        }
+        $score_list = [];
+        //务必对做接受来的数据做一个转换
+        foreach ($arr['msg'] as $key => $value) {
+            $g = array();
+            $g['学期']=$value['学期'];
+            $g['名称']=$value['名称'];
+            $g['成绩']=$value['成绩'];
+            $g['成绩分项']=$value['成绩分项'];
+            $g['学分']=$value['学分'];
+            array_push($score_list,$g);
+        }
+        $res = [
+            'list' => $score_list
         ];
 
         return $res;

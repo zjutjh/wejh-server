@@ -28,6 +28,7 @@ $zf = [
     'class' => 'classZf.php',
     'exam' => 'examQueryZf.php',
     'freeroom' => 'roomZf.php',
+    'scoreDetail' => 'scoresDetailZf.php'
 ];
 
 $library = [
