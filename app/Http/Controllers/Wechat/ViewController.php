@@ -12,7 +12,7 @@ class ViewController extends Controller
     {
         $url = $request->get('url');
         $content = http_get($url);
-        $content = preg_replace('/data-src="([^"]+)"/is', 'src="' . 'http://wejh-server.dev/wechat/image' . '?url=' . ('$1') . '"', $content);
+        $content = preg_replace('/data-src="([^"]+)"/is', 'src="' . 'http://server.wejh.imcr.me/wechat/image' . '?url=' . ('$1') . '"', $content);
         return $content;
     }
 
