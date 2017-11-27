@@ -35,7 +35,7 @@ class MainController extends Controller
         if($check == false) {
             $error = $api->getError();
             if ($error === '用户名或密码错误') {
-                $error = '用户名或密码错误, 正方密码是你选课的密码';
+                $error = "用户名或密码错误\n正方密码是你选课的密码";
             }
             return RJM(null, -1, $error);
         }
