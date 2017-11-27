@@ -33,11 +33,15 @@ class MainController extends Controller
             'zf' => $password
         ], '2017/2018(1)', null, true);
         if($check == false) {
-            return RJM(null, -1, $api->getError());
+            $error = $api->getError();
+            if ($error === '用户名或密码错误') {
+                $error = '用户名或密码错误, 正方密码是你选课的密码';
+            }
+            return RJM(null, -1, $error);
         }
         $user->setExt('passwords.zf_password', encrypt($password));
 
-        return RJM($user, 1, '绑定原创账号成功');
+        return RJM($user, 1, '绑定正方账号成功');
     }
 
     /**
