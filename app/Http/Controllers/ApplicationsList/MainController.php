@@ -99,8 +99,8 @@ class MainController extends Controller
                 'icon' => $icons['borrow']['icon'],
             ],
             [
-                'title' => '成员公示',
-                'url' => secure_url('/wechat/view') . '?url=' . urlencode('https://mp.weixin.qq.com/s/NjcwPbPTbbzKyji9fn9K1Q'),
+                'title' => '工大官网',
+                'url' => secure_url('/zjut/view') . '?url=' . urlencode('http://www.zjut.edu.cn'),
                 'bg' => $icons['publicity']['bg'],
                 'icon' => $icons['publicity']['icon'],
             ],
