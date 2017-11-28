@@ -94,7 +94,7 @@ class MainController extends Controller
     {
         $url = $request->get('url');
         $content = http_get($url);
-        $content = iconv('GBK//IGNORE', 'UTF-8', $content);
+        $content = iconv('GBK//IGNORE', 'UTF-8//IGNORE', $content);
         $content = preg_replace('/"([^".]+).gif"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.gif"', $content);
         $content = preg_replace('/"([^".]+).jpg"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jpg"', $content);
         $content = preg_replace('/\'([^".]+).jpg\'/is', '\'' . 'http://www.zjut.edu.cn/' . ('$1') . '.jpg\'', $content);
@@ -104,7 +104,7 @@ class MainController extends Controller
         $content = preg_replace('/"([^"\/\/]+).jsp([^"]+)"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jsp$2"', $content);
         $content = preg_replace('/\'([^"\/\/]+).jsp([^"]+)\'/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jsp$2"', $content);
         $content = preg_replace('/<a href="([^"]+)\/\/([^"]+)"/is', '<a href="' . url('zjut/view') . '?url=' . ('$1') . '//$2"', $content);
-        $content = preg_replace('/href="([^"]+)\/\/([^"]+)" target="_blank"/is', 'href="' . url('zjut/view') . '?url=' . ('$1') . '//$2" target="_blank"', $content);
+        $content = preg_replace('/none;\' href="([^"]+)\/\/([^"]+)" target="_blank"/is', 'none;\' href="' . url('zjut/view') . '?url=' . ('$1') . '//$2" target="_blank"', $content);
         $content = preg_replace('/\(\.\.\/([^\)]+).png\)/is', '(' . 'http://www.zjut.edu.cn/' . ('$1') . '.png)', $content);
 
         return $content;
