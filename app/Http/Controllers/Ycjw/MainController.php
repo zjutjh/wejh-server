@@ -102,6 +102,7 @@ class MainController extends Controller
         // $content = preg_replace('/href="([^".]+).css"/is', 'href="' . 'http://www.zjut.edu.cn/' . ('$1') . '.css"', $content);
         // $content = preg_replace('/"([^"]+).js"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.js"', $content);
         $content = preg_replace('/"([^"\/\/]+).jsp([^"]+)"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jsp$2"', $content);
+        $content = preg_replace('/\'([^"\/\/]+).jsp([^"]+)\'/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jsp$2"', $content);
         $content = preg_replace('/<a href="([^"]+)\/\/([^"]+)"/is', '<a href="' . url('zjut/view') . '?url=' . ('$1') . '//$2"', $content);
         $content = preg_replace('/\(\.\.\/([^\)]+).png\)/is', '(' . 'http://www.zjut.edu.cn/' . ('$1') . '.png)', $content);
 
