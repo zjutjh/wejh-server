@@ -89,4 +89,45 @@ class MainController extends Controller
         }
         return [$check, $error];
     }
+
+    public function view(Request $request)
+    {
+        $url = $request->get('url');
+        $content = http_get($url);
+        $content = iconv('GBK//IGNORE', 'UTF-8', $content);
+        $content = preg_replace('/"([^".]+).gif"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.gif"', $content);
+        $content = preg_replace('/"([^".]+).jpg"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jpg"', $content);
+        $content = preg_replace('/href="([^".]+).css"/is', 'href="' . 'http://www.zjut.edu.cn/' . ('$1') . '.css"', $content);
+        $content = preg_replace('/"([^"]+).js"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.js"', $content);
+        $content = preg_replace('/"([^"\/\/]+).jsp([^"]+)"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jsp$2"', $content);
+        $content = preg_replace('/<a href="([^"]+)\/\/([^"]+)"/is', '<a href="' . url('zjut/view') . '?url=' . ('$1') . '//$2"', $content);
+
+        return $content;
+    }
+
+    public function image($path, $file)
+    {
+        // $url = $request->get('url');
+        if (preg_match('/gif$/', $file)) {
+            $type = 'image/gif';
+        } else {
+            $type = 'image/jpeg';
+        }
+        $content = file_get_contents('http://www.zjut.edu.cn/image/' . $path . '/' . $file);
+        return response($content)->header('Content-Type', $type);
+    }
+
+    public function js($file)
+    {
+        // $url = $request->get('url');
+        $content = file_get_contents('http://www.zjut.edu.cn/js/' . '/' . $file);
+        return response($content);
+    }
+
+    public function css($file)
+    {
+        // $url = $request->get('url');
+        $content = file_get_contents('http://www.zjut.edu.cn/css/' . '/' . $file);
+        return response($content);
+    }
 }

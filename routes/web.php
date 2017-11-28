@@ -25,6 +25,15 @@ Route::get('/wechat/view', [
 Route::get('/wechat/image', [
     'uses' => 'Wechat\ViewController@image']);
 
+Route::get('/zjut/view', [
+    'uses' => 'Ycjw\MainController@view']);
+Route::get('/zjut/image/{path}/{file}', [
+    'uses' => 'Ycjw\MainController@image']);
+Route::get('/zjut/js/{file}', [
+    'uses' => 'Ycjw\MainController@js']);
+Route::get('/zjut/css/{file}', [
+    'uses' => 'Ycjw\MainController@css']);
+
 // 微信服务号/订阅号名片跳转
 Route::get('/weixincard/{id}',  function ($id) {
     return redirect('https://mp.weixin.qq.com/mp/profile_ext?action=home&scene=110&__biz='.$id.'==#wechat_redirect');
