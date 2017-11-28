@@ -97,6 +97,7 @@ class MainController extends Controller
         $content = iconv('GBK//IGNORE', 'UTF-8', $content);
         $content = preg_replace('/"([^".]+).gif"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.gif"', $content);
         $content = preg_replace('/"([^".]+).jpg"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jpg"', $content);
+        $content = preg_replace('/"([^".]+).png"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.png"', $content);
         // $content = preg_replace('/href="([^".]+).css"/is', 'href="' . 'http://www.zjut.edu.cn/' . ('$1') . '.css"', $content);
         // $content = preg_replace('/"([^"]+).js"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.js"', $content);
         $content = preg_replace('/"([^"\/\/]+).jsp([^"]+)"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jsp$2"', $content);
@@ -110,9 +111,11 @@ class MainController extends Controller
         // $url = $request->get('url');
         if (preg_match('/gif$/', $file)) {
             $type = 'image/gif';
+        } else if (preg_match('/png/', $file)) {
+            $type = 'image/png';
         } else {
-            $type = 'image/jpeg';
-        }
+        $type = 'image/jpeg';
+    }
         $content = file_get_contents('http://www.zjut.edu.cn/image/' . $path . '/' . $file);
         return response($content)->header('Content-Type', $type);
     }
@@ -121,13 +124,15 @@ class MainController extends Controller
     {
         // $url = $request->get('url');
         $content = file_get_contents('http://www.zjut.edu.cn/js/' . '/' . $file);
-        return response($content);
+        return response($content)->header('Content-Type', 'application/x-javascript');
     }
 
     public function css($file)
     {
         // $url = $request->get('url');
         $content = file_get_contents('http://www.zjut.edu.cn/css/' . '/' . $file);
-        return response($content);
+        // $content = iconv('GBK//IGNORE', 'UTF-8', $content);
+        $content = preg_replace('/\(\.\.\/([^\)]+).jpg\)/is', '(' . 'http://www.zjut.edu.cn/' . ('$1') . '.jpg)', $content);
+        return response($content)->header('Content-Type', 'text/css');
     }
 }
