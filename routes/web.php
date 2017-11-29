@@ -9,7 +9,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Http\Request;
 
 Route::get('/',  function () {
     return response('微精弘');
@@ -33,6 +33,10 @@ Route::get('/zjut/js/{file}', [
     'uses' => 'Ycjw\MainController@js']);
 Route::get('/zjut/css/{file}', [
     'uses' => 'Ycjw\MainController@css']);
+Route::get('/zjutsso/{path}',   function ($path, Request $request) {
+    $params = $request->all();
+    return redirect('http://www.zjut.edu.cn/zjutsso/' . $path . '?' . http_build_query($params));
+});
 
 // 微信服务号/订阅号名片跳转
 Route::get('/weixincard/{id}',  function ($id) {

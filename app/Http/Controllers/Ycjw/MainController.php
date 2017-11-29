@@ -93,7 +93,11 @@ class MainController extends Controller
     public function view(Request $request)
     {
         $url = $request->get('url');
-        @$content = http_get($url);
+        $params = $request->except('url');
+        @$content = http_get($url . '?' . http_build_query($params));
+        if (!preg_match('/www.zjut.edu.cn/', $url)) {
+            return redirect($url . '?' . http_build_query($params));
+        }
         $content = $content ? $content : '';
         $content = iconv('GBK//IGNORE', 'UTF-8//IGNORE', $content);
         $content = preg_replace('/"([^".]+).gif"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.gif"', $content);
