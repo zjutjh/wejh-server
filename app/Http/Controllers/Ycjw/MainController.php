@@ -93,7 +93,8 @@ class MainController extends Controller
     public function view(Request $request)
     {
         $url = $request->get('url');
-        $content = http_get($url);
+        @$content = http_get($url);
+        $content = $content ? $content : '';
         $content = iconv('GBK//IGNORE', 'UTF-8//IGNORE', $content);
         $content = preg_replace('/"([^".]+).gif"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.gif"', $content);
         $content = preg_replace('/"([^".]+).jpg"/is', '"' . 'http://www.zjut.edu.cn/' . ('$1') . '.jpg"', $content);
@@ -118,25 +119,25 @@ class MainController extends Controller
         } else if (preg_match('/png/', $file)) {
             $type = 'image/png';
         } else {
-        $type = 'image/jpeg';
-    }
-        $content = file_get_contents('http://www.zjut.edu.cn/image/' . $path . '/' . $file);
+            $type = 'image/jpeg';
+        }
+        @$content = file_get_contents('http://www.zjut.edu.cn/image/' . $path . '/' . $file);
         return response($content)->header('Content-Type', $type);
     }
 
     public function js($file)
     {
         // $url = $request->get('url');
-        $content = file_get_contents('http://www.zjut.edu.cn/js/' . '/' . $file);
+        @$content = file_get_contents('http://www.zjut.edu.cn/js/' . '/' . $file);
         return response($content)->header('Content-Type', 'application/x-javascript');
     }
 
     public function css($file)
     {
         // $url = $request->get('url');
-        $content = file_get_contents('http://www.zjut.edu.cn/css/' . '/' . $file);
+        @$content = file_get_contents('http://www.zjut.edu.cn/css/' . '/' . $file);
         // $content = iconv('GBK//IGNORE', 'UTF-8', $content);
-        $content = preg_replace('/\(\.\.\/([^\)]+).jpg\)/is', '(' . 'http://www.zjut.edu.cn/' . ('$1') . '.jpg)', $content);
+        $content = preg_replace('/\(\.\.\/([^\)]+).jpg\)/is', '(' . 'http://www.zjut.edu.cn/' . ('$1') . '.jpg)', $content ? $content : '');
         return response($content)->header('Content-Type', 'text/css');
     }
 }
