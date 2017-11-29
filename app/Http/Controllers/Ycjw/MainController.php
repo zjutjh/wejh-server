@@ -94,6 +94,17 @@ class MainController extends Controller
     {
         $url = $request->get('url');
         $params = $request->except('url');
+        $urlObj = parse_url($url);
+        $url = $urlObj['scheme'] . '://' . $urlObj['host'] . (isset($urlObj['path']) ? $urlObj['path'] : '');
+        if (isset($urlObj['query'])) {
+            $queryStr = explode('&', $urlObj['query']);
+            $query = [];
+            foreach ($queryStr as $key => $value) {
+                $singleQuery = explode('=', $value);
+                $query[$singleQuery[0]] = $singleQuery[1];
+            }
+            $params = array_merge($params, $query);
+        }
         @$content = http_get($url . '?' . http_build_query($params));
         if (!preg_match('/www.zjut.edu.cn/', $url)) {
             return redirect($url . '?' . http_build_query($params));
