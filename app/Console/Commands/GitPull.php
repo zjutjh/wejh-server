@@ -40,7 +40,7 @@ class GitPull extends Command
         $ref = $this->argument('ref');
         if ($ref === env('GIT_BRANCH', 'refs/heads/master')) {
             $basePath = base_path();
-            exec("cd $basePath\ngit reset --hard\ngit pull", $output);
+            exec("cd $basePath\ngit reset --hard\ngit pull >/dev/null &", $output);
 
             echo nl2br(implode($output, "\n"));
         }
