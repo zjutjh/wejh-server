@@ -260,7 +260,7 @@ class ServerController extends Controller
             $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $accessToken;
             $res = http_post($url, $post_data, 500, 'json');
             $result = json_decode($res, true);
-            if (intval($result['code']) > 0) {
+            if (isset($result['errcode']) && intval($result['errcode']) > 0) {
                 $this->get_weapp_access_token(true);
             }
             return '';
