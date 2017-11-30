@@ -216,7 +216,7 @@ class ServerController extends Controller
     }
 
     public function get_weapp_access_token() {
-        $accessTokenArray = system('weapp_access_token');
+        $accessTokenArray = setting('weapp_access_token');
 
         if ($accessTokenArray && intval($accessTokenArray['expires']) > time()) {
             return $accessTokenArray['access_token'];
