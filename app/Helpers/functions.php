@@ -53,14 +53,13 @@ function http_post($url, $post_data = null, $timeout = 500, $type = 'default'){/
     curl_setopt($ch, CURLOPT_HEADER, false);
     if($post_data){
         if ($type === 'json') {
-            $data_string = json_encode($post_data);
+            $data_string = json_encode($post_data, JSON_UNESCAPED_UNICODE);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',
-                    'Content-Length: ' . strlen($data_string))
+                    'Content-Length: ' . mb_strlen($data_string))
             );
-        } else {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
         }
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
     }
     $file_contents = curl_exec($ch);
     curl_close($ch);
