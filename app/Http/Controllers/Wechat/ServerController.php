@@ -229,7 +229,7 @@ class ServerController extends Controller
                 "msgtype" => "mpnews",
                 "media_id" => 'FYWNKHdu8OhsNP5g3dbb-tPZMTqkmYM1XkI3n10gcX0'
             ];
-            http_post('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $accessToken, $post_data);
+            http_post('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $accessToken, $post_data, 500, 'json');
             return '';
         }
         return '';

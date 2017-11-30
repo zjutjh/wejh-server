@@ -43,17 +43,25 @@ function setting($varname)
  * @param  int      $timeout    超时时间，毫秒级
  * @return mixed
  */
-function http_post($url, $post_data = null, $timeout = 500){//curl
+function http_post($url, $post_data = null, $timeout = 500, $type = 'default'){//curl
     $ch = curl_init();
     curl_setopt ($ch, CURLOPT_URL, $url);
     curl_setopt ($ch, CURLOPT_POST, 1);
-    if($post_data){
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-    }
     curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
     curl_setopt ($ch, CURLOPT_TIMEOUT_MS, $timeout);
     curl_setopt($ch, CURLOPT_HEADER, false);
+    if($post_data){
+        if ($type === 'json') {
+            $data_string = json_encode($post_data);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($data_string))
+            );
+        } else {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        }
+    }
     $file_contents = curl_exec($ch);
     curl_close($ch);
     if (env('APP_DEBUG') === true) {
