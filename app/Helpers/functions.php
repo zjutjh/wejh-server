@@ -32,8 +32,8 @@ function RJM($data, $err_code, $err_msg = '', $redirect_url = null)
  */
 function setting($varname)
 {
-    $val = \App\Models\SystemSetting::where('varname', $varname)->value('value');
-    return $val;
+    $result = \App\Models\SystemSetting::where('varname', $varname)->first();
+    return $result->value;
 }
 
 /**
