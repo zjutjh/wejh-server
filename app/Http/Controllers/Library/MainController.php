@@ -20,6 +20,16 @@ class MainController extends Controller
         }
         $api = new Api;
         $result = $api->getBookBorrow($user->uno, $lib_password);
+
+        $list = $result['borrow_list'];
+        $times = 0;
+        while (count($list) < $result['borrow_num'] && $times < 6) {
+            $result = $api->getBookBorrow($user->uno, $lib_password, 'next', $result['session']);
+            $list = array_merge($list, $result['borrow_list'] ? $result['borrow_list'] : []);
+            $times++;
+        }
+        $result['borrow_list'] = $list;
+
         if(!$result) {
             return RJM(null, -1, $api->getError());
         }
