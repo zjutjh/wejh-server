@@ -222,7 +222,7 @@ class ServerController extends Controller
     public function user_enter_tempsession($message) {
         $SessionFrom = $message->SessionFrom;
         if ($SessionFrom === 'follow') {
-            $material = new Material('mpnews', '502376411');
+            $material = new Material('mpnews', 'FYWNKHdu8OhsNP5g3dbb-tPZMTqkmYM1XkI3n10gcX0');
             return $material;
         }
         return '';
