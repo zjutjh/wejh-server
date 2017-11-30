@@ -61,10 +61,11 @@ class SystemSetting extends Model
     {
         if(!$this->getSetting($varname))
         {
-            return $this->create([
+            $this->create([
                 'varname' => $varname,
                 'value' => $value,
             ]);
+            return true;
         }
         else
         {
@@ -85,9 +86,9 @@ class SystemSetting extends Model
             return false;
         }
         foreach ($vars as $key => $val) {
-            $this->where('varname', $key)->update(array(
-                'value' => $val
-            ));
+            $setting = $this->where('varname', $key)->first();
+            $setting->value = $val;
+            $setting->save();
         }
         return true;
     }
