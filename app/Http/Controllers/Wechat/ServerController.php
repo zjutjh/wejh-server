@@ -210,8 +210,21 @@ class ServerController extends Controller
      *
      * @return string
      */
-    public function user_enter_session_from_card($message)
-    {
+    public function user_enter_session_from_card($message) {
+        return '';
+    }
+
+    /**
+     * 处理用户进入临时会话事件
+     *
+     * @return string
+     */
+    public function user_enter_tempsession($message) {
+        $SessionFrom = $message->SessionFrom;
+        if ($SessionFrom === 'follow') {
+            $material = new Material('mpnews', '502376411');
+            return $material;
+        }
         return '';
     }
     /**
