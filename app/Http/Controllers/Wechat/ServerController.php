@@ -222,8 +222,15 @@ class ServerController extends Controller
     public function user_enter_tempsession($message) {
         $SessionFrom = $message->SessionFrom;
         if ($SessionFrom === 'follow') {
-            $material = new Material('mpnews', 'FYWNKHdu8OhsNP5g3dbb-tPZMTqkmYM1XkI3n10gcX0');
-            return $material;
+            $accessToken = $this->wechat->access_token->getToken();
+            $openId = $message->FromUserName;
+            $post_data = [
+                "touser" => $openId,
+                "msgtype" => "mpnews",
+                "media_id" => 'FYWNKHdu8OhsNP5g3dbb-tPZMTqkmYM1XkI3n10gcX0'
+            ];
+            http_post('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $accessToken, $post_data);
+            return '';
         }
         return '';
     }
