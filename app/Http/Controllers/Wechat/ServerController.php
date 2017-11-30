@@ -215,10 +215,10 @@ class ServerController extends Controller
         return '';
     }
 
-    public function get_weapp_access_token() {
+    public function get_weapp_access_token($get_new = false) {
         $accessTokenArray = setting('weapp_access_token');
 
-        if ($accessTokenArray && intval($accessTokenArray['expires']) > time()) {
+        if ($accessTokenArray && intval($accessTokenArray['expires']) > time() && !$get_new) {
             return $accessTokenArray['access_token'];
         }
 
@@ -257,7 +257,12 @@ class ServerController extends Controller
                     'thumb_url' => 'https://mmbiz.qlogo.cn/mmbiz_png/Fa51x3HOXotMMW7tZprORYlreY9BEzcFLyfe5LaSrZBVNUGWpSnCBaT2OvVNUKZmkAp0NHic1q7yEtdtMVDgNkA/0?wx_fmt=png'
                 ]
             ];
-            http_post('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $accessToken, $post_data, 500, 'json');
+            $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $accessToken;
+            $res = http_post($url, $post_data, 500, 'json');
+            $result = json_decode($res, true);
+            if (intval($result['code']) > 0) {
+                $this->get_weapp_access_token(true);
+            }
             return '';
         }
         return '';

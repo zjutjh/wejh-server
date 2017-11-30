@@ -53,7 +53,7 @@ function http_post($url, $post_data = null, $timeout = 500, $type = 'default'){/
     curl_setopt($ch, CURLOPT_HEADER, false);
     if($post_data){
         if ($type === 'json') {
-            $post_data = json_encode($post_data, JSON_UNESCAPED_UNICODE);
+            $post_data = json_encode($post_data, JSON_UNESCAPED_SLASHES);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',
                     'Content-Length: ' . mb_strlen($post_data))
