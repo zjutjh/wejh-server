@@ -27,7 +27,7 @@ use App\Jobs\SendTemplateMessage;
 class WeappServerController extends Controller
 {
     public $wechat;
-    public $default_message = '这是一条默认消息';
+    public $default_message = '对面没有人哦~想要反馈的话，请点击"我的"-"反馈"，然后点击"我要反馈"输入微精弘的相关反馈建议';
     public function __construct()
     {
         $this->wechat = app('wechat');
@@ -89,7 +89,7 @@ class WeappServerController extends Controller
     public function text($message)
     {
         // $response = $this->matchKeyword($message);
-        return '';
+        return $this->default_message;
     }
 
     /**
