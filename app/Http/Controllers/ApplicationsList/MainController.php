@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 class MainController extends Controller
 {
     public function applicationsList(Request $request) {
+        $colors = ['red', 'green', 'blue', 'yellow', 'purple'];
         $icons = [
             'timetable' => [
                 'bg' => 'blue',
@@ -50,11 +51,11 @@ class MainController extends Controller
                 'card' => cdn('img/card-background/tri.png'),
             ],
             'publicity' => [
-                'bg' => 'green',
+                'bg' => array_random($colors)[0],
                 'icon' => cdn('img/app-list/publicity.png'),
             ],
             'square' => [
-                'bg' => 'purple',
+                'bg' => array_random($colors)[0],
                 'icon' => cdn('img/app-list/square.png'),
             ],
         ];
@@ -103,16 +104,16 @@ class MainController extends Controller
                 'icon' => $icons['borrow']['icon'],
             ],
             [
-                'title' => '吐个槽',
-                'module' => 'feedback',
-                'bg' => $icons['square']['bg'],
-                'icon' => $icons['square']['icon'],
-            ],
-            [
                 'title' => '工大官网',
                 'url' => secure_url('/zjut/view') . '?url=' . urlencode('http://www.zjut.edu.cn'),
                 'bg' => $icons['publicity']['bg'],
                 'icon' => $icons['publicity']['icon'],
+            ],
+            [
+                'title' => '吐个槽',
+                'module' => 'feedback',
+                'bg' => $icons['square']['bg'],
+                'icon' => $icons['square']['icon'],
             ],
         ];
 
