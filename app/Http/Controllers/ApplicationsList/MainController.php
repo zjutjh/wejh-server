@@ -103,16 +103,16 @@ class MainController extends Controller
                 'icon' => $icons['borrow']['icon'],
             ],
             [
-                'title' => '工大官网',
-                'url' => secure_url('/zjut/view') . '?url=' . urlencode('http://www.zjut.edu.cn'),
-                'bg' => $icons['publicity']['bg'],
-                'icon' => $icons['publicity']['icon'],
-            ],
-            [
                 'title' => '吐个槽',
                 'module' => 'feedback',
                 'bg' => $icons['square']['bg'],
                 'icon' => $icons['square']['icon'],
+            ],
+            [
+                'title' => '工大官网',
+                'url' => secure_url('/zjut/view') . '?url=' . urlencode('http://www.zjut.edu.cn'),
+                'bg' => $icons['publicity']['bg'],
+                'icon' => $icons['publicity']['icon'],
             ],
         ];
 
