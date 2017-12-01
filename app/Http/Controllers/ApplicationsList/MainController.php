@@ -53,6 +53,10 @@ class MainController extends Controller
                 'bg' => 'green',
                 'icon' => cdn('img/app-list/publicity.png'),
             ],
+            'square' => [
+                'bg' => 'purple',
+                'icon' => cdn('img/app-list/square.png'),
+            ],
         ];
         $applicationsList = [
             [
@@ -103,6 +107,12 @@ class MainController extends Controller
                 'url' => secure_url('/zjut/view') . '?url=' . urlencode('http://www.zjut.edu.cn'),
                 'bg' => $icons['publicity']['bg'],
                 'icon' => $icons['publicity']['icon'],
+            ],
+            [
+                'title' => '吐个槽',
+                'module' => 'feedback',
+                'bg' => $icons['square']['bg'],
+                'icon' => $icons['square']['icon'],
             ],
         ];
 
