@@ -51,11 +51,11 @@ class MainController extends Controller
                 'card' => cdn('img/card-background/tri.png'),
             ],
             'publicity' => [
-                'bg' => array_random($colors)[0],
+                'bg' => array_random($colors),
                 'icon' => cdn('img/app-list/publicity.png'),
             ],
             'square' => [
-                'bg' => array_random($colors)[0],
+                'bg' => array_random($colors),
                 'icon' => cdn('img/app-list/square.png'),
             ],
         ];
