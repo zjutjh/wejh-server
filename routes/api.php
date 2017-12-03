@@ -17,6 +17,8 @@ Route::any('/wechat',  [
     'uses' => 'Wechat\ServerController@serve']);
 Route::any('/weapp',  [
     'uses' => 'Wechat\WeappServerController@serve']);
+Route::any('/tucao',  [
+    'uses' => 'Tucao\ServerController@serve']);
 
 Route::any('/git/pull',  function (Request $request) {
     Artisan::call('git:pull', [
