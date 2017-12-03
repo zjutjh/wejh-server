@@ -14,27 +14,27 @@ class ServerController extends Controller
      */
     public function serve(Request $request)
     {
-        $type = $request->input('input');
+        $type = $request->input('type');
         $payload = $request->input('payload');
         switch ($type) {
             case "post.created":
                 // 业务代码
-                $this->sendMessage('有一个新的留言');
+                $this->sendMessage('有一个新的留言', $payload);
                 return RJM(null, 1);
                 break;
             case "post.updated":
                 // 业务代码
-                $this->sendMessage('有一个留言被更新了');
+                $this->sendMessage('有一个留言被更新了', $payload);
                 return RJM(null, 1);
                 break;
             case "reply.created":
                 // 业务代码
-                $this->sendMessage('有一个新的回复');
+                $this->sendMessage('有一个新的回复', $payload);
                 return RJM(null, 1);
                 break;
             case "reply.updated":
                 // 业务代码
-                $this->sendMessage('有一个回复被更新了');
+                $this->sendMessage('有一个回复被更新了', $payload);
                 return RJM(null, 1);
                 break;
             default:
@@ -48,12 +48,12 @@ class ServerController extends Controller
         foreach ($user_list as $key => $value) {
             $userId = $value;
             $templateId = 'zuvMsJbwiabXHJF7_bt9a7lYZDZxzpPT8tYl4WsuJHU'; // 模板消息id
-            $url = '';
+            $url = 'http://support.qq.com/products/19048';
             $data = array(
                 "first"  => $title,
                 "keyword1"   => $payload['user']['username'],
                 "keyword2"  => date('Y-m-d'),
-                "remark" => "\n" . $payload['post']['content'],
+                "remark" => $payload['post']['content'],
             );
             $job = new SendTemplateMessage($userId, $templateId, $url, $data);
             dispatch($job);
