@@ -71,10 +71,10 @@ class ServerController extends Controller
      * @return string
      */
     public function TEMPLATESENDJOBFINISH($message) {
-        if($templateMessage = TemplateMessage::getMessageByMsgid($message->MsgID)) {
-            $flag = $message->Status == 'success' ? 1 : -1;
-            TemplateMessage::setStatus($message->MsgID, $flag);
-        }
+//        if($templateMessage = TemplateMessage::getMessageByMsgid($message->MsgID)) {
+//            $flag = $message->Status == 'success' ? 1 : -1;
+//            TemplateMessage::setStatus($message->MsgID, $flag);
+//        }
         return '';
     }
     /**`
