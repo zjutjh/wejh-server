@@ -188,7 +188,7 @@ class Api extends Model
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
-        $check = $this->getYcScore($user_name, $password, null, $port, $timeout);
+        $check = $this->getYcClass($user_name, $password, null, $port, $timeout);
         if(!$this->getError()) {
             return true;
         }
