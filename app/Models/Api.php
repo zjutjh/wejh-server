@@ -890,6 +890,7 @@ class Api extends Model
             $g['教室'] = $value['教室'];
             $g['座位号'] = $value['zwh'];
             $g['考试方式'] = $value['ksfs'];
+            $g['课程名称'] = $value['kcmc'];
             $g = $this->fixZfExam($g);
 
             $now = date('Y-m-d');
@@ -924,7 +925,7 @@ class Api extends Model
         $day_list = ['日', '一', '二', '三', '四', '五', '六', '日'];
         $exam['星期名'] = $day_list[intval($exam['星期'])];
 
-        // $exam['教师'] = $exam['教师'] ? $exam['教师'] : '?? - '. $exam['考试方式'];
+        $exam['教师'] = $exam['教师'] ? $exam['教师'] : $exam['课程名称'];
         $exam['教室'] = $exam['教室'] . ' - 座位号: ' . $exam['座位号'];
 
         return $exam;
