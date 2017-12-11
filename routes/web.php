@@ -42,3 +42,10 @@ Route::get('/zjutsso/{path}',   function ($path, Request $request) {
 Route::get('/weixincard/{id}',  function ($id) {
     return redirect('https://mp.weixin.qq.com/mp/profile_ext?action=home&scene=110&__biz='.$id.'==#wechat_redirect');
 });
+
+Route::get('/decode/{id}',  function ($id) {
+    if (env('APP_ENV') === 'local') {
+        return decrypt($id);
+    }
+    return redirect('/');
+});
