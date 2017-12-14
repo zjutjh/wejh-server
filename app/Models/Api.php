@@ -895,14 +895,19 @@ class Api extends Model
 
             $now = date('Y-m-d');
             $exam_time = strtotime($g['日']);
-            $now_time = strtotime($now);
-            $between = ($exam_time - $now_time) / 3600 / 24;
-            $g['倒计时'] = $between;
+            if ($exam_time) {
+                $now_time = strtotime($now);
+                $between = ($exam_time - $now_time) / 3600 / 24;
+                $g['倒计时'] = $between;
 
-            if($between < 0) {
-                $g['倒计时名'] = '已经过去' . -$between . '天';
+                if($between < 0) {
+                    $g['倒计时名'] = '已经过去' . -$between . '天';
+                } else {
+                    $g['倒计时名'] = '还有' . $between . '天';
+                }
             } else {
-                $g['倒计时名'] = '还有' . $between . '天';
+                $g['倒计时'] = '未知';
+                $g['倒计时名'] = '未知';
             }
 
             array_push($exam_list, $g);
@@ -923,7 +928,11 @@ class Api extends Model
         $exam['日'] = $exam['日期'];
         $exam['星期'] = date('w', strtotime($exam['日期']));
         $day_list = ['日', '一', '二', '三', '四', '五', '六', '日'];
-        $exam['星期名'] = $day_list[intval($exam['星期'])];
+        if (strtotime($exam['日期'])) {
+            $exam['星期名'] = $day_list[intval($exam['星期'])];
+        } else {
+            $exam['星期名'] = '未知';
+        }
 
         $exam['教师'] = $exam['教师'] ? $exam['教师'] : $exam['课程名称'];
         $exam['教室'] = $exam['教室'] . ' - 座位号: ' . $exam['座位号'];
