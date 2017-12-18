@@ -24,6 +24,10 @@ Route::get('/wechat/view', [
     'uses' => 'Wechat\ViewController@view']);
 Route::get('/wechat/image', [
     'uses' => 'Wechat\ViewController@image']);
+Route::get('/wechat/js', [
+    'uses' => 'Wechat\ViewController@js']);
+Route::get('/wechat/css', [
+    'uses' => 'Wechat\ViewController@css']);
 
 Route::get('/zjut/view', [
     'uses' => 'Ycjw\MainController@view']);
