@@ -104,10 +104,10 @@ class MainController extends Controller
                 'icon' => $icons['borrow']['icon'],
             ],
             [
-                'title' => '工大官网',
-                'url' => secure_url('/zjut/view') . '?url=' . urlencode('http://www.zjut.edu.cn'),
+                'title' => '志愿者',
+                'url' => url('/wechat/view') . '?url=' . urlencode('http://zhangyx.cn/VMS/WechatTimeResult.do?id={uno}'),
                 'bg' => $icons['publicity']['bg'],
-                'icon' => $icons['publicity']['icon'],
+                // 'icon' => $icons['publicity']['icon'],
             ],
             [
                 'title' => '吐个槽',

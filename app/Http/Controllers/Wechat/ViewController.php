@@ -13,6 +13,8 @@ class ViewController extends Controller
         $url = $request->get('url');
         $content = http_get($url);
         $content = preg_replace('/data-src="([^"]+)"/is', 'src="' . 'http://server.wejh.imcr.me/wechat/image' . '?url=' . ('$1') . '"', $content);
+        $content = preg_replace('/src="layui([^"]+)"/is', 'src="http://zhangyx.cn/VMS/layui' . ('$1') . '"', $content);
+        $content = preg_replace('/href="layui([^"]+)"/is', 'href="http://zhangyx.cn/VMS/layui' . ('$1') . '"', $content);
         return $content;
     }
 
