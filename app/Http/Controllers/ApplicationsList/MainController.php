@@ -12,51 +12,51 @@ class MainController extends Controller
         $icons = [
             'timetable' => [
                 'bg' => 'blue',
-                'icon' => cdn('img/app-list/timetable.png'),
-                'card' => cdn('img/card-background/timetable.png'),
+                'icon' => cdn('img/app-list/timetable.png', false),
+                'card' => cdn('img/card-background/timetable.png', false),
             ],
             'score' => [
                 'bg' => 'red',
-                'icon' => cdn('img/app-list/score.png'),
+                'icon' => cdn('img/app-list/score.png', false),
             ],
             'exam' => [
                 'bg' => 'green',
-                'icon' => cdn('img/app-list/exam.png'),
+                'icon' => cdn('img/app-list/exam.png', false),
             ],
             'freeroom' => [
                 'bg' => 'red',
-                'icon' => cdn('img/app-list/freeroom.png'),
+                'icon' => cdn('img/app-list/freeroom.png', false),
             ],
             'student' => [
                 'bg' => 'purple',
-                'icon' => cdn('img/app-list/student.png'),
+                'icon' => cdn('img/app-list/student.png', false),
             ],
             'teacher' => [
                 'bg' => 'purple',
-                'icon' => cdn('img/app-list/teacher.png'),
+                'icon' => cdn('img/app-list/teacher.png', false),
             ],
             'card' => [
                 'bg' => 'yellow',
-                'icon' => cdn('img/app-list/card.png'),
-                'card' => cdn('img/card-background/card.png'),
+                'icon' => cdn('img/app-list/card.png', false),
+                'card' => cdn('img/card-background/card.png', false),
             ],
             'borrow' => [
                 'bg' => 'blue',
-                'icon' => cdn('img/app-list/borrow.png'),
-                'card' => cdn('img/card-background/borrow.png'),
+                'icon' => cdn('img/app-list/borrow.png', false),
+                'card' => cdn('img/card-background/borrow.png', false),
             ],
             'tri' => [
                 'bg' => 'blue',
                 'icon' => '',
-                'card' => cdn('img/card-background/tri.png'),
+                'card' => cdn('img/card-background/tri.png', false),
             ],
             'publicity' => [
                 'bg' => array_random($colors),
-                'icon' => cdn('img/app-list/publicity.png'),
+                'icon' => cdn('img/app-list/publicity.png', false),
             ],
             'square' => [
                 'bg' => array_random($colors),
-                'icon' => cdn('img/app-list/square.png'),
+                'icon' => cdn('img/app-list/square.png', false),
             ],
         ];
         $applicationsList = [

@@ -107,8 +107,14 @@ function http_get($url, $data = null, $timeout = 1000){//curl
     return $file_contents;
 }
 
-function cdn($path) {
-    return '//cdn.wejh.imcr.me/' . $path;
+function cdn($path, $is_secure) {
+    $url = '//cdn.wejh.imcr.me/' . $path;
+    if ($is_secure === true) {
+        $url = 'https:' . $url;
+    } else if ($is_secure === false) {
+        $url = 'http:' . $url;
+    }
+    return $url;
 }
 
 function api($key, $isExt)
