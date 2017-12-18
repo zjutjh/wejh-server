@@ -108,7 +108,7 @@ function http_get($url, $data = null, $timeout = 1000){//curl
 }
 
 function cdn($path) {
-    return 'http://cdn.wejh.imcr.me/' . $path;
+    return '//cdn.wejh.imcr.me/' . $path;
 }
 
 function api($key, $isExt)
