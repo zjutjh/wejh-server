@@ -13,8 +13,8 @@ class ViewController extends Controller
         $url = $request->get('url');
         $content = http_get($url);
         $content = preg_replace('/data-src="([^"]+)"/is', 'src="' . 'http://server.wejh.imcr.me/wechat/image' . '?url=' . ('$1') . '"', $content);
-        $content = preg_replace('/src="layui([^"]+)"/is', 'src="http://zhangyx.cn/VMS/layui' . ('$1') . '"', $content);
-        $content = preg_replace('/href="layui([^"]+)"/is', 'href="http://zhangyx.cn/VMS/layui' . ('$1') . '"', $content);
+        $content = preg_replace('/src="layui([^"]+)"/is', 'src="//res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"', $content);
+        $content = preg_replace('/href="layui([^"]+)"/is', 'href="//weui.io/weui.css"', $content);
         return $content;
     }
 
