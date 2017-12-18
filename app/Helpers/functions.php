@@ -107,7 +107,7 @@ function http_get($url, $data = null, $timeout = 1000){//curl
     return $file_contents;
 }
 
-function cdn($path, $is_secure) {
+function cdn($path, $is_secure = null) {
     $url = '//cdn.wejh.imcr.me/' . $path;
     if ($is_secure === true) {
         $url = 'https:' . $url;
