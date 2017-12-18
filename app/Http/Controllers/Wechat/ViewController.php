@@ -13,7 +13,7 @@ class ViewController extends Controller
         $url = $request->get('url');
         $content = http_get($url);
         $content = preg_replace('/data-src="([^"]+)"/is', 'src="' . 'http://server.wejh.imcr.me/wechat/image' . '?url=' . ('$1') . '"', $content);
-        $content = preg_replace('/src="layui([^"]+)"/is', 'src="' . url('wechat/js') . '?url=' . urlencode('https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js') . '"', $content);
+        // $content = preg_replace('/src="layui([^"]+)"/is', 'src="' . url('wechat/js') . '?url=' . urlencode('https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js') . '"', $content);
         $content = preg_replace('/href="layui([^"]+)"/is', 'href="' . url('wechat/css') . '?url=' . urlencode('https://weui.io/weui.css') . '"', $content);
         return $content;
     }
