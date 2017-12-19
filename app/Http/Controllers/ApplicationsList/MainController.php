@@ -106,7 +106,7 @@ class MainController extends Controller
             [
                 'title' => '志愿者',
                 'url' => url('/wechat/view') . '?url=' . urlencode('http://zhangyx.cn/VMS/WechatTimeResult.do?id={uno}'),
-                'bg' => $icons['publicity']['bg'],
+                'bg' => 'red',
                 // 'icon' => $icons['publicity']['icon'],
             ],
             [

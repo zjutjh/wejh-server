@@ -934,7 +934,7 @@ class Api extends Model
             $exam['星期名'] = '未知';
         }
 
-        $exam['教师'] = $exam['教师'] ? $exam['教师'] : $exam['课程名称'];
+        // $exam['教师'] = $exam['教师'] ? $exam['教师'] : $exam['课程名称'];
         $exam['教室'] = $exam['教室'] . ' - 座位号: ' . $exam['座位号'];
 
         return $exam;
