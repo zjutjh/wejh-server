@@ -383,6 +383,7 @@ class Api extends Model
             $g['学时']=$value['classhuor'];
             $g['学分']=$value['classcredit'];
             $g['课程性质名称']=isset($value['kcxzmc'])?$value['kcxzmc']:'';
+            $g['课程性质']=isset($value['kcxz'])?$value['kcxz']:'';
             array_push($score_list,$g);
         }
         $res = [
@@ -469,7 +470,21 @@ class Api extends Model
         $zcj = 0;
         $zxf = 0;
         foreach ($score_list as $key => $value) {
-            if(!isset($value['考试性质']) || $value['考试性质']=="公选课"|| $value['成绩'] == "取消" || (isset($value['课程性质名称']) && ($value['课程性质名称'] === '任选课' || $value['课程性质名称'] === '重修' || $value['课程性质名称'] === '补考')))
+            if(!isset($value['考试性质']) || $value['考试性质']=="公选课"|| $value['成绩'] == "取消"
+                || (
+                    isset($value['课程性质名称']) && (
+                        $value['课程性质名称'] === '任选课'
+                        || $value['课程性质名称'] === '重修'
+                        || $value['课程性质名称'] === '补考'
+                    )
+                )
+                || (
+                    isset($value['课程性质']) && (
+                        $value['课程性质'] === '重修'
+                        || $value['课程性质'] === '补考'
+                    )
+                )
+            )
                 continue;
             if(!isset($value['学分']) || !is_numeric($value['学分']) || $value['成绩'] == "免修")
                 continue;
