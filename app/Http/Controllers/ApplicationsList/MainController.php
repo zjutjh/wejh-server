@@ -103,17 +103,22 @@ class MainController extends Controller
                 'bg' => $icons['borrow']['bg'],
                 'icon' => $icons['borrow']['icon'],
             ],
-            [
-                'title' => '志愿者',
-                'url' => url('/wechat/view') . '?url=' . urlencode('http://zhangyx.cn/VMS/WechatTimeResult.do?id={uno}'),
-                'bg' => 'red',
-                // 'icon' => $icons['publicity']['icon'],
-            ],
+//            [
+//                'title' => '志愿者',
+//                'url' => url('/wechat/view') . '?url=' . urlencode('http://zhangyx.cn/VMS/WechatTimeResult.do?id={uno}'),
+//                'bg' => 'red',
+//                // 'icon' => $icons['publicity']['icon'],
+//            ],
             [
                 'title' => '吐个槽',
                 'module' => 'feedback',
                 'bg' => $icons['square']['bg'],
                 'icon' => $icons['square']['icon'],
+            ],
+            [
+                'title' => '开发招新啦',
+                'bg' => 'purple',
+                'url' => url('/wechat/view') . '?url=' . urlencode('https://mp.weixin.qq.com/s?__biz=MzA3ODU1ODQ5Nw==&mid=502376427&idx=1&sn=f05a4e6cf7bc7b1a08f85f852153df89&chksm=0745e3a530326ab32076da2c5a402b091d4e7a32a0fe57b1da48e46de46b04b68fe68b52aa36'),
             ],
         ];
 
