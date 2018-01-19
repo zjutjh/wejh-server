@@ -228,7 +228,8 @@ class Api extends Model
                     return $this->setError('请先绑定正方账号');
                 }
                 try {
-                    return $this->$func($username, $password['zf'], $year, $term, 1700);
+                    $timeout = $timeout === null ? 5000 : $timeout;
+                    return $this->$func($username, $password['zf'], $year, $term, $timeout);
                 } catch (Exception $e) {
                     return $this->setError('方法不存在');
                 }
@@ -381,6 +382,7 @@ class Api extends Model
             $g['成绩']=$value['classscore'];
             $g['学时']=$value['classhuor'];
             $g['学分']=$value['classcredit'];
+            $g['课程性质名称']=isset($value['kcxzmc'])?$value['kcxzmc']:'';
             array_push($score_list,$g);
         }
         $res = [
@@ -440,7 +442,7 @@ class Api extends Model
             $g['学期']=$value['学期'];
             $g['名称']=$value['名称'];
             $g['成绩']=$value['成绩'];
-            $g['成绩分项']=$value['成绩分项'];
+            $g['成绩分项']=preg_replace('/\d+/', '**', $value['成绩分项']);
             $g['学分']=$value['学分'];
             array_push($score_list,$g);
         }
@@ -467,7 +469,7 @@ class Api extends Model
         $zcj = 0;
         $zxf = 0;
         foreach ($score_list as $key => $value) {
-            if(!isset($value['考试性质']) || $value['考试性质']=="公选课"|| $value['成绩'] == "取消")
+            if(!isset($value['考试性质']) || $value['考试性质']=="公选课"|| $value['成绩'] == "取消" || (isset($value['课程性质名称']) && ($value['课程性质名称'] === '任选课' || $value['课程性质名称'] === '重修' || $value['课程性质名称'] === '补考')))
                 continue;
             if(!isset($value['学分']) || !is_numeric($value['学分']) || $value['成绩'] == "免修")
                 continue;
@@ -886,7 +888,7 @@ class Api extends Model
             $g['教师'] = $value['教师'];
             $g['课程'] = $value['课程'];
             $g['日期'] = $value['日期'];
-            $g['时段'] = $value['时段'];
+            $g['时段'] = $value['时段'].'（实际为准）';
             $g['教室'] = $value['教室'];
             $g['座位号'] = $value['zwh'];
             $g['考试方式'] = $value['ksfs'];
@@ -1040,7 +1042,7 @@ class Api extends Model
      * @param string
      * @return mixed
      */
-    public function getFreeRoom($username, $password, $term, $area, $startTime, $endTime, $weekday, $week, $timeout = 1500) {
+    public function getFreeRoom($username, $password, $term, $area, $startTime, $endTime, $weekday, $week, $timeout = 5000) {
         if (!$area or $startTime == null or $endTime == null or !$weekday or !$week) {
             return $this->setError('参数错误');
         }
