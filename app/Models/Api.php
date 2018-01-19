@@ -383,7 +383,7 @@ class Api extends Model
             $g['学时']=$value['classhuor'];
             $g['学分']=$value['classcredit'];
             $g['课程性质名称']=isset($value['kcxzmc'])?$value['kcxzmc']:'';
-            $g['课程性质']=isset($value['kcxz'])?$value['kcxz']:'';
+            $g['课程性质']=isset($value['ksxz'])?$value['ksxz']:'';
             array_push($score_list,$g);
         }
         $res = [
