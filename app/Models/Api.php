@@ -381,9 +381,11 @@ class Api extends Model
             $g['考试性质']=$value['classprop'];
             $g['成绩']=$value['classscore'];
             $g['学时']=$value['classhuor'];
-            $g['学分']=$value['classcredit'];
+            $g['学分']=$value['xf'];
+            $g['绩点']=isset($value['jd'])?$value['jd']:'0';
+            $g['考试性质']=isset($value['ksxz'])?$value['ksxz']:'';
             $g['课程性质名称']=isset($value['kcxzmc'])?$value['kcxzmc']:'';
-            $g['课程性质']=isset($value['ksxz'])?$value['ksxz']:'';
+            $g['课程概述名称']=isset($value['kcgsmc'])?$value['kcgsmc']:'';
             array_push($score_list,$g);
         }
         $res = [
@@ -445,7 +447,14 @@ class Api extends Model
             $g['成绩']=$value['成绩'];
             $g['成绩分项']=preg_replace('/\d+/', '**', $value['成绩分项']);
             $g['学分']=$value['学分'];
-            array_push($score_list,$g);
+            // $g['绩点']=isset($value['jd'])?$value['jd']:'0';
+            // $g['考试性质']=isset($value['ksxz'])?$value['ksxz']:'';
+            // $g['课程性质名称']=isset($value['kcxzmc'])?$value['kcxzmc']:'';
+            // $g['课程概述名称']=isset($value['kcgsmc'])?$value['kcgsmc']:'';
+
+            if(preg_match('/期中|总评/', $value['成绩分项'])) {
+                array_push($score_list,$g);
+            }
         }
         $res = [
             'list' => $score_list
@@ -472,16 +481,16 @@ class Api extends Model
         foreach ($score_list as $key => $value) {
             if(!isset($value['考试性质']) || $value['考试性质']=="公选课"|| $value['成绩'] == "取消"
                 || (
-                    isset($value['课程性质名称']) && (
-                        $value['课程性质名称'] === '任选课'
-                        || $value['课程性质名称'] === '重修'
-                        || $value['课程性质名称'] === '补考'
+                    isset($value['考试性质']) && (
+                        $value['考试性质'] === '重修'
+                        || $value['考试性质'] === '补考'
                     )
                 )
                 || (
-                    isset($value['课程性质']) && (
-                        $value['课程性质'] === '重修'
-                        || $value['课程性质'] === '补考'
+                    isset($value['课程概述名称']) && $value['课程概述名称'] !== '个性化课程' && (
+                        $value['课程概述名称'] && isset($value['课程性质名称']) && (
+                            $value['课程性质名称'] === '任选课'
+                        )
                     )
                 )
             )

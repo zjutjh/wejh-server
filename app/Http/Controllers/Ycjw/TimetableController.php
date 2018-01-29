@@ -32,7 +32,7 @@ class TimetableController extends Controller
         $class_result = $api->getUEASData('class', $user->uno, [
             'yc' => $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '',
             'zf' => $ext['passwords']['zf_password'] ? decrypt($ext['passwords']['zf_password']) : '',
-        ], $term, null, true);
+        ], $term, null, true, null);
 
         if(!$class_result) {
             if($api->getError() == '用户名或密码为空') {

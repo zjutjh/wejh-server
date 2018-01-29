@@ -31,7 +31,7 @@ class ExamController extends Controller
         $exam_result = $api->getUEASData('exam', $user->uno, [
             'yc' => $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '',
             'zf' => $ext['passwords']['zf_password'] ? decrypt($ext['passwords']['zf_password']) : ''
-        ], $term, null, true, 1200);
+        ], $term, null, true, null);
 
         if(!$exam_result) {
             if($api->getError() == '用户名或密码为空') {

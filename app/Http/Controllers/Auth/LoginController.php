@@ -156,6 +156,24 @@ class LoginController extends Controller
         return RJM($user, 200, '获取用户信息成功');
     }
 
+    public function thirdParty(Request $request) {
+        if(!$openid = $request->get('openid')) {
+            return RJM(null, -1, '没有认证信息');
+        }
+        if(!$link = UserLink::where('openid', $openid)->first()) {
+            return RJM(null, -1, '找不到该用户');
+        }
+        $userId = $link->uid;
+        if(!$user = User::where('id', $userId)->first()) {
+            return RJM(null, -1, '找不到该用户');
+        }
+        $response = [
+            'uno' => $user->uno
+        ];
+
+        return RJM($response, 200, '获取用户信息成功');
+    }
+
     /**
      * 更新用户的个人信息，暂缓
      * @param Request $request

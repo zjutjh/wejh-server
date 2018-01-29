@@ -24,12 +24,16 @@ class ScoreController extends Controller
         } else if ($start_grade >= 2017 && $year <= 2016) {
             $term = '2017/2018(1)';
             $user->setExt('terms.score_term', $term);
+        } else if ($year <= 2016 && $user->uno == '201603090210') {
+            $term = '2017/2018(1)';
+            $user->setExt('terms.score_term', $term);
         }
+
         $api = new Api;
         $score_result = $api->getUEASData('score', $user->uno, [
             'yc' => $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '',
             'zf' => $ext['passwords']['zf_password'] ? decrypt($ext['passwords']['zf_password']) : ''
-        ], $term, null, true);
+        ], $term, null, true, null);
         if(!$score_result) {
             if($api->getError() == '用户名或密码为空') {
                 return RJM(null, -1, '需要绑定');
@@ -76,7 +80,7 @@ class ScoreController extends Controller
         $score_result = $api->getUEASData('scoreDetail', $user->uno, [
             'yc' => $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '',
             'zf' => $ext['passwords']['zf_password'] ? decrypt($ext['passwords']['zf_password']) : ''
-        ], $term, null, true);
+        ], $term, null, true, null);
         if(!$score_result) {
             if($api->getError() == '用户名或密码为空') {
                 return RJM(null, -1, '需要绑定');
