@@ -167,9 +167,16 @@ class LoginController extends Controller
         if(!$user = User::where('id', $userId)->first()) {
             return RJM(null, -1, '找不到该用户');
         }
-        $response = [
-            'uno' => $user->uno
-        ];
+        try {
+            $response = [
+                'name' => $user->ext['school_info']['name'],
+                'uno' => $user->uno
+            ];
+        } catch (Exception $e) {
+            $response = [
+                'uno' => $user->uno
+            ];
+        }
 
         return RJM($response, 200, '获取用户信息成功');
     }

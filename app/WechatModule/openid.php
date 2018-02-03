@@ -1,3 +1,8 @@
 <?php
+$openid = $message->FromUserName;
 
-return $message->FromUserName;
+$app = app('wechat');
+$userService = $app->user;
+$user = $userService->get($openid);
+
+return json_encode($user);
