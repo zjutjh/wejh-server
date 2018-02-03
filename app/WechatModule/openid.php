@@ -5,4 +5,6 @@ $app = app('wechat');
 $userService = $app->user;
 $user = $userService->get($openid);
 
-return json_encode($user);
+$unionid = $user->unionid;
+
+return 'openid: ' . $openid . "\n" . 'unionid: ' . $unionid;
