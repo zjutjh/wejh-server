@@ -14,7 +14,7 @@ class NotificationController extends Controller
         $url = $request->get('url');
         $data = $request->get('data');
         if (!$userId || !$data) {
-            return RJS(null, -1, 'need openid and data');
+            return RJM(null, -1, 'need openid and data');
         }
         $job = new SendTemplateMessage($userId, $templateId, $url, $data);
         dispatch($job);
