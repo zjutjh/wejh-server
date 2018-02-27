@@ -38,7 +38,7 @@ class ServerController extends Controller
                 return RJM(null, 1);
                 break;
             default:
-                return response('400', 400);
+                return response('no match', 200);
                 break;
         }
     }
