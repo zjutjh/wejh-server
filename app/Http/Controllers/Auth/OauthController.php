@@ -63,11 +63,12 @@ class OauthController extends Controller
             $link->openid = $result->openid;
             $link->save();
             if (!$openidLink = OpenidLink::where('unionid', $result->unionid)->where('type', 'weapp')->first()) {
-                OpenidLink::create([
+                $openidLink = OpenidLink::create([
                     'unionid' => $result->unionid,
                     'type' => 'weapp',
                     'openid' => $result->openid
-                ])->save();
+                ]);
+                $openidLink->save();
             } else {
                 $openidLink->openid = $result->openid;
                 $openidLink-save();
