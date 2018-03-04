@@ -61,13 +61,17 @@ class OauthController extends Controller
 
         if($link = UserLink::where('openid', $result->unionid)->first()) {
             $link->openid = $result->openid;
-            OpenidLink::updateOrCreate([
-                'unionid' => $result->unionid,
-                'type' => 'weapp'
-            ],[
-                'openid' => $result->openid
-            ]);
             $link->save();
+            if (!$openidLink = OpenidLink::where('unionid', $result->unionid)->where('type', 'weapp')->first()) {
+                OpenidLink::create([
+                    'unionid' => $result->unionid,
+                    'type' => 'weapp',
+                    'openid' => $result->openid
+                ]);
+            } else {
+                $openidLink->openid = $result->openid;
+                $openidLink-save();
+            }
         }
 
         return RJM([
