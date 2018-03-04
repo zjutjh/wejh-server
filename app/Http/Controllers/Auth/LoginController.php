@@ -83,7 +83,7 @@ class LoginController extends Controller
                 // 如果之前存在过关联，换成现在的
                 if ($link = UserLink::where([
                     'openid' => $openid,
-                    'type' => 'weapp',
+                    'type' => $type,
                 ])->first()) {
                     $link->delete();
                 }
