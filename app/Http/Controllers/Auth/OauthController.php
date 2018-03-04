@@ -4,6 +4,8 @@
  */
 namespace App\Http\Controllers\Auth;
 
+use App\Models\OpenidLink;
+use App\Models\UserLink;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Overtrue\Socialite\AuthorizeFailedException;
@@ -57,8 +59,19 @@ class OauthController extends Controller
             return RJM(null, -1, '请先关注"zjutjh"和"jxhzjut"公众号');
         }
 
+        if($link = UserLink::where('openid', $result->unionid)->first()) {
+            $link->openid = $result->openid;
+            OpenidLink::updateOrCreate([
+                'unionid' => $result->unionid,
+                'type' => 'weapp'
+            ],[
+                'openid' => $result->openid
+            ]);
+            $link->save();
+        }
+
         return RJM([
-            'openid' => $result->unionid,
+            'openid' => $result->openid,
         ], 200, '获取openid成功');
     }
 }
