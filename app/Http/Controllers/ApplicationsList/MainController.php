@@ -91,12 +91,12 @@ class MainController extends Controller
                 'bg' => $icons['teacher']['bg'],
                 'icon' => $icons['teacher']['icon'],
             ],
-            [
-                'title' => '一卡通',
-                'route' => '/pages/card/card',
-                'bg' => $icons['card']['bg'],
-                'icon' => $icons['card']['icon'],
-            ],
+//            [
+//                'title' => '一卡通',
+//                'route' => '/pages/card/card',
+//                'bg' => $icons['card']['bg'],
+//                'icon' => $icons['card']['icon'],
+//            ],
             [
                 'title' => '借阅信息',
                 'route' => '/pages/borrow/borrow',
