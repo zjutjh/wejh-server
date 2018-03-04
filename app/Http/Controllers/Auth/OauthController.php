@@ -67,7 +67,7 @@ class OauthController extends Controller
                     'unionid' => $result->unionid,
                     'type' => 'weapp',
                     'openid' => $result->openid
-                ]);
+                ])->save();
             } else {
                 $openidLink->openid = $result->openid;
                 $openidLink-save();
