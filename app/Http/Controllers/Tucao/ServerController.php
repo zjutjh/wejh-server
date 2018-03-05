@@ -14,8 +14,9 @@ class ServerController extends Controller
      */
     public function serve(Request $request)
     {
-        $type = $request->input('type');
-        $payload = $request->input('payload');
+        $event = json_decode(file_get_contents("php://input"), true);
+        $type = $event['type'];
+        $payload = $event['payload'];
         switch ($type) {
             case "post.created":
                 // 业务代码
