@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::any('/wechat',  [
     'uses' => 'Wechat\ServerController@serve']);
+Route::any('/wechat/accessToken',  [
+    'uses' => 'Wechat\ServerController@accessToken']);
+Route::any('/wechat/createQRcode',  [
+    'uses' => 'Wechat\ServerController@createQRcode']);
 Route::any('/weapp',  [
     'uses' => 'Wechat\WeappServerController@serve']);
 Route::any('/tucao',  [

@@ -197,6 +197,35 @@ class ServerController extends Controller
         }
     }
 
+    public function accessToken(Request $request) {
+        if ($request->get('passport') !== env('API_PASSPORT')) {
+            return RJM(null, -1, '请求非法');
+        }
+        $accessToken = $this->wechat->access_token;
+        $token = $accessToken->getToken();
+        return RJM([
+            'token' => $token
+        ], 1, '获取token成功');
+    }
+
+    public function createQRcode(Request $request) {
+        if ($request->get('passport') !== env('API_PASSPORT')) {
+            return RJM(null, -1, '请求非法');
+        }
+        if (!$sceneStr = $request->get('sceneStr')) {
+            return RJM(null, -1, '参数错误');
+        }
+        $qrcode = $this->wechat->qrcode;
+        $result = $qrcode->forever($sceneStr);// 或者 $qrcode->forever("foo");
+
+        $ticket = $result->ticket; // 或者 $result['ticket']
+        $url = $result->url;
+        return RJM([
+            'ticket' => $ticket,
+            'url' => $url
+        ], -1, '参数错误');
+    }
+
     /**
      * 处理浏览会员卡事件
      *
