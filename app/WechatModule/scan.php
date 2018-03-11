@@ -4,7 +4,7 @@ try {
     if (!empty($message)) {
         $bookid = str_replace('qrscene_', '', $message->EventKey);
         $openID = $message->FromUserName ;
-        $redirect_url = "http://shuxiang.louisian.net/mobile";
+        $redirect_url = "http://book.jh.zjut.edu.cn/mobile";
         $url = 'http://craim.net/oauth/index.php?url=' . urlencode($redirect_url);
         $weixin_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . env('WECHAT_APPID') . '&redirect_uri='. urlencode($url) .'&response_type=code&scope=snsapi_base&state=STATE';
         preg_match_all('/(\d+)$/', $bookid, $temp);
