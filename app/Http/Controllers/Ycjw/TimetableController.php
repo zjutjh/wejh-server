@@ -38,6 +38,9 @@ class TimetableController extends Controller
             if($api->getError() == '用户名或密码为空') {
                 return RJM(null, -1, '需要绑定');
             }
+            if($api->getError() == '用户名或密码错误') {
+                return RJM(null, -1, '请重新绑定正方账号');
+            }
             return RJM(null, -1, $api->getError());
         }
 
