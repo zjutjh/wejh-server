@@ -40,7 +40,9 @@ class OauthController extends Controller
         ]);
 
         if ($uno = session('uno')) {
-            $user = User::where('uno', $uno)->first();
+            if(!$user = User::where('uno', $uno)->first()) {
+                return response('没有相关用户信息');
+            }
             $unionid = $wechatUser->original['unionid'];
             UserLink::updateOrCreate([
                 'uid' => $user->uid,
