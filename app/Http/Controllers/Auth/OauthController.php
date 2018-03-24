@@ -32,9 +32,31 @@ class OauthController extends Controller
         } catch (AuthorizeFailedException $exception) {
             return $this->wechat($request);
         }
-        $unionid = $wechatUser->original['unionid'];
+        $openid = $wechatUser->openid;
 
-        return redirect(url('/') . '?unionid=' . $unionid);
+        session([
+            'openid' => $openid
+        ]);
+
+        return redirect()->action('Auth\OauthController@webLogin');
+    }
+
+    public function webLogin(Request $request) {
+        if (!$openid = session('openid')) {
+            return RJM(null, -1, '没有认证信息');
+        }
+        $isBind = 'false';
+
+        if($userLink = UserLink::where('openid', $openid)->first()) {
+            $isBind = 'true';
+        } else {
+            $isBind = 'false';
+        }
+
+        return view('login', [
+            'isBind' => $isBind,
+            'openid' => $openid
+        ]);
     }
 
     // 小程序code换取openid

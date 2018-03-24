@@ -18,6 +18,8 @@ Route::get('/oauth/wechat', [
     'uses' => 'Auth\OauthController@wechat']);
 Route::get('/oauth/wechat/login', [
     'uses' => 'Auth\OauthController@wechatLogin']);
+Route::get('/login', [
+    'uses' => 'Auth\OauthController@webLogin']);
 Route::get('/walk', [
     'uses' => 'Walk\MainController@main']);
 Route::get('/wechat/view', [
