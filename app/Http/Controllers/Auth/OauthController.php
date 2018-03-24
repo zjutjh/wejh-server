@@ -55,7 +55,6 @@ class OauthController extends Controller
                 'unionid' => $unionid,
                 'type' => 'wechat'
             ],[
-                'access_token' => '',
                 'openid' => $openid
             ]);
         }
