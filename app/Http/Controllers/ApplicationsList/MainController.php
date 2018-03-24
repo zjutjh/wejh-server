@@ -123,7 +123,7 @@ class MainController extends Controller
             [
                 'title' => '绑定服务号',
                 'bg' => 'red',
-                'url' => url('/oauth/wechat/loginByUno') . '?uno={uno}',
+                'url' => url('/oauth/wechat/loginByUno') . '?uno=' . urlencode('{uno}'),
             ],
         ];
 
