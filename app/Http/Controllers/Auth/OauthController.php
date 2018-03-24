@@ -33,7 +33,7 @@ class OauthController extends Controller
         } catch (AuthorizeFailedException $exception) {
             return $this->wechat($request);
         }
-        $openid = $wechatUser->openid;
+        $openid = $wechatUser->original['openid'];
 
         session([
             'openid' => $openid
