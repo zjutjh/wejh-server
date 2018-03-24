@@ -45,7 +45,7 @@ class OauthController extends Controller
             }
             $unionid = $wechatUser->original['unionid'];
             UserLink::updateOrCreate([
-                'uid' => $user->uid,
+                'uid' => $user->id,
                 'type' => 'wechat'
             ],[
                 'openid' => $openid
@@ -68,7 +68,7 @@ class OauthController extends Controller
         if (!$user = User::where('uno', $uno)->first()) {
             return redirect()->action('Auth\OauthController@wechatLogin');
         }
-        $uid = $user->uid;
+        $uid = $user->id;
         if (!$userLink = UserLink::where('uid', $uid)->where('type', 'wechat')->first()) {
             session([
                 'uno' => $uno
