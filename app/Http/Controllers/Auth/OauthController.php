@@ -48,12 +48,14 @@ class OauthController extends Controller
                 'uid' => $user->id,
                 'type' => 'wechat'
             ],[
+                'access_token' => '',
                 'openid' => $openid
             ]);
             OpenidLink::updateOrCreate([
                 'unionid' => $unionid,
                 'type' => 'wechat'
             ],[
+                'access_token' => '',
                 'openid' => $openid
             ]);
         }
