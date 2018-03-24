@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Api;
+use App\Models\OpenidLink;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\UserLink;
@@ -161,7 +162,14 @@ class LoginController extends Controller
             return RJM(null, -1, '没有认证信息');
         }
         if(!$link = UserLink::where('openid', $openid)->first()) {
-            return RJM(null, -1, '找不到该用户');
+            if (!$openid_link = OpenidLink::where('openid', $openid)->first()) {
+                return RJM(null, -1, '找不到该用户');
+            } else {
+                $link = UserLink::where('openid', $openid_link->unionid)->first();
+                if (!$link) {
+                    return RJM(null, -1, '找不到该用户');
+                }
+            }
         }
         $userId = $link->uid;
         if(!$user = User::where('id', $userId)->first()) {
@@ -179,6 +187,22 @@ class LoginController extends Controller
         }
 
         return RJM($response, 200, '获取用户信息成功');
+    }
+
+    public function getOpenidByUno($uno) {
+        if (!$uno) {
+            return RJM(null, -1, '没有认证信息');
+        }
+        if (!$user = User::where('uno', $uno)->first()) {
+            return RJM(null, -1, '找不到用户');
+        }
+        $uid = $user->uid;
+        if (!$userLink = UserLink::where('uid', $uid)->where('type', 'wechat')->first()) {
+            return RJM(null, -1, '找不到与服务号的关联');
+        }
+        return RJM([
+            'openid' => $userLink->openid
+        ], 1, '获取成功');
     }
 
     /**
