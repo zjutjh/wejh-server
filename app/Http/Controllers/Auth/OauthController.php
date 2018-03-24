@@ -5,6 +5,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\OpenidLink;
+use App\Models\User;
 use App\Models\UserLink;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,7 +39,44 @@ class OauthController extends Controller
             'openid' => $openid
         ]);
 
+        if ($uno = session('uno')) {
+            $user = User::where('uno', $uno)->first();
+            $unionid = $wechatUser->original['unionid'];
+            UserLink::updateOrCreate([
+                'uid' => $user->uid,
+                'type' => 'wechat'
+            ],[
+                'openid' => $openid
+            ]);
+            OpenidLink::updateOrCreate([
+                'unionid' => $unionid,
+                'type' => 'wechat'
+            ],[
+                'openid' => $openid
+            ]);
+        }
+
         return redirect()->action('Auth\OauthController@webLogin');
+    }
+
+    public function unoLogin(Request $request) {
+        if (!$uno = $request->get('uno')) {
+            return redirect()->action('Auth\OauthController@wechatLogin');
+        }
+        if (!$user = User::where('uno', $uno)->first()) {
+            return redirect()->action('Auth\OauthController@wechatLogin');
+        }
+        $uid = $user->uid;
+        if (!$userLink = UserLink::where('uid', $uid)->where('type', 'wechat')->first()) {
+            session([
+                'uno' => $uno
+            ]);
+            return redirect()->action('Auth\OauthController@wechatLogin');
+        }
+        return view('login', [
+            'isBind' => 'true',
+            'openid' => ''
+        ]);
     }
 
     public function webLogin(Request $request) {
