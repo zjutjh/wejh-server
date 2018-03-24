@@ -76,7 +76,7 @@ return [
      'oauth' => [
          'only_wechat_browser' => false,
          'scopes'   => array_map('trim', explode(',', env('WECHAT_OAUTH_SCOPES', 'snsapi_userinfo'))),
-         'callback' => env('WECHAT_OAUTH_CALLBACK', 'http://craim.net/oauth/index.php?url='. urlencode(url('/oauth/wechat/login'))),
+         'callback' => env('WECHAT_OAUTH_CALLBACK', 'https://craim.net/oauth/index.php?url='. urlencode(url('/oauth/wechat/login'))),
      ],
 
     /*
