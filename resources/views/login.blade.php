@@ -59,7 +59,7 @@
                 }
                 _this.$http.post('/api/login', {
                     username: _this.username,
-                    name: _this.username,
+                    password: _this.password,
                     openid: _this.openid,
                     type: 'wechat'
                 }).then(function (response) {
