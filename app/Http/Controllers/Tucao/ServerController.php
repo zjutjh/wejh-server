@@ -52,7 +52,7 @@ class ServerController extends Controller
             $url = 'http://support.qq.com/products/19048';
             $data = array(
                 "first"  => $title,
-                "keyword1"   => $payload['user']['username'],
+                "keyword1"   => $payload['post']['user']['nickname'],
                 "keyword2"  => date('Y-m-d'),
                 "remark" => $payload['post']['content'],
             );
