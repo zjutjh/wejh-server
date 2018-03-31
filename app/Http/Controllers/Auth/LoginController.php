@@ -196,7 +196,7 @@ class LoginController extends Controller
         if (!$user = User::where('uno', $uno)->first()) {
             return RJM(null, -1, '找不到用户');
         }
-        $uid = $user->uid;
+        $uid = $user->id;
         if (!$userLink = UserLink::where('uid', $uid)->where('type', 'wechat')->first()) {
             return RJM(null, -1, '找不到与服务号的关联');
         }
