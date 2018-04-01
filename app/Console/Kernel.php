@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\SendMessage',
         'App\Console\Commands\UserCensus',
         'App\Console\Commands\GitPull',
+        'App\Console\Commands\AsyncWechatOpenid',
     ];
 
     /**
