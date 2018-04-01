@@ -4,6 +4,7 @@
  */
 namespace App\Http\Controllers\Auth;
 
+use App\Jobs\AsyncUserUnionid;
 use App\Models\OpenidLink;
 use App\Models\User;
 use App\Models\UserLink;
@@ -32,7 +33,7 @@ class OauthController extends Controller
              $list = $data['openid'];
              foreach ($list as $key => $value) {
                  if ($value) {
-                     $job = new \App\Jobs\AyncUserUnionid($value);
+                     $job = new AsyncUserUnionid($value);
                      dispatch($job);
                  }
              }

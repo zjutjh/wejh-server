@@ -8,11 +8,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class AyncUserUnionid implements ShouldQueue
+class AsyncUserUnionid implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $openid;
-    protected $userService;
 
     /**
      * Create a new job instance.
@@ -21,10 +20,9 @@ class AyncUserUnionid implements ShouldQueue
      */
     public function __construct($openid)
     {
-        $app = app('wechat');
         $this->openid = $openid;
-        $this->userService = $app->user;
     }
+
     /**
      * Execute the job.
      *
@@ -32,7 +30,7 @@ class AyncUserUnionid implements ShouldQueue
      */
     public function handle()
     {
-        $userService = $this->userService;
+        $userService = app('wechat')->user;
         $openid = $this->openid;
         $userInfo = $userService->get($openid);
         if($unionid = $userInfo->unionid) {
