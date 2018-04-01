@@ -2,9 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\OpenidLink;
-use App\Models\UserLink;
-use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -35,30 +32,26 @@ class AyncUserUnionid implements ShouldQueue
      */
     public function handle()
     {
-        try {
-            $userService = $this->userService;
-            $openid = $this->openid;
-            $userInfo = $userService->get($openid);
-            if($unionid = $userInfo->unionid) {
-                OpenidLink::updateOrCreate([
-                    'unionid' => $unionid,
+        $userService = $this->userService;
+        $openid = $this->openid;
+        $userInfo = $userService->get($openid);
+        if($unionid = $userInfo->unionid) {
+            (new \App\Models\OpenidLink)->updateOrCreate([
+                'unionid' => $unionid,
+                'type' => 'wechat'
+            ],[
+                'openid' => $openid
+            ]);
+            if ($userLink = (new \App\Models\UserLink)->where('openid', $unionid)->where('type', 'weapp')->first()) {
+                $uid = $userLink->uid;
+                (new \App\Models\UserLink)->updateOrCreate([
+                    'uid' => $uid,
                     'type' => 'wechat'
                 ],[
+                    'access_token' => '',
                     'openid' => $openid
                 ]);
-                if ($userLink = UserLink::where('openid', $unionid)->where('type', 'weapp')->first()) {
-                    $uid = $userLink->uid;
-                    UserLink::updateOrCreate([
-                        'uid' => $uid,
-                        'type' => 'wechat'
-                    ],[
-                        'access_token' => '',
-                        'openid' => $openid
-                    ]);
-                }
             }
-        } catch (Exception $e) {
-        } finally {
         }
     }
 }

@@ -22,6 +22,23 @@ class OauthController extends Controller
         return $response;
     }
 
+    public function asyncWechat (Request $request) {
+        $userService = app('wechat')->user;
+        $nextOpenId = null;
+         do {
+             $result = $userService->lists($nextOpenId);
+             $nextOpenId = $result->next_openid ? $result->next_openid : null;
+             $data = $result->data;
+             $list = $data['openid'];
+             foreach ($list as $key => $value) {
+                 if ($value) {
+                     $job = new \App\Jobs\AyncUserUnionid($value);
+                     dispatch($job);
+                 }
+             }
+         } while ($nextOpenId !== null);
+    }
+
     public function wechatLogin(Request $request) {
         $app = app('wechat');
         $wechatUser = null;
