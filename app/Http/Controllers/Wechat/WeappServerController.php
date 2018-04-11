@@ -88,22 +88,22 @@ class WeappServerController extends Controller
      */
     public function text($message)
     {
-        $accessToken = $this->get_weapp_access_token();
-        $openId = $message->FromUserName;
-        $post_data = [
-            'touser' => $openId,
-            'msgtype' => "text",
-            'text' => [
-                'content' => $this->default_message
-            ]
-        ];
-        $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $accessToken;
-        $res = http_post($url, $post_data, 500, 'json');
-        $result = json_decode($res, true);
-        if (isset($result['errcode']) && intval($result['errcode']) > 0) {
-            $this->get_weapp_access_token(true);
-        }
-        return '';
+//        $accessToken = $this->get_weapp_access_token();
+//        $openId = $message->FromUserName;
+//        $post_data = [
+//            'touser' => $openId,
+//            'msgtype' => "text",
+//            'text' => [
+//                'content' => $this->default_message
+//            ]
+//        ];
+//        $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $accessToken;
+//        $res = http_post($url, $post_data, 500, 'json');
+//        $result = json_decode($res, true);
+//        if (isset($result['errcode']) && intval($result['errcode']) > 0) {
+//            $this->get_weapp_access_token(true);
+//        }
+        return $this->user_enter_tempsession($message);
     }
 
     /**
