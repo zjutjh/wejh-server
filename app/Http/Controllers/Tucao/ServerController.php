@@ -52,9 +52,9 @@ class ServerController extends Controller
             $url = 'http://support.qq.com/products/19048';
             $data = array(
                 "first"  => $title,
-                "keyword1"   => $payload['post']['user']['nickname'],
+                "keyword1"   => array_get($payload, 'post.user.nickname'),
                 "keyword2"  => date('Y-m-d'),
-                "remark" => $payload['post']['content'],
+                "remark" => array_get($payload, 'post.content'),
             );
             $job = new SendTemplateMessage($userId, $templateId, $url, $data);
             dispatch($job);
