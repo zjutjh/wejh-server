@@ -296,7 +296,7 @@ class Api extends Model
         // 处理掉偶尔出现的空白符
         $preg = '/{.*}/';
         preg_match_all($preg, $contents, $array);
-        $arr = json_decode($array[0][0], true);
+        $arr = json_decode(array_get($array, '0.0', '{}'), true);
 
         if(!isset($arr['status'])) {
             return $this->setError('原创服务器错误');
