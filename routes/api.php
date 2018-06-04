@@ -29,6 +29,8 @@ Route::any('/notification/boomerang',  [
     'uses' => 'Wechat\NotificationController@boomerang']);
 Route::any('/thirdParty/{uno}/openid',  [
     'uses' => 'Auth\LoginController@getOpenidByUno']);
+Route::any('/thirdParty/{uno}/iid/{iid}',  [
+    'uses' => 'Auth\LoginController@checkIID']);
 
 Route::any('/git/pull',  function (Request $request) {
     Artisan::call('git:pull', [

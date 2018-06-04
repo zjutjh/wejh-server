@@ -205,6 +205,20 @@ class LoginController extends Controller
         ], 1, '获取成功');
     }
 
+    public function checkIID($uno, $iid, Request $request) {
+        $token = $request->get('token');
+        if ($token !== env('iid_token')) {
+            return RJM(null, -1, '没有凭证信息');
+        }
+        if (!$uno || !$iid) {
+            return RJM(null, -1, '没有认证信息');
+        }
+        if (!$user = Student::where('uno', $uno)->where('iid', $iid)->first()) {
+            return RJM(null, -1, '找不到用户');
+        }
+        return RJM(null, 1, '匹配成功');
+    }
+
     /**
      * 更新用户的个人信息，暂缓
      * @param Request $request
