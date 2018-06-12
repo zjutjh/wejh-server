@@ -355,10 +355,7 @@ class Api extends Model
         if(!$contents = http_get($url, $data, $timeout)) {
             return $this->setError('正方服务器错误');
         }
-        // 处理掉偶尔出现的空白符
-        $preg = '/{.*}/';
-        preg_match_all($preg, $contents, $array);
-        $arr = json_decode($array[0][0], true);
+        $arr = $contents;
 
         if(!isset($arr['status'])) {
             return $this->setError('正方服务器错误');
@@ -421,10 +418,7 @@ class Api extends Model
         if(!$contents = http_get($url, $data, $timeout)) {
             return $this->setError('正方服务器错误');
         }
-        // 处理掉偶尔出现的空白符
-        $preg = '/{.*}/';
-        preg_match_all($preg, $contents, $array);
-        $arr = json_decode($array[0][0], true);
+        $arr = $contents;
 
         if(!isset($arr['status'])) {
             return $this->setError('正方服务器错误');
@@ -1102,11 +1096,7 @@ class Api extends Model
         if(!$contents) {
             return $this->setError('正方服务器错误');
         }
-
-        //防止偶尔出现的空字符
-        $preg = '/{.*}/';
-        preg_match_all($preg, $contents, $array);
-        $arr = json_decode($array[0][0], true);
+        $arr = $contents;
 
         if($arr['status'] != 'success') {
             return $this->setError($arr['msg']);
