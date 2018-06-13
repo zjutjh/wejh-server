@@ -355,7 +355,7 @@ class Api extends Model
         if(!$contents = http_get($url, $data, $timeout)) {
             return $this->setError('正方服务器错误');
         }
-        $arr = $contents;
+        $arr = json_decode($contents, true);
 
         if(!isset($arr['status'])) {
             return $this->setError('正方服务器错误');
@@ -418,7 +418,7 @@ class Api extends Model
         if(!$contents = http_get($url, $data, $timeout)) {
             return $this->setError('正方服务器错误');
         }
-        $arr = $contents;
+        $arr = json_decode($contents, true);
 
         if(!isset($arr['status'])) {
             return $this->setError('正方服务器错误');
@@ -1096,7 +1096,7 @@ class Api extends Model
         if(!$contents) {
             return $this->setError('正方服务器错误');
         }
-        $arr = $contents;
+        $arr = json_decode($contents, true);
 
         if($arr['status'] != 'success') {
             return $this->setError($arr['msg']);
