@@ -418,6 +418,9 @@ class Api extends Model
                 $sum += $value['绩点'];
             }
         }
+        if ($count === 0) {
+            return 0;
+        }
         return sprintf("%.3f", $sum / $count);
     }
 
