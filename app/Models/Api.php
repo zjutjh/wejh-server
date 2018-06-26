@@ -397,7 +397,23 @@ class Api extends Model
         $sum = 0;
         $count = 0;
         foreach ($score_list as $key => $value) {
-            if ($value['绩点']) {
+            if (isset($value['绩点']) && $value['绩点']) {
+                if (!isset($value['考试性质']) || $value['考试性质'] == "公选课"|| $value['成绩'] == "取消"
+                || (
+                    isset($value['考试性质']) && (
+                        $value['考试性质'] === '重修'
+                        || $value['考试性质'] === '补考'
+                    )
+                )
+                || (
+                    isset($value['课程概述名称']) && $value['课程概述名称'] !== '个性化课程' && (
+                        $value['课程概述名称'] && isset($value['课程性质名称']) && (
+                            $value['课程性质名称'] === '任选课'
+                        )
+                    )
+                )) {
+                    continue;
+                }
                 $count++;
                 $sum += $value['绩点'];
             }
