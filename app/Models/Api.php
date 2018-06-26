@@ -402,7 +402,7 @@ class Api extends Model
                 $sum += $value['绩点'];
             }
         }
-        return $sum / $count;
+        return sprintf("%.3f", $sum / $count);
     }
 
 
