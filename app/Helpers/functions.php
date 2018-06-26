@@ -80,7 +80,7 @@ function http_post($url, $post_data = null, $timeout = 500, $type = 'default'){/
  * @param  int      $timeout    超时时间，毫秒级
  * @return mixed
  */
-function http_get($url, $data = null, $timeout = 1000){//curl
+function http_get($url, $data = null, $timeout = 10000){//curl
     $ch = curl_init();
     if($data){
         if(strpos($url, '?') == false) {

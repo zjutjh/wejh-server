@@ -387,11 +387,24 @@ class Api extends Model
         }
         $res = [
             'list' => $score_list,
-            'gpa' => $this->getGpa($score_list)
+            'gpa' => $this->getZfGpa($score_list)
         ];
 
         return $res;
     }
+
+    public function getZfGpa($score_list) {
+        $sum = 0;
+        $count = 0;
+        foreach ($score_list as $key => $value) {
+            if ($value['绩点']) {
+                $count++;
+                $sum += $value['绩点'];
+            }
+        }
+        return $sum / $count;
+    }
+
 
     /**
      * 正方成绩明细获取
