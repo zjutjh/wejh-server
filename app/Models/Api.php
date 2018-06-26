@@ -387,7 +387,7 @@ class Api extends Model
         }
         $res = [
             'list' => $score_list,
-            'gpa' => $this->getZfGpa($score_list)
+            'gpa' => $this->getGpa($score_list)
         ];
 
         return $res;
