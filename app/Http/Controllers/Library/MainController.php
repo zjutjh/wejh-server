@@ -13,6 +13,11 @@ class MainController extends Controller
         if(!$user = Auth::user()) {
             return RJM(null, -1, '没有认证信息');
         }
+        if (isTestAccount($user->uno)) {
+            return  RJM([
+                'borrow_list' => []
+            ], 1, '获取排考成功');
+        }
         $ext = $user->ext;
         $lib_password = $ext['passwords']['lib_password'] ? decrypt($ext['passwords']['lib_password']) : '';
         if(!$lib_password) {

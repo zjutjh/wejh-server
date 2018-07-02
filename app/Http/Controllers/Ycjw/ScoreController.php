@@ -13,6 +13,14 @@ class ScoreController extends Controller
         if(!$user = Auth::user()) {
             return RJM(null, -1, '没有认证信息');
         }
+        if (isTestAccount($user->uno)) {
+            return  RJM([
+                'list' => [],
+                'grade_name' => '大一',
+                'semester' => '上',
+                'term' => '2013/2014(1)',
+            ], 1, '获取成绩成功');
+        }
         $start_grade = intval(substr($user->uno, 0, 4));
         $ext = $user->ext;
         $term = $ext['terms']['score_term'];

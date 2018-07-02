@@ -6,6 +6,7 @@
  * Time: 00:11
  */
 use App\Models\SystemSetting;
+use App\Models\User;
 
 /**
  * 响应json数据
@@ -185,4 +186,28 @@ function resetCurrentYcjwPort()
         'ycjw_port' => $min_log_port,
     ]);
     return $min_log_port;
+}
+
+function createTestUser () {
+    $username = '200200000000';
+    $password = 123456;
+    $user = new User;
+    $user->uno = $username;
+    $user->password = bcrypt($password);
+    $ext = [];
+    $ext['passwords']['jh_password'] = encrypt($password);
+    $ext['passwords']['yc_password'] = encrypt($password);
+    $ext['passwords']['card_password'] = encrypt(substr($username,-6));
+    $ext['passwords']['lib_password'] = encrypt($username);
+    $user->ext = $ext;
+    return $user;
+}
+
+function getTestUser () {
+    return User::where('uno', '200200000000')->first();
+}
+
+function isTestAccount($username)
+{
+    return $username == '200200000000' || $username == -1 || $username === 'Bearer -1';
 }

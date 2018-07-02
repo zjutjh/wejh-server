@@ -12,6 +12,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        //填充一些用户数据，暂时用不着
+        $user = createTestUser();
+        $user->save();
     }
 }

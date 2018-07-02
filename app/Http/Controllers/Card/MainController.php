@@ -14,6 +14,13 @@ class MainController extends Controller
         if(!$user = Auth::user()) {
             return RJM(null, -1, '没有认证信息');
         }
+        if (isTestAccount($user->uno)) {
+            return  RJM([
+                '姓名' => '测试',
+                '卡余额' => 88.88,
+                '今日账单' => []
+            ], 1, '获取排考成功');
+        }
         $ext = $user->ext;
         $card_password = $ext['passwords']['card_password'] ? decrypt($ext['passwords']['card_password']) : '';
         if(!$card_password) {
