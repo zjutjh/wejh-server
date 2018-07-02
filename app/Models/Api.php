@@ -521,6 +521,9 @@ class Api extends Model
                 )
             )
                 continue;
+            if (array_get($value, '名称', null) === '党的基本知识') {
+                continue;
+            }
             if(!isset($value['学分']) || !is_numeric($value['学分']) || $value['成绩'] == "免修")
                 continue;
             $b = $value['成绩'];
