@@ -206,7 +206,7 @@ class Api extends Model
      * @param $timeout
      * @return bool
      */
-    public function getUEASData($type, $username, $password, $term, $port, $retry, $timeout = 800) {
+    public function getUEASData($type, $username, $password, $term, $port, $retry, $timeout = null) {
         if ($term) {
             preg_match_all('/\d+/', $term, $pregResult);
             $year = intval($pregResult[0][0]);
@@ -235,6 +235,7 @@ class Api extends Model
                 }
             }
         }
+        $timeout = $timeout === null ? 800 : $timeout;
         $func = 'get' . 'Yc' . ucwords($type);
         if (!$password['yc']) {
             return $this->setError('请先绑定原创账号');
