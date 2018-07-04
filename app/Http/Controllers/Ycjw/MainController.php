@@ -31,7 +31,7 @@ class MainController extends Controller
         $api = new Api();
         $check = $api->getUEASData('score', $user->uno, [
             'zf' => $password
-        ], '2017/2018(1)', null, true);
+        ], '2017/2018(1)', null, true, null);
         if($check == false) {
             $error = $api->getError();
             if ($error === '用户名或密码错误') {
