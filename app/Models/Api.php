@@ -218,7 +218,7 @@ class Api extends Model
                         break;
                     case '2':
                         $term = 12;
-                        break;s
+                        break;
                     default:
                         $term = '';
                         break;
