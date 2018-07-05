@@ -351,7 +351,7 @@ class Api extends Model
             'password' => $password,
             'year' => $year,
             'term' => $term,
-            'ip' => 160,
+            'ip' => '160',
             'timeout' => $timeout / 1000,
         ];
         if(!$contents = http_get($url, $data, $timeout)) {
@@ -912,6 +912,7 @@ class Api extends Model
             'password' => $password,
             'year' => $year,
             'term' => $term,
+            'ip' => '160',
             'timeout' => $timeout / 1000,
         ];
 
