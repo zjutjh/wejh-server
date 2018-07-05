@@ -218,7 +218,7 @@ class Api extends Model
                         break;
                     case '2':
                         $term = 12;
-                        break;
+                        break;s
                     default:
                         $term = '';
                         break;
@@ -351,6 +351,7 @@ class Api extends Model
             'password' => $password,
             'year' => $year,
             'term' => $term,
+            'ip' => 160,
             'timeout' => $timeout / 1000,
         ];
         if(!$contents = http_get($url, $data, $timeout)) {
