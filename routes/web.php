@@ -12,7 +12,7 @@
 use Illuminate\Http\Request;
 
 Route::get('/',  function () {
-    return response('微精弘');
+    return view('index');
 });
 Route::get('/oauth/wechat', [
     'uses' => 'Auth\OauthController@wechat']);
