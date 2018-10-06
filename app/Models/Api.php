@@ -158,7 +158,7 @@ class Api extends Model
             'email' => ($email),
         ];
 
-        if(!$content = http_get($url, $data)) {
+        if(!$content = http_get($url, $data, 2000)) {
             return $this->setError('用户中心服务器错误');
         }
         if(!$value = json_decode($content, true)) {

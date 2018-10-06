@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tucao;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendTemplateMessage;
+use Mockery\Exception;
 
 class ServerController extends Controller
 {
@@ -14,33 +15,37 @@ class ServerController extends Controller
      */
     public function serve(Request $request)
     {
-        $event = json_decode(file_get_contents("php://input"), true);
-        $type = $event['type'];
-        $payload = $event['payload'];
-        switch ($type) {
-            case "post.created":
-                // 业务代码
-                $this->sendMessage('有一个新的留言', $payload);
-                return RJM(null, 1);
-                break;
-            case "post.updated":
-                // 业务代码
-                $this->sendMessage('有一个留言被更新了', $payload);
-                return RJM(null, 1);
-                break;
-            case "reply.created":
-                // 业务代码
-                $this->sendMessage('有一个新的回复', $payload);
-                return RJM(null, 1);
-                break;
-            case "reply.updated":
-                // 业务代码
-                $this->sendMessage('有一个回复被更新了', $payload);
-                return RJM(null, 1);
-                break;
-            default:
-                return response('no match', 200);
-                break;
+        try {
+            $event = json_decode(file_get_contents("php://input"), true);
+            $type = $event['type'];
+            $payload = $event['payload'];
+            switch ($type) {
+                case "post.created":
+                    // 业务代码
+                    $this->sendMessage('有一个新的留言', $payload);
+                    return RJM(null, 1);
+                    break;
+                case "post.updated":
+                    // 业务代码
+                    $this->sendMessage('有一个留言被更新了', $payload);
+                    return RJM(null, 1);
+                    break;
+                case "reply.created":
+                    // 业务代码
+                    $this->sendMessage('有一个新的回复', $payload);
+                    return RJM(null, 1);
+                    break;
+                case "reply.updated":
+                    // 业务代码
+                    $this->sendMessage('有一个回复被更新了', $payload);
+                    return RJM(null, 1);
+                    break;
+                default:
+                    return response('no match', 200);
+                    break;
+            }
+        } catch (Exception $e) {
+            return response('no match', 200);
         }
     }
 
