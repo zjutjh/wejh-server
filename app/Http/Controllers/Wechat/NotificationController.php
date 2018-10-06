@@ -20,4 +20,18 @@ class NotificationController extends Controller
         dispatch($job);
         return RJM(null, 200, 'success');
     }
+
+    public function walk(Request $request)
+    {
+        $userId = $request->get('openid');
+        $templateId = 'QMF8tbqP3FIBZk4_dD2HhiBC0HaIlkwCjTylPqYa9As'; // 模板消息id
+        $url = $request->get('url');
+        $data = $request->get('data');
+        if (!$userId || !$data) {
+            return RJM(null, -1, 'need openid and data');
+        }
+        $job = new SendTemplateMessage($userId, $templateId, $url, $data);
+        dispatch($job);
+        return RJM(null, 200, 'success');
+    }
 }

@@ -27,6 +27,8 @@ Route::any('/thirdParty/login',  [
     'uses' => 'Auth\LoginController@thirdParty']);
 Route::any('/notification/boomerang',  [
     'uses' => 'Wechat\NotificationController@boomerang']);
+Route::any('/notification/walk',  [
+    'uses' => 'Wechat\NotificationController@walk']);
 Route::any('/thirdParty/{uno}/openid',  [
     'uses' => 'Auth\LoginController@getOpenidByUno']);
 Route::any('/thirdParty/{uno}/iid/{iid}',  [
