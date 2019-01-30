@@ -80,6 +80,9 @@ class Api extends Model
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
+        if (strstr($password, '../') != false) {
+            return $this->setError('密码不允许带../');
+        }
         $url = api('jh.user', null);
         $data = [
             'app' => 'passport',
@@ -188,6 +191,9 @@ class Api extends Model
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
+        if (strstr($password, '../') != false) {
+            return $this->setError('密码不允许带../');
+        }
         $check = $this->getYcClass($user_name, $password, null, $port, $timeout);
         if(!$this->getError()) {
             return true;
@@ -276,6 +282,9 @@ class Api extends Model
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
+        if (strstr($password, '../') != false) {
+            return $this->setError('密码不允许带../');
+        }
         $url = api('ycjw.score', $port == null ? null : false);
         $data = [
             'username' => $user_name,
@@ -345,6 +354,9 @@ class Api extends Model
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
+        if (strstr($password, '../') != false) {
+            return $this->setError('密码不允许带../');
+        }
         $url = api('zf.score', null);
         $data = [
             'username' => $user_name,
@@ -384,7 +396,7 @@ class Api extends Model
             $g['绩点']=isset($value['jd'])?$value['jd']:'0';
             $g['考试性质']=isset($value['ksxz'])?$value['ksxz']:'';
             $g['课程性质名称']=isset($value['kcxzmc'])?$value['kcxzmc']:'';
-            $g['课程概述名称']=isset($value['kcgsmc'])?$value['kcgsmc']:'';
+            $g['课程归属名称']=isset($value['kcgsmc'])?$value['kcgsmc']:'';
             array_push($score_list,$g);
         }
         $res = [
@@ -408,8 +420,8 @@ class Api extends Model
                     )
                 )
                 || (
-                    isset($value['课程概述名称']) && $value['课程概述名称'] !== '个性化课程' && (
-                        $value['课程概述名称'] && isset($value['课程性质名称']) && (
+                    isset($value['课程归属名称']) && $value['课程归属名称'] !== '个性化课程' && (
+                        $value['课程归属名称'] && isset($value['课程性质名称']) && (
                             $value['课程性质名称'] === '任选课'
                         )
                     )
@@ -440,6 +452,9 @@ class Api extends Model
     public function getZfScoreDetail($user_name, $password, $year = null, $term = null, $timeout = 500) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
+        }
+        if (strstr($password, '../') != false) {
+            return $this->setError('密码不允许带../');
         }
         $url = api('zf.scoreDetail', null);
         $data = [
@@ -478,7 +493,7 @@ class Api extends Model
             // $g['绩点']=isset($value['jd'])?$value['jd']:'0';
             // $g['考试性质']=isset($value['ksxz'])?$value['ksxz']:'';
             // $g['课程性质名称']=isset($value['kcxzmc'])?$value['kcxzmc']:'';
-            // $g['课程概述名称']=isset($value['kcgsmc'])?$value['kcgsmc']:'';
+            // $g['课程归属名称']=isset($value['kcgsmc'])?$value['kcgsmc']:'';
 
             if(preg_match('/期中|总评/', $value['成绩分项'])) {
                 array_push($score_list,$g);
@@ -515,10 +530,20 @@ class Api extends Model
                     )
                 )
                 || (
-                    isset($value['课程概述名称']) && $value['课程概述名称'] !== '个性化课程' && (
-                        $value['课程概述名称'] && isset($value['课程性质名称']) && (
+                    isset($value['课程归属名称']) && $value['课程归属名称'] !== '个性化课程' && (
+                        $value['课程归属名称'] && isset($value['课程性质名称']) && (
                             $value['课程性质名称'] === '任选课'
                         )
+                    )
+                )
+                || (
+                    isset($value['课程归属名称']) && (
+                        $value['课程性质名称'] === '科学素养' ||
+                        $value['课程性质名称'] === '人文情怀' ||
+                        $value['课程性质名称'] === '社会责任' ||
+                        $value['课程性质名称'] === '国际视野' ||
+                        $value['课程性质名称'] === '新生研讨课' ||
+                        $value['课程性质名称'] === '创新创业'
                     )
                 )
             )
@@ -577,6 +602,9 @@ class Api extends Model
     public function getYcClass($user_name, $password, $term = null, $port = null, $timeout = 500) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
+        }
+        if (strstr($password, '../') != false) {
+            return $this->setError('密码不允许带../');
         }
 
         $url = api('ycjw.class', $port == null ? null : false);
@@ -659,6 +687,9 @@ class Api extends Model
     public function getZfClass($user_name, $password, $year, $term = null, $timeout = 500) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
+        }
+        if (strstr($password, '../') != false) {
+            return $this->setError('密码不允许带../');
         }
 
         $url = api('zf.class', null);
@@ -816,6 +847,9 @@ class Api extends Model
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
         }
+        if (strstr($password, '../') != false) {
+            return $this->setError('密码不允许带../');
+        }
 
         $url = api('ycjw.exam', $port == null ? null : false);
         $data = [
@@ -904,6 +938,9 @@ class Api extends Model
     public function getZfExam($user_name, $password, $year = null, $term = null, $timeout = 1200) {
         if (!$user_name OR !$password) {
             return $this->setError('用户名或密码为空');
+        }
+        if (strstr($password, '../') != false) {
+            return $this->setError('密码不允许带../');
         }
 
         $url = api('zf.exam', null);
