@@ -5,13 +5,15 @@
  * Time: 21:25
  */
 $prefix = [
-    'api' => 'http://api.jh.zjut.edu.cn/student/',
+    // 'api' => 'http://api.jh.zjut.edu.cn/student/',
+    'api' => 'http://api.imcr.me:8080/student/',
     'ext' => 'http://craim.net/api/',
 ];
 
 $jh = [
     'user' => [
-        'api' => 'http://user.jh.zjut.edu.cn/api.php',
+        // 'api' => 'http://user.jh.zjut.edu.cn/api.php',
+        'api' => 'http://user.zjut.com/api.php',
         'ext' => 'http://craim.net/api/api.php',
     ],
 ];

@@ -17,6 +17,7 @@ class ServerController extends Controller
     {
         try {
             $event = json_decode(file_get_contents("php://input"), true);
+            // logger()->error(file_get_contents("php://input"));
             $type = $event['type'];
             $payload = $event['payload'];
             switch ($type) {
@@ -30,11 +31,11 @@ class ServerController extends Controller
                     $this->sendMessage('有一个留言被更新了', $payload);
                     return RJM(null, 1);
                     break;
-                case "reply.created":
-                    // 业务代码
-                    $this->sendMessage('有一个新的回复', $payload);
-                    return RJM(null, 1);
-                    break;
+                // case "reply.created":
+                //     // 业务代码
+                //     $this->sendMessage('有一个新的回复', $payload);
+                //     return RJM(null, 1);
+                //     break;
                 case "reply.updated":
                     // 业务代码
                     $this->sendMessage('有一个回复被更新了', $payload);

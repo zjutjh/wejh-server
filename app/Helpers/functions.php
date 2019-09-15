@@ -92,6 +92,9 @@ function http_get($url, $data = null, $timeout = 10000){//curl
         $url .= http_build_query($data);
     }
     curl_setopt ($ch, CURLOPT_URL, $url);
+    // logger()->error(json_encode([
+    //         'url' => $url
+    //     ]));
     curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
     curl_setopt ($ch, CURLOPT_TIMEOUT_MS, $timeout);

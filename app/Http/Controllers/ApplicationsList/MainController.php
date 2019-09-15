@@ -90,6 +90,7 @@ class MainController extends Controller
                 'route' => '/pages/teacher/teacher',
                 'bg' => $icons['teacher']['bg'],
                 'icon' => $icons['teacher']['icon'],
+                'disabled' => true,
             ],
             [
                 'title' => '一卡通',
@@ -115,11 +116,17 @@ class MainController extends Controller
                 'bg' => $icons['square']['bg'],
                 'icon' => $icons['square']['icon'],
             ],
-            [
-                'title' => '失物招领',
-                'bg' => 'green',
-                'url' => 'https://boomerang.zhutianyu.top',
-            ],
+            // [
+            //     'title' => '失物招领',
+            //     'bg' => 'green',
+            //     'url' => 'https://boomerang.zhutianyu.top',
+            // ],
+             [
+                 'title' => '街能换电',
+                 'bg' => 'blue',
+                 'icon' => cdn('img/app-list/jineng.png', false),
+                 'appId' => 'wx43b9394cba2c7241'
+             ],
             [
                 'title' => '绑定服务号',
                 'bg' => 'red',
