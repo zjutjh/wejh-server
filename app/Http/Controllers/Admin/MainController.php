@@ -27,7 +27,10 @@ class MainController extends Controller
             return RJM(null, -1, '需要绑定');
         }
         $api = new Api;
-        $result = $api->getUEASData('class', $user->uno, $zf_password, $term, null, false);
+        $result = $api->getUEASData('class', $user->uno, [
+            'yc' => $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '',
+            'zf' => $ext['passwords']['zf_password'] ? decrypt($ext['passwords']['zf_password']) : '',
+        ], $term, null, false);
         if(!$result) {
             return RJM(null, -1, $api->getError());
         }
