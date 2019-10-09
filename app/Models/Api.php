@@ -768,66 +768,69 @@ class Api extends Model
         preg_match_all($preg, $class_info['课程信息'], $arr);
         $class_info['信息'] = array();
         foreach ($arr[0] as $key => $val) {
-            $one = array();
             $preg = '/(\d+)[-]?(\d+)?周?\(?([^):]+)?\)?/';
-            preg_match_all($preg, $val, $array);
-            $one['周'] = $array[0][0];
-            if(isset($array[1][0]) && !empty($array[1][0]))
-            {
-                $one['开始周'] = $array[1][0];
-                $one['结束周'] = $array[2][0] ? $array[2][0] : $array[1][0];
-            }
-            else
-            {
-                $one['开始周'] = $one['周'];
-                $one['结束周'] = $one['周'];
-            }
-
-            if(isset($array[3][0]) && !empty($array[3][0])) {
-                $one['周类型'] = $array[3][0] === '单' ? 'odd' : ($array[3][0] === '双' ? 'even' : 'default');
-            } else {
-                $one['周类型'] = 'default';
-            }
-            $preg = '/星期(\d)/';
-            preg_match_all($preg, $val, $array);
-            $one['星期'] = $array[1][0];
-            $preg = '/\((\d+)/';
-            preg_match_all($preg, $val, $array);
-            $one['开始节'] = $array[1][0];
-            $preg = '/(\d+)\)/';
-            preg_match_all($preg, $val, $array);
-            $one['结束节'] = $array[1][0];
-            $preg = '/\)\s([^;]*)/';
-            preg_match_all($preg, $val, $array);
-            if(isset($array[1][0]) && !empty($array[1][0]))
-            {
-                $one['地点'] = $array[1][0];
-            }
-            else
-            {
-                $one['地点'] = "";
-            }
-            $info_pieces = explode(',', $one['周']);
-            if (isset($info_pieces[1])) {
-                foreach ($info_pieces as $k => $piece) {
-                    $piece_info = $one;
-                    $piece_info['周'] = $piece;
-                    $preg = '/(\d+)[-]?(\d+)?周?\(?([^):]+)?\)?/';
-                    preg_match_all($preg, $piece, $array);
-                    if(isset($array[1][0]) && !empty($array[1][0]))
-                    {
-                        $piece_info['开始周'] = $array[1][0];
-                        $piece_info['结束周'] = $array[2][0] ? $array[2][0] : $array[1][0];
-                    }
-                    else
-                    {
-                        $piece_info['开始周'] = $piece_info['周'];
-                        $piece_info['结束周'] = $piece_info['周'];
-                    }
-                    array_push($class_info['信息'], $piece_info);
+            preg_match_all($preg, $val, $matches);
+            foreach ($matches[0] as $m => $match) {
+                preg_match_all($preg, $match, $array);
+                $one = array();
+                $one['周'] = $array[0][0];
+                if(isset($array[1][0]) && !empty($array[1][0]))
+                {
+                    $one['开始周'] = $array[1][0];
+                    $one['结束周'] = $array[2][0] ? $array[2][0] : $array[1][0];
                 }
-            } else {
-                array_push($class_info['信息'], $one);
+                else
+                {
+                    $one['开始周'] = $one['周'];
+                    $one['结束周'] = $one['周'];
+                }
+
+                if(isset($array[3][0]) && !empty($array[3][0])) {
+                    $one['周类型'] = $array[3][0] === '单' ? 'odd' : ($array[3][0] === '双' ? 'even' : 'default');
+                } else {
+                    $one['周类型'] = 'default';
+                }
+                $preg = '/星期(\d)/';
+                preg_match_all($preg, $val, $array);
+                $one['星期'] = $array[1][0];
+                $preg = '/\((\d+)/';
+                preg_match_all($preg, $val, $array);
+                $one['开始节'] = $array[1][0];
+                $preg = '/(\d+)\)/';
+                preg_match_all($preg, $val, $array);
+                $one['结束节'] = $array[1][0];
+                $preg = '/\)\s([^;]*)/';
+                preg_match_all($preg, $val, $array);
+                if(isset($array[1][0]) && !empty($array[1][0]))
+                {
+                    $one['地点'] = $array[1][0];
+                }
+                else
+                {
+                    $one['地点'] = "";
+                }
+                $info_pieces = explode(',', $one['周']);
+                if (isset($info_pieces[1])) {
+                    foreach ($info_pieces as $k => $piece) {
+                        $piece_info = $one;
+                        $piece_info['周'] = $piece;
+                        $preg = '/(\d+)[-]?(\d+)?周?\(?([^):]+)?\)?/';
+                        preg_match_all($preg, $piece, $array);
+                        if(isset($array[1][0]) && !empty($array[1][0]))
+                        {
+                            $piece_info['开始周'] = $array[1][0];
+                            $piece_info['结束周'] = $array[2][0] ? $array[2][0] : $array[1][0];
+                        }
+                        else
+                        {
+                            $piece_info['开始周'] = $piece_info['周'];
+                            $piece_info['结束周'] = $piece_info['周'];
+                        }
+                        array_push($class_info['信息'], $piece_info);
+                    }
+                } else {
+                    array_push($class_info['信息'], $one);
+                }
             }
         }
         return $class_info;
