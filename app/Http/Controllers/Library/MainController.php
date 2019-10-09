@@ -28,7 +28,7 @@ class MainController extends Controller
 
         $list = $result['borrow_list'];
         $times = 0;
-        while (count($list) < $result['borrow_num'] && $times < 6) {
+        while ($list && (count($list) < $result['borrow_num']) && $times < 6) {
             $result = $api->getBookBorrow($user->uno, $lib_password, 'next', $result['session']);
             $list = array_merge($list, $result['borrow_list'] ? $result['borrow_list'] : []);
             $times++;
