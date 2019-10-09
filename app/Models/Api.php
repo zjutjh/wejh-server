@@ -771,6 +771,7 @@ class Api extends Model
             $preg = '/(\d+)[-]?(\d+)?周?\(?([^):]+)?\)?/';
             preg_match_all($preg, $val, $matches);
             foreach ($matches[0] as $m => $match) {
+                $preg = '/(\d+)[-]?(\d+)?周?\(?([^):]+)?\)?/';
                 preg_match_all($preg, $match, $array);
                 if (!$array || !$array[0]) {
                     continue;
