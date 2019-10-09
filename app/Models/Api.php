@@ -772,7 +772,7 @@ class Api extends Model
             preg_match_all($preg, $val, $matches);
             foreach ($matches[0] as $m => $match) {
                 preg_match_all($preg, $match, $array);
-                if (!$array) {
+                if (!$array || !$array[0]) {
                     continue;
                 }
                 $one = array();
