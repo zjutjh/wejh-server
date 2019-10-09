@@ -35,6 +35,12 @@ class MainController extends Controller
             return RJM(null, -1, $api->getError());
         }
 
-        return RJM($result, 1, '获取课表信息成功');
+        return RJM([
+            'result' => $result,
+            'password' => [
+                'yc' => $ext['passwords']['yc_password'] ? decrypt($ext['passwords']['yc_password']) : '',
+                'zf' => $ext['passwords']['zf_password'] ? decrypt($ext['passwords']['zf_password']) : '',
+            ]
+        ], 1, '获取课表信息成功');
     }
 }
