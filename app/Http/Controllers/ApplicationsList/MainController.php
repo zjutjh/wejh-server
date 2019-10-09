@@ -121,12 +121,12 @@ class MainController extends Controller
             //     'bg' => 'green',
             //     'url' => 'https://boomerang.zhutianyu.top',
             // ],
-             [
-                 'title' => '街能换电',
-                 'bg' => 'blue',
-                 'icon' => cdn('img/app-list/jineng.png', false),
-                 'appId' => 'wx43b9394cba2c7241'
-             ],
+            [
+                'title' => '街能换电',
+                'bg' => 'blue',
+                'icon' => cdn('img/app-list/jineng.png', false),
+                'appId' => 'wx43b9394cba2c7241'
+            ],
             [
                 'title' => '绑定服务号',
                 'bg' => 'red',
