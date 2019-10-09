@@ -34,6 +34,9 @@ Route::any('/thirdParty/{uno}/openid',  [
 Route::any('/thirdParty/{uno}/iid/{iid}',  [
     'uses' => 'Auth\LoginController@checkIID']);
 
+Route::any('/admin/timetable',  [
+    'uses' => 'Admin\MainController@timetable']);
+
 Route::any('/git/pull',  function (Request $request) {
     Artisan::call('git:pull', [
         'ref' => $request->input('ref')
