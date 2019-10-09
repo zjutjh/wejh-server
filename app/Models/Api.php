@@ -772,6 +772,9 @@ class Api extends Model
             preg_match_all($preg, $val, $matches);
             foreach ($matches[0] as $m => $match) {
                 preg_match_all($preg, $match, $array);
+                if (!$array) {
+                    continue;
+                }
                 $one = array();
                 $one['周'] = $array[0][0];
                 if(isset($array[1][0]) && !empty($array[1][0]))
