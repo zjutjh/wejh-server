@@ -86,12 +86,18 @@ class MainController extends Controller
                 'icon' => $icons['freeroom']['icon'],
             ],
             [
-                'title' => '教师查询',
-                'route' => '/pages/teacher/teacher',
-                'bg' => $icons['teacher']['bg'],
-                'icon' => $icons['teacher']['icon'],
-                'disabled' => true,
+                'title' => '吐个槽',
+                'module' => 'feedback',
+                'bg' => $icons['square']['bg'],
+                'icon' => $icons['square']['icon'],
             ],
+//            [
+//                'title' => '教师查询',
+//                'route' => '/pages/teacher/teacher',
+//                'bg' => $icons['teacher']['bg'],
+//                'icon' => $icons['teacher']['icon'],
+//                'disabled' => true,
+//            ],
             [
                 'title' => '一卡通',
                 'route' => '/pages/card/card',
@@ -110,17 +116,18 @@ class MainController extends Controller
 //                'bg' => 'red',
 //                // 'icon' => $icons['publicity']['icon'],
 //            ],
-            [
-                'title' => '吐个槽',
-                'module' => 'feedback',
-                'bg' => $icons['square']['bg'],
-                'icon' => $icons['square']['icon'],
-            ],
             // [
             //     'title' => '失物招领',
             //     'bg' => 'green',
             //     'url' => 'https://boomerang.zhutianyu.top',
             // ],
+            [
+                'title' => '氢动简学车',
+                'bg' => 'yellow',
+                'icon' => cdn('img/app-list/qingdong.png', false),
+                'path' => '/pages/index/index?codefrom=wejh_jxhtech',
+                'appId' => 'wxb5abdabfd36aca7a'
+            ],
             [
                 'title' => '街能换电',
                 'bg' => 'blue',
