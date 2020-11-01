@@ -4,6 +4,8 @@
  * Date: 2017/7/13
  * Time: 21:25
  */
+$query = '?ip=163/jwglxt';
+
 $prefix = [
     // 'api' => 'http://api.jh.zjut.edu.cn/student/',
     'api' => 'http://api.imcr.me:8080/student/',
@@ -26,11 +28,11 @@ $ycjw = [
 ];
 
 $zf = [
-    'score' => 'scoresZf.php',
-    'class' => 'classZf.php',
-    'exam' => 'examQueryZf.php',
-    'freeroom' => 'roomZf.php',
-    'scoreDetail' => 'scoresDetailZf.php'
+    'score' => 'scoresZf.php' . $query,
+    'class' => 'classZf.php' . $query,
+    'exam' => 'examQueryZf.php' . $query,
+    'freeroom' => 'roomZf.php' . $query,
+    'scoreDetail' => 'scoresDetailZf.php' . $query
 ];
 
 $library = [

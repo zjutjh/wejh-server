@@ -43,9 +43,9 @@ class User extends Authenticatable
         ],
         // 接下来是一些用户配置
         'terms' => [
-            'score_term' => '2019/2020(1)', // 成绩学期
-            'class_term' => '2019/2020(1)', // 课表学期
-            'exam_term' => '2019/2020(1)', // 排考学期
+            'score_term' => '2020/2021(1)', // 成绩学期
+            'class_term' => '2020/2021(1)', // 课表学期
+            'exam_term' => '2020/2021(1)', // 排考学期
         ],
         'passwords' => [
             'jh_password' => null, // 精弘通行证密码

@@ -121,24 +121,24 @@ class MainController extends Controller
             //     'bg' => 'green',
             //     'url' => 'https://boomerang.zhutianyu.top',
             // ],
-            [
-                'title' => '氢动简学车',
-                'bg' => 'yellow',
-                'icon' => cdn('img/app-list/qingdong.png', false),
-                'path' => '/pages/index/index?codefrom=wejh_jxhtech',
-                'appId' => 'wxb5abdabfd36aca7a'
-            ],
-            [
-                'title' => '街能换电',
-                'bg' => 'blue',
-                'icon' => cdn('img/app-list/jineng.png', false),
-                'appId' => 'wx43b9394cba2c7241'
-            ],
-            [
-                'title' => '绑定服务号',
-                'bg' => 'red',
-                'url' => url('/oauth/wechat/loginByUno') . '?uno=' . urlencode('{uno}'),
-            ],
+            // [
+            //     'title' => '氢动简学车',
+            //     'bg' => 'yellow',
+            //     'icon' => cdn('img/app-list/qingdong.png', false),
+            //     'path' => '/pages/index/index?codefrom=wejh_jxhtech',
+            //     'appId' => 'wxb5abdabfd36aca7a'
+            // ],
+            // [
+            //     'title' => '街能换电',
+            //     'bg' => 'blue',
+            //     'icon' => cdn('img/app-list/jineng.png', false),
+            //     'appId' => 'wx43b9394cba2c7241'
+            // ],
+            // [
+            //     'title' => '绑定服务号',
+            //     'bg' => 'red',
+            //     'url' => url('/oauth/wechat/loginByUno') . '?uno=' . urlencode('{uno}'),
+            // ],
         ];
 
         $res = [
