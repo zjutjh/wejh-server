@@ -85,12 +85,12 @@ class MainController extends Controller
                 'bg' => $icons['freeroom']['bg'],
                 'icon' => $icons['freeroom']['icon'],
             ],
-            [
-                'title' => '吐个槽',
-                'module' => 'feedback',
-                'bg' => $icons['square']['bg'],
-                'icon' => $icons['square']['icon'],
-            ],
+            // [
+            //     'title' => '吐个槽',
+            //     'module' => 'feedback',
+            //     'bg' => $icons['square']['bg'],
+            //     'icon' => $icons['square']['icon'],
+            // ],
 //            [
 //                'title' => '教师查询',
 //                'route' => '/pages/teacher/teacher',
