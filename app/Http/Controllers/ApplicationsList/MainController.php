@@ -12,51 +12,51 @@ class MainController extends Controller
         $icons = [
             'timetable' => [
                 'bg' => 'blue',
-                'icon' => cdn('img/app-list/timetable.png', false),
-                'card' => cdn('img/card-background/timetable.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB1zXRm4uL2gK0jSZPhXXahvXXa-652-652.png',
+                'card' => 'https://gw.alicdn.com/tfs/TB1DBJr4EH1gK0jSZSyXXXtlpXa-1125-300.png',
             ],
             'score' => [
                 'bg' => 'red',
-                'icon' => cdn('img/app-list/score.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB1bYcjpODsXe8jSZR0XXXK6FXa-652-652.png',
             ],
             'exam' => [
                 'bg' => 'green',
-                'icon' => cdn('img/app-list/exam.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB1oPcIrSR26e4jSZFEXXbwuXXa-652-652.png',
             ],
             'freeroom' => [
                 'bg' => 'red',
-                'icon' => cdn('img/app-list/freeroom.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB1ZG8t4EY1gK0jSZFCXXcwqXXa-652-652.png',
             ],
             'student' => [
                 'bg' => 'purple',
-                'icon' => cdn('img/app-list/student.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB1HilgsRFR4u4jSZFPXXanzFXa-652-652.png',
             ],
             'teacher' => [
                 'bg' => 'purple',
-                'icon' => cdn('img/app-list/teacher.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB1nqRMt8Bh1e4jSZFhXXcC9VXa-652-652.png',
             ],
             'card' => [
                 'bg' => 'yellow',
-                'icon' => cdn('img/app-list/card.png', false),
-                'card' => cdn('img/card-background/card.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB10a8t4EY1gK0jSZFCXXcwqXXa-652-652.png',
+                'card' => 'https://gw.alicdn.com/tfs/TB1De6Xn4vbeK8jSZPfXXariXXa-1125-300.png',
             ],
             'borrow' => [
                 'bg' => 'blue',
-                'icon' => cdn('img/app-list/borrow.png', false),
-                'card' => cdn('img/card-background/borrow.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB13t8D4ET1gK0jSZFrXXcNCXXa-652-652.png',
+                'card' => 'https://gw.alicdn.com/tfs/TB1xf0m4Ez1gK0jSZLeXXb9kVXa-1125-300.png',
             ],
             'tri' => [
                 'bg' => 'blue',
                 'icon' => '',
-                'card' => cdn('img/card-background/tri.png', false),
+                'card' => 'https://gw.alicdn.com/tfs/TB1I4FMptTfau8jSZFwXXX1mVXa-2055-702.png',
             ],
             'publicity' => [
                 'bg' => array_random($colors),
-                'icon' => cdn('img/app-list/publicity.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB1EFNu4EY1gK0jSZFMXXaWcVXa-425-400.png',
             ],
             'square' => [
                 'bg' => array_random($colors),
-                'icon' => cdn('img/app-list/square.png', false),
+                'icon' => 'https://gw.alicdn.com/tfs/TB1Hp0i4AL0gK0jSZFtXXXQCXXa-400-400.png',
             ],
         ];
         $applicationsList = [
