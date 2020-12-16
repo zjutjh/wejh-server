@@ -14,16 +14,16 @@ class StudentTableSeeder extends Seeder
     public function run()
     {
 
-        for ($i = 2013; $i < 2018; $i++) {
-            $filePath = 'storage/excel/'.$i.'.xls';
-            echo "import $i's students\n";
-            Excel::load($filePath, function($reader) use($i) {
-                $reader->each(function ($data) use($i) {
-                    $student = $data->toArray();
-                    $student['grade'] = $i;
-                    Student::create($student);
-                });
-            });
-        }
+        // for ($i = 2013; $i < 2018; $i++) {
+        //     $filePath = 'storage/excel/'.$i.'.xls';
+        //     echo "import $i's students\n";
+        //     Excel::load($filePath, function($reader) use($i) {
+        //         $reader->each(function ($data) use($i) {
+        //             $student = $data->toArray();
+        //             $student['grade'] = $i;
+        //             Student::create($student);
+        //         });
+        //     });
+        // }
     }
 }
