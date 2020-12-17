@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// TEST
+Route::get('TEST', function () {
+    return 'Hello World!<br>';
+});
+
+// 我的插入姓名的函数
+Route::post('insertName', [
+    'uses' => 'InsertName@insertName']);
+
 Route::any('/wechat',  [
     'uses' => 'Wechat\ServerController@serve']);
 Route::any('/wechat/accessToken',  [
