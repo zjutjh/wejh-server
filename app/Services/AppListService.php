@@ -81,6 +81,11 @@ class AppListService {
                 'route' => '/pages/freeroom/freeroom',
                 'bg' => $icons['freeroom']['bg'],
                 'icon' => $icons['freeroom']['icon'],
+                'badge' => [
+                    'type' => 'static',
+                    'path' => '/index/freeroom',
+                    'content' => '莫干山',
+                ],
             ],
             // [
             //     'title' => '吐个槽',
