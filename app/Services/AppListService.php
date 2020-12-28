@@ -42,6 +42,10 @@ class AppListService {
                 'icon' => 'https://gw.alicdn.com/tfs/TB13t8D4ET1gK0jSZFrXXcNCXXa-652-652.png',
                 'card' => 'https://gw.alicdn.com/tfs/TB1xf0m4Ez1gK0jSZLeXXb9kVXa-1125-300.png',
             ],
+            'questionnaire' => [
+                'bg' => 'red',
+                'icon' => 'https://assets.gettoset.cn/wejh/icon-questionnaire-652-652.png',
+            ],
             'tri' => [
                 'bg' => 'blue',
                 'icon' => '',
@@ -111,6 +115,19 @@ class AppListService {
                 'route' => '/pages/borrow/borrow',
                 'bg' => $icons['borrow']['bg'],
                 'icon' => $icons['borrow']['icon'],
+            ],
+            [
+                'title' => '问卷调研',
+                'appId' => 'wxd947200f82267e58',
+                'path' => 'pages/wjxqList/wjxqList?activityId=101523577',
+                'bg' => $icons['questionnaire']['bg'],
+                'icon' => $icons['questionnaire']['icon'],
+                'badge' => [
+                    'type' => 'simple',
+                    'path' => '/index/questionnaire',
+                    'clearPath' => '/index/questionnaire',
+                    'content' => '莫干山',
+                ],
             ],
             // [
             //     'title' => '志愿者',
