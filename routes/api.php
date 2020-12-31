@@ -65,6 +65,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/announcement', [
         'uses' => 'Announcement\MainController@api']);
 
+    Route::get('/bootstrap', [
+        'uses' => 'Bootstrap\MainController@getBootstrapInfo']);
+
     Route::post('/walk', [
         'uses' => 'Walk\MainController@search']);
 
