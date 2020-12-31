@@ -22,6 +22,8 @@ class CreateUsernameTable extends Migration
                     $table->string('id')->unique();  // 设置用户学号为唯一索引
                 if (!Schema::hasColumn('user_information', 'zone')) // 用户校区 
                     $table->string('zone');  
+                if (!Schema::hasColumn('user_information', 'enterTime')) // 用户毕业年份
+                    $table->date('enterTime'); 
                 if (!Schema::hasColumn('user_information', 'graduateTime')) // 用户毕业年份
                     $table->date('graduateTime');  
             });

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 // 增加用户信息
 Route::post('/insertUser',  [
-    'uses' => 'UserInformation\insertUser@insertUser']);
+    'uses' => 'UserInformation\insertUser@insertUser'])->middleware('jwt.api.auth');
 
 Route::any('/wechat',  [
     'uses' => 'Wechat\ServerController@serve']);

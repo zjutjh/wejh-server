@@ -9,9 +9,14 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class insertUser extends Controller
 {
-    public function insertUser()
+    public function insertUser(Request $request)
     {
-        $user = JWTAuth::getToken();
-        echo $user;
+        $name = $request->name; // 姓名
+        $zone = $request->zone; // 校区信息
+        $enterTime = $request->enterTime; // 入学时间
+        $graduateTime = $request->graduateTime; // 毕业时间 
+        $id = (JWTAuth::parseToken()->authenticate())['uno']; // 获取学号信息
+        
+        
     }
 }
