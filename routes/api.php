@@ -13,14 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// TEST
-Route::get('TEST', function () {
-    return 'Hello World!<br>';
-});
-
-// 我的插入姓名的函数
-Route::post('insertName', [
-    'uses' => 'InsertName@insertName']);
+// 增加用户信息
+Route::post('/insertUser',  [
+    'uses' => 'UserInformation\insertUser@insertUser']);
 
 Route::any('/wechat',  [
     'uses' => 'Wechat\ServerController@serve']);
