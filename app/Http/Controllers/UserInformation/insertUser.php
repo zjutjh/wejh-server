@@ -21,6 +21,6 @@ class insertUser extends Controller
         // 将上面的数据插入数据库
         DB::insert('insert into user_information (id, name, zone, entertime, graduateTime) 
             values (?, ?, ?, ?, ?)', [$id, $name, $zone, $enterTime, $graduateTime]); // 插入数据
-        return RJM('Insert information success', 1, 'ok');
+        return RJM(null, 1, 'ok');
     }
 }
