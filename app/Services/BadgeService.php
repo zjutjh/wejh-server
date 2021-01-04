@@ -8,7 +8,7 @@ class BadgeService {
         $badges = [
             '/home/feedback',
             '/index/freeroom/moganshan',
-            '/index/questionnaire',
+            // '/index/questionnaire',
         ];
         return [
             'allBadges' => $badges

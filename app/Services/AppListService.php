@@ -116,19 +116,19 @@ class AppListService {
                 'bg' => $icons['borrow']['bg'],
                 'icon' => $icons['borrow']['icon'],
             ],
-            [
-                'title' => '问卷调研',
-                'appId' => 'wxd947200f82267e58',
-                'path' => 'pages/wjxqList/wjxqList?activityId=101523577',
-                'bg' => $icons['questionnaire']['bg'],
-                'icon' => $icons['questionnaire']['icon'],
-                'badge' => [
-                    'type' => 'simple',
-                    'path' => '/index/questionnaire',
-                    'clearPath' => '/index/questionnaire',
-                    'content' => '莫干山',
-                ],
-            ],
+            // [
+            //     'title' => '问卷调研',
+            //     'appId' => 'wxd947200f82267e58',
+            //     'path' => 'pages/wjxqList/wjxqList?activityId=101523577',
+            //     'bg' => $icons['questionnaire']['bg'],
+            //     'icon' => $icons['questionnaire']['icon'],
+            //     'badge' => [
+            //         'type' => 'simple',
+            //         'path' => '/index/questionnaire',
+            //         'clearPath' => '/index/questionnaire',
+            //         'content' => '莫干山',
+            //     ],
+            // ],
             // [
             //     'title' => '志愿者',
             //     'url' => url('/wechat/view') . '?url=' . urlencode('http://zhangyx.cn/VMS/WechatTimeResult.do?id={uno}'),
