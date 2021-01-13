@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// 增加用户信息
+Route::post('/insertUser',  [
+    'uses' => 'UserInformation\insertUser@insertUser'
+])->middleware('jwt.api.auth');
+// 查询用户信息
+Route::any('/findUser', [
+    'uses' => 'UserInformation\findUser@findUser'
+])->middleware('jwt.api.auth');
+// 修改用户信息
+Route::post('/updateUser', [
+    'uses' => 'UserInformation\updateUser@updateUser'
+])->middleware('jwt.api.auth');
+
 Route::any('/wechat',  [
     'uses' => 'Wechat\ServerController@serve']);
 Route::any('/wechat/accessToken',  [
