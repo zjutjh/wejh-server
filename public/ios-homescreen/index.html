@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>把微精弘装进桌面</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-585DSGLZ6Q"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-585DSGLZ6Q");
+    </script>
+    <style>
+      .guide-icon {
+        width: 1rem;
+        height: 1rem;
+        margin-bottom: 2px;
+      }
+      body {
+        background: linear-gradient(180deg, #e0eafc, #cfdef3);
+        background-color: #e0eafc;
+        color: #00243d;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container-guide" class="container-fluid vh-100">
+      <div class="row">
+        <div class="col col-10 col-lg-8 col-xl-6 mx-auto text-center">
+          <div
+            id="content-extern"
+            class="vh-100 d-flex flex-column align-items-center justify-content-center text-center"
+            style="display: none !important"
+          >
+            <img
+              src="https://assets.gettoset.cn/wejh/ios-homescreen/images/open-in-safari.png"
+              class="w-75 mb-3"
+              alt=""
+            />
+            <div>请使用iOS设备访问，并选择在Safari中打开</div>
+          </div>
+          <div id="content-guide" style="display: none !important">
+            <div class="mt-4">
+              <h2 class="font-weight-bold">把微精弘装进桌面</h2>
+            </div>
+            <div class="mt-4">
+              <img
+                src="https://assets.gettoset.cn/wejh/ios-homescreen/images/wejh-preview.png"
+                class="w-75"
+                alt=""
+              />
+            </div>
+            <div class="mt-4">
+              <small
+                >点击<strong>「下一步」</strong>，当看到精弘 Logo
+                时，点击浏览器上的<img
+                  src="https://assets.gettoset.cn/wejh/ios-homescreen/images/guide-icon-share.png"
+                  class="guide-icon"
+                  alt=""
+                />按钮，并选择<img
+                  src="https://assets.gettoset.cn/wejh/ios-homescreen/images/guide-icon-add.png"
+                  class="guide-icon"
+                  alt=""
+                /><strong>「添加到主屏幕」</strong></small
+              >
+            </div>
+            <div class="mt-3">
+              <button
+                type="button"
+                class="btn btn-primary btn-block"
+                id="guide-btn-continue"
+              >
+                下一步
+              </button>
+              <div class="form-group form-check mt-2">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="guide-checkbox"
+                />
+                <label class="form-check-label" for="guide-checkbox">
+                  我知道如何操作啦
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.addEventListener("load", function () {
+        var userAgent = navigator.userAgent;
+        var isIOSAndSafari =
+          /iPad|iPhone|iPod/.test(userAgent) &&
+          /.*Version.*Safari.*/.test(userAgent) &&
+          !/CriOS/.test(userAgent) &&
+          !/FxiOS/.test(userAgent) &&
+          !/EdgiOS/.test(userAgent) &&
+          !/OPiOS/.test(userAgent);
+
+        if (isIOSAndSafari) {
+          document.getElementById("content-guide").setAttribute("style", "");
+        } else {
+          document.getElementById("content-extern").setAttribute("style", "");
+        }
+
+        var continueButton = document.getElementById("guide-btn-continue");
+        var guideCheckbox = document.getElementById("guide-checkbox");
+        continueButton.disabled = !guideCheckbox.checked;
+        guideCheckbox.addEventListener("change", function () {
+          continueButton.disabled = !this.checked;
+        });
+        continueButton.addEventListener("click", function () {
+          window.location.href = "./launcher";
+        });
+      });
+    </script>
+  </body>
+</html>
