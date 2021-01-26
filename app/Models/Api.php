@@ -217,6 +217,7 @@ class Api extends Model
             preg_match_all('/\d+/', $term, $pregResult);
             $year = intval($pregResult[0][0]);
             if ($year >= 2017) {
+                // 正方查询逻辑
                 $termNum = intval($pregResult[0][2]);
                 switch ($termNum) {
                     case '1':
@@ -225,9 +226,11 @@ class Api extends Model
                     case '2':
                         $term = 12;
                         break;
-                    default:
-                        $term = '';
+                    case '3':
+                        $term = 16;
                         break;
+                    default:
+                        return $this->setError('参数错误');
                 }
                 $func = 'get' . 'Zf' . ucwords($type);
                 if (!$password['zf']) {
@@ -239,32 +242,41 @@ class Api extends Model
                 } catch (Exception $e) {
                     return $this->setError('方法不存在');
                 }
-            }
-        }
-        $timeout = $timeout === null ? 800 : $timeout;
-        $func = 'get' . 'Yc' . ucwords($type);
-        if (!$password['yc']) {
-            return $this->setError('请先绑定原创账号');
-        }
-        try {
-            $result = $this->$func($username, $password['yc'], $term, $port, $timeout);
-            if(!is_array($result) && !$retry) {
-                return $this->setError('原创服务器错误');
-            }
-            if(!is_array($result) && $retry) {
-                for ($i = 83; $i <= 86; $i++) {
-                    $result = $this->$func($username, $password['yc'], $term, $i, $timeout);
-                    if(is_array($result)) {
-                        break;
+            } else {
+                // 原创查询逻辑
+                $termNum = intval($pregResult[0][2]);
+                if (!($termNum === 1 || $term === 2)) {
+                    // 原创教务只允许查询上/下学期数据
+                    return $this->setError('参数错误');
+                }
+                $timeout = $timeout === null ? 800 : $timeout;
+                $func = 'get' . 'Yc' . ucwords($type);
+                if (!$password['yc']) {
+                    return $this->setError('请先绑定原创账号');
+                }
+                try {
+                    $result = $this->$func($username, $password['yc'], $term, $port, $timeout);
+                    if(!is_array($result) && !$retry) {
+                        return $this->setError('原创服务器错误');
                     }
-                }
-                if(!is_array($result)) {
-                    return $this->setError('原创服务器错误');
+                    if(!is_array($result) && $retry) {
+                        for ($i = 83; $i <= 86; $i++) {
+                            $result = $this->$func($username, $password['yc'], $term, $i, $timeout);
+                            if(is_array($result)) {
+                                break;
+                            }
+                        }
+                        if(!is_array($result)) {
+                            return $this->setError('原创服务器错误');
+                        }
+                    }
+                    return $result;
+                } catch (Exception $e) {
+                    return $this->setError('方法不存在');
                 }
             }
-            return $result;
-        } catch (Exception $e) {
-            return $this->setError('方法不存在');
+        } else {
+            return $this->setError('参数错误');
         }
     }
 
