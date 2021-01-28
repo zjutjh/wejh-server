@@ -47,7 +47,7 @@ class ScoreController extends Controller
                 return RJM(null, -1, '需要绑定');
             }
             if($api->getError() == '用户名或密码错误') {
-                return RJM(null, -1, '请重新绑定正方账号', '/pages/bind/zf');
+                return RJM(null, -1, '登录正方教务失败');
             }
             return RJM(null, -1, $api->getError());
         }
