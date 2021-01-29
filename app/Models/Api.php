@@ -245,10 +245,14 @@ class Api extends Model
             } else {
                 // 原创查询逻辑
                 $termNum = intval($pregResult[0][2]);
-                if (!($termNum === 1 || $term === 2)) {
+                if (!($termNum === 1 || $termNum === 2)) {
                     // 原创教务只允许查询上/下学期数据
-                    return $this->setError('参数错误');
-                }
+                    if ($termNum === 3) {
+                        return $this->setError('原创教务不支持短学期查询');
+                    } else {
+                        return $this->setError('参数错误');
+                    }
+                } 
                 $timeout = $timeout === null ? 800 : $timeout;
                 $func = 'get' . 'Yc' . ucwords($type);
                 if (!$password['yc']) {
