@@ -30,7 +30,6 @@ class ScoreController extends Controller
             $semester_req = intval($request->get('term_semester'));
             if ($semester_req) {
                 $term = "$term_year_req/".($term_year_req + 1)."($semester_req)";
-                error_log($term);
             } else {
                 return RJM(null, -1, '参数错误');
             }
@@ -105,7 +104,6 @@ class ScoreController extends Controller
             $semester_req = intval($request->get('term_semester'));
             if ($semester_req) {
                 $term = "$term_year_req/".($term_year_req + 1)."($semester_req)";
-                error_log($term);
             } else {
                 return RJM(null, -1, '参数错误');
             } 
