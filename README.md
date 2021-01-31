@@ -30,22 +30,57 @@ Laravel是目前最优雅的PHP框架，使用前请仔细阅读[文档](http://
 
 ## 最佳实践
 
-开发前请先阅读[最佳实践指南](https://zjutjh.gitbooks.io/document/content/1.3-Laravel/1.3.1-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html)
+开发前请先阅读[最佳实践指南](https://doc.zjut.com/4-laravel/4.1-zui-jia-shi-jian)
 
 ## 开始开发
-首先复制.env.example的内容至.env（新建）
-> cp .env.example .env安装相关包  
 
-然后执行install
+首先复制 `.env.example` 的内容至 `.env`（新建）
+> cp .env.example .env
+
+然后执行 `install` 安装相关包
 > composer install
 
-然后生成laravel应用的key
+然后生成 Laravel 应用的 key
 > php artisan key:generate
 
-然后生成jwt秘钥
+然后生成 jwt 秘钥
 > php artisan jwt:generate
 
-然后迁移，记得在.env配置
-> php artisan migrate --seed
+然后迁移，记得在 .env 配置数据库相关信息
+> php artisan migrate
 
 接下来配置好服务器输入相关域名就可以开始开发了ß
+
+## 使用 Docker 开发
+
+### 环境准备
+
+创建容器网络
+> docker network create wejh
+
+使用 docker-compose 构建镜像
+> cd docker && docker-compose build
+
+启动服务
+> docker-compose up
+
+进入容器
+> docker exec -it wejh-app bash
+
+目录下的代码通过数据卷映射至容器内。进入容器环境后，执行常规的依赖安装、密钥生成和数据库迁移即可。容器对外映射端口为 `8000`
+
+### 常用命令
+
+使服务运行在后台
+> docker-compose up -d
+
+关闭所有服务
+> docker-compose down
+
+跟踪显示日志
+> docker logs -f wejh-app
+
+## 更多资料
+
+- 小程序后端文档：[https://github.com/zjutjh/wejh-server-docs](https://github.com/zjutjh/wejh-server-docs)
+- 精弘 API 文档：[https://doc.zjut.com/5-api](https://doc.zjut.com/5-api)

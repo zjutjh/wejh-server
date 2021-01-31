@@ -1,0 +1,53 @@
+version: "3"
+services:
+  app:
+    build:
+      args:
+        user: www
+        uid: 1000
+      context: ./
+      dockerfile: ./Dockerfile
+    image: wejh
+    container_name: wejh-app
+    restart: always
+    working_dir: /var/www/
+    volumes:
+      - ../:/var/www
+    networks:
+      - wejh
+
+  db:
+    image: mysql:5.7
+    container_name: wejh-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    networks:
+      - wejh
+
+  redis:
+    image: "redis:alpine"
+    container_name: wejh-redis
+    restart: always
+    networks:
+      - wejh
+
+  nginx:
+    image: nginx:alpine
+    container_name: wejh-nginx
+    restart: always
+    ports:
+      - 8000:80
+    volumes:
+      - ../:/var/www
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - wejh
+
+networks:
+  wejh:
