@@ -46,6 +46,10 @@ class AppListService {
                 'bg' => 'red',
                 'icon' => 'https://assets.gettoset.cn/wejh/icon-questionnaire-652-652.png',
             ],
+            'bus' => [
+                'bg' => 'purple',
+                'icon' => 'http://assets.gettoset.cn/wejh/applist/icon-bus.png',
+            ],
             'tri' => [
                 'bg' => 'blue',
                 'icon' => '',
@@ -115,6 +119,19 @@ class AppListService {
                 'route' => '/pages/borrow/borrow',
                 'bg' => $icons['borrow']['bg'],
                 'icon' => $icons['borrow']['icon'],
+            ],
+            [
+                'title' => '校车安排',
+                'url' => 'https://mp.weixin.qq.com/s/_fL1Xrb55iv8qe0EkXnCPg',
+                // 'url' => 'https://proxy.jh.zjutjh.com/bus',
+                'bg' => $icons['bus']['bg'],
+                'icon' => $icons['bus']['icon'],
+                'badge' => [
+                    'type' => 'static',
+                    'path' => '/index/bus-weblink',
+                    'clearPath' => '/index/bus-weblink',
+                    'content' => 'New',
+                ],
             ],
             // [
             //     'title' => '问卷调研',
