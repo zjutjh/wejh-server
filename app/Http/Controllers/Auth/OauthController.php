@@ -142,7 +142,7 @@ class OauthController extends Controller
                 'openid' => $result->openid
             ]);
         }
-        if ($mode === "wechat")
+        if (!!$code && $mode === "wechat")
             return LoginController::autoLoginImpl($result->openid, 'wechat');
 
         return RJM([

@@ -17,13 +17,9 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class LoginController extends Controller
 {
-    public function autoLogin(Request $request) {
-        $type = $request->get('type'); // 第三方登录类型
-        $openid = $request->get('openid'); // 第三方登录的用户标识
-        return autoLoginImpl($openid,$type);
-    }
 
-    public function autoLoginImpl($openid,$type){
+
+    public static function autoLoginImpl($openid,$type){
         if (!$openid) {
             return RJM(null, -401, '缺少用户标识');
         }
@@ -50,7 +46,11 @@ class LoginController extends Controller
         ], 200, '登陆成功');
     }
 
-
+    public function autoLogin(Request $request) {
+        $type = $request->get('type'); // 第三方登录类型
+        $openid = $request->get('openid'); // 第三方登录的用户标识
+        return LoginController::autoLoginImpl($openid,$type);
+    }
 
     /**
      * 登录逻辑，包括第三方登录
