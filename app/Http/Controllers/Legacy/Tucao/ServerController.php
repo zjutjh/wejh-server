@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Tucao;
+namespace App\Http\Controllers\Legacy\Tucao;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

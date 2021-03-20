@@ -19,16 +19,16 @@ Route::any('/wechat/accessToken',  [
     'uses' => 'Wechat\ServerController@accessToken']);
 Route::any('/wechat/createQRcode',  [
     'uses' => 'Wechat\ServerController@createQRcode']);
-Route::any('/weapp',  [
-    'uses' => 'Wechat\WeappServerController@serve']);
-Route::any('/tucao',  [
-    'uses' => 'Tucao\ServerController@serve']);
+// Route::any('/weapp',  [
+//    'uses' => 'Wechat\WeappServerController@serve']);
+// Route::any('/tucao',  [
+//    'uses' => 'Legacy\Tucao\ServerController@serve']);
+// Route::any('/notification/boomerang',  [
+//    'uses' => 'Wechat\NotificationController@boomerang']);
+// Route::any('/notification/walk',  [
+//    'uses' => 'Wechat\NotificationController@walk']);
 Route::any('/thirdParty/login',  [
     'uses' => 'Auth\LoginController@thirdParty']);
-Route::any('/notification/boomerang',  [
-    'uses' => 'Wechat\NotificationController@boomerang']);
-Route::any('/notification/walk',  [
-    'uses' => 'Wechat\NotificationController@walk']);
 Route::any('/thirdParty/{uno}/openid',  [
     'uses' => 'Auth\LoginController@getOpenidByUno']);
 Route::any('/thirdParty/{uno}/iid/{iid}',  [
@@ -50,17 +50,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/signpackage', [
         'uses' => 'Wechat\JSSDKController@signPackage']);
 
-    Route::get('/tip', [
-        'uses' => 'Tip\MainController@tip']);
+    // Route::get('/tip', [
+    //    'uses' => 'Legacy\Tip\MainController@tip']);
+
+    // Route::post('/walk', [
+    //    'uses' => 'Legacy\Walk\MainController@search']);
 
     Route::get('/announcement', [
         'uses' => 'Announcement\MainController@api']);
 
     Route::get('/bootstrap', [
         'uses' => 'Bootstrap\MainController@getBootstrapInfo']);
-
-    Route::post('/walk', [
-        'uses' => 'Walk\MainController@search']);
 
     Route::get('/app-list', [
         'uses' => 'ApplicationsList\MainController@applicationsList']); // 微精弘首页应用列表
@@ -84,8 +84,8 @@ Route::group(['middleware' => ['web']], function () {
         'uses' => 'Ycjw\TimeController@api']);
 
     Route::group(['middleware' => ['jwt.api.auth']], function () {
-        Route::get('/banner', [
-            'uses' => 'Banner\MainController@banner']);
+        // Route::get('/banner', [
+        //    'uses' => 'Legacy\Banner\MainController@banner']);
         Route::get('/user', [
             'uses' => 'Auth\LoginController@user']);
         Route::PUT('/user', [

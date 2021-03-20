@@ -22,8 +22,8 @@ Route::get('/oauth/wechat/loginByUno', [
     'uses' => 'Auth\OauthController@unoLogin']);
 Route::get('/login', [
     'uses' => 'Auth\OauthController@webLogin']);
-Route::get('/walk', [
-    'uses' => 'Walk\MainController@main']);
+// Route::get('/walk', [
+//     'uses' => 'Legacy\Walk\MainController@main']);
 Route::get('/wechat/view', [
     'uses' => 'Wechat\ViewController@view']);
 Route::get('/wechat/image', [

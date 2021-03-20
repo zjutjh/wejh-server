@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Banner;
+namespace App\Http\Controllers\Legacy\Banner;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

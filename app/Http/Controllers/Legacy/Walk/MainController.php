@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Walk;
+namespace App\Http\Controllers\Legacy\Walk;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

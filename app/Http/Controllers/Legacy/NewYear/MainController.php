@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\NewYear;
+namespace App\Http\Controllers\Legacy\NewYear;
 
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
