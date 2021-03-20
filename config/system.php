@@ -1,5 +1,5 @@
 <?php
 return [
-    'current_term' => '2020/2021(1)',
-    'term_start_date' => '2020-9-28',
+    'current_term' => '2020/2021(2)',
+    'term_start_date' => '2021-3-1',
 ];

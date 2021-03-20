@@ -24,10 +24,10 @@ class AppListService {
                 'bg' => 'red',
                 'icon' => 'https://gw.alicdn.com/tfs/TB1ZG8t4EY1gK0jSZFCXXcwqXXa-652-652.png',
             ],
-            'student' => [
-                'bg' => 'purple',
-                'icon' => 'https://gw.alicdn.com/tfs/TB1HilgsRFR4u4jSZFPXXanzFXa-652-652.png',
-            ],
+            // 'student' => [
+            //     'bg' => 'purple',
+            //     'icon' => 'https://gw.alicdn.com/tfs/TB1HilgsRFR4u4jSZFPXXanzFXa-652-652.png',
+            // ],
             'teacher' => [
                 'bg' => 'purple',
                 'icon' => 'https://gw.alicdn.com/tfs/TB1nqRMt8Bh1e4jSZFhXXcC9VXa-652-652.png',
@@ -42,10 +42,10 @@ class AppListService {
                 'icon' => 'https://gw.alicdn.com/tfs/TB13t8D4ET1gK0jSZFrXXcNCXXa-652-652.png',
                 'card' => 'https://gw.alicdn.com/tfs/TB1xf0m4Ez1gK0jSZLeXXb9kVXa-1125-300.png',
             ],
-            'questionnaire' => [
-                'bg' => 'red',
-                'icon' => 'https://assets.gettoset.cn/wejh/icon-questionnaire-652-652.png',
-            ],
+            // 'questionnaire' => [
+            //     'bg' => 'red',
+            //     'icon' => 'https://assets.gettoset.cn/wejh/icon-questionnaire-652-652.png',
+            // ],
             'bus' => [
                 'bg' => 'purple',
                 'icon' => 'http://assets.gettoset.cn/wejh/applist/icon-bus.png',
@@ -55,14 +55,14 @@ class AppListService {
                 'icon' => '',
                 'card' => 'https://gw.alicdn.com/tfs/TB1I4FMptTfau8jSZFwXXX1mVXa-2055-702.png',
             ],
-            'publicity' => [
-                'bg' => array_random($colors),
-                'icon' => 'https://gw.alicdn.com/tfs/TB1EFNu4EY1gK0jSZFMXXaWcVXa-425-400.png',
-            ],
-            'square' => [
-                'bg' => array_random($colors),
-                'icon' => 'https://gw.alicdn.com/tfs/TB1Hp0i4AL0gK0jSZFtXXXQCXXa-400-400.png',
-            ],
+            // 'publicity' => [
+            //     'bg' => array_random($colors),
+            //     'icon' => 'https://gw.alicdn.com/tfs/TB1EFNu4EY1gK0jSZFMXXaWcVXa-425-400.png',
+            // ],
+            // 'square' => [
+            //     'bg' => array_random($colors),
+            //     'icon' => 'https://gw.alicdn.com/tfs/TB1Hp0i4AL0gK0jSZFtXXXQCXXa-400-400.png',
+            // ],
         ];
         $applicationsList = [
             [
