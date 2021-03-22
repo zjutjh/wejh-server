@@ -236,6 +236,56 @@ class LoginController extends Controller
             return RJM(null, -1, '没有认证信息');
         }
 
+        if($body = json_decode($request->getContent(), true)) {
+            $whitelist = [
+                'school_info.name' => [
+                    'validation' => '/^.{1,10}$/',
+                    'allow_modify' => false
+                ],
+                // 'school_info.gender' => [
+                //     'validation' => '/^(男|女)$/',
+                //     'allow_modify' => true
+                // ],
+                'school_info.grade' => [
+                    'validation' => '/^\d{4}$/',
+                    'allow_modify' => true
+                ],
+                'school_info.graduate_grade' => [
+                    'validation' => '/^\d{4}$/',
+                    'allow_modify' => true
+                ],
+                'school_info.area' => [
+                    'validation' => '/^朝晖|屏峰|莫干山$/',
+                    'allow_modify' => true
+                ],
+                'ext_version' => [
+                    'validation' => '/^\d+$/',
+                    'allow_modify' => true
+                ],
+            ];
+
+            foreach ($body as $key => $value) {
+                if (isset($whitelist[$key])) {
+                    $whitelist_item = $whitelist[$key];
+
+                    if (isset($whitelist_item['allow_modify']) && $whitelist_item['allow_modify'] === false) {
+                        if ($user->getExt($key) !== null) {
+                            continue;
+                        }
+                    }
+                    if (isset($whitelist_item['validation'])) {
+                        $reg = $whitelist_item['validation'];
+                        $res = preg_match($reg, $value);
+                        if (!(preg_match($whitelist_item['validation'], $value) === 1)) {
+                            continue;
+                        }
+                    }
+                    
+                    $user->setExt($key, $value);
+                }
+            }
+        }
+
         return RJM($user, 1, '更新成功');
     }
 }
