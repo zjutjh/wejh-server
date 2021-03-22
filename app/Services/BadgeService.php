@@ -9,7 +9,7 @@ class BadgeService {
             '/home/feedback',
             '/index/freeroom/moganshan',
             '/index/bus-weblink',
-            // '/index/questionnaire',
+            '/home/profile_v1',
         ];
         return [
             'allBadges' => $badges
