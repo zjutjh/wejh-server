@@ -1004,7 +1004,7 @@ class Api extends Model
             $g['教师'] = $value['教师'];
             $g['课程'] = $value['课程'];
             $g['日期'] = $value['日期'];
-            $g['时段'] = $value['时段'].'（实际为准）';
+            $g['时段'] = isset($value['时段']) ? $value['时段'].'（实际为准）' : '暂无考试时间';
             $g['教室'] = $value['教室'];
             $g['座位号'] = isset($value['zwh']) ? $value['zwh'] : '暂无座位号';
             $g['考试方式'] = isset($value['ksfs']) ? $value['ksfs'] : '暂无考试方式';
