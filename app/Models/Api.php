@@ -579,6 +579,7 @@ class Api extends Model
                         $b = 3.5;
                         break;
                     case "中等":
+                    case "合格":
                         $b = 2.5;
                         break;
                     case "及格":
