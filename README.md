@@ -20,7 +20,7 @@ mongoDB不太稳定，同时对机器配置要求较高，最优的解决方法�
 
 所以目前依然使用mysql，因为要用到json类型来实现扩展性，所以请务必使用mysql5.7以上的版本。
 
-同时为了使用emoji，使用了[laravel-emoji](https://github.com/unicodeveloper/laravel-emoji)，所以务必使用PHP7进行开发
+~~同时为了使用emoji，使用了[laravel-emoji](https://github.com/unicodeveloper/laravel-emoji)，~~所以务必使用PHP7进行开发
 
 ## 框架
 

@@ -20,7 +20,6 @@ use EasyWeChat\Message\Voice;
 use EasyWeChat\Message\News;
 use EasyWeChat\Message\Article;
 use EasyWeChat\Message\Material;
-use Emoji;
 use Excel;
 use App\Models\User;
 use App\Jobs\SendTemplateMessage;

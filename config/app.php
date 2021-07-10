@@ -190,10 +190,6 @@ return [
          */
         Overtrue\LaravelWechat\ServiceProvider::class,
         /**
-         * Emoji Service Provider
-         */
-        Unicodeveloper\Emoji\EmojiServiceProvider::class,
-        /**
          * JWT Service Provider
          */
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
@@ -247,7 +243,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'EasyWeChat' => Overtrue\LaravelWechat\Facade::class,
-        'Emoji' => Unicodeveloper\Emoji\Facades\Emoji::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
