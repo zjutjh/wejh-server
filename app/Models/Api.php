@@ -1012,7 +1012,7 @@ class Api extends Model
                 $g['日期'] = $matches[1][0];
                 $g['时段'] = $matches[2][0];
             } else {
-                $g['时段'] = $values['时段'];
+                $g['时段'] = $value['时段'];
             }
             $g['时段'] = isset($g['时段']) ? $g['时段'].'（实际为准）' : '暂无考试时间';
             $g['教室'] = $value['教室'];
