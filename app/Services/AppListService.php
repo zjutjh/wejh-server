@@ -122,7 +122,7 @@ class AppListService {
             ],
             [
                 'title' => '校车安排',
-                'url' => 'https://mp.weixin.qq.com/s/_fL1Xrb55iv8qe0EkXnCPg',
+                'url' => 'https://mp.weixin.qq.com/s/Xq-golNPMVQGnXxbeMagtg',
                 // 'url' => 'https://proxy.jh.zjutjh.com/bus',
                 'bg' => $icons['bus']['bg'],
                 'icon' => $icons['bus']['icon'],
